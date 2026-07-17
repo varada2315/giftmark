@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { ShoppingBag, Plus, Minus, Trash2, X } from 'lucide-react';
+import { ShoppingBag, Plus, Minus, Trash2, X, ChevronDown } from 'lucide-react';
 import './App.css';
 
 // Fallback data if backend is not reachable
@@ -76,6 +76,24 @@ const DEFAULT_COLLECTIONS = [
     category: "Giftware",
     price: "₹5,200 / $65",
     description: "Weathered brass and copper tea kettle showcasing rich hand-hammered textures."
+  },
+  {
+    id: "09",
+    title: "Traditional Brass Spice Box",
+    image: "http://localhost:5000/uploads/brass_vessels.png",
+    localImage: "/uploads/brass_vessels.png",
+    category: "Utility",
+    price: "₹3,500 / $42",
+    description: "A functional and decorative multi-compartment container for kitchen organization."
+  },
+  {
+    id: "10",
+    title: "Ornate Lion-Head Brass Lock",
+    image: "http://localhost:5000/uploads/restored_classics.png",
+    localImage: "/uploads/restored_classics.png",
+    category: "Utility",
+    price: "₹2,800 / $35",
+    description: "Heavy-duty traditional padlock featuring antique detailing, functional keys, and keyhole cover."
   }
 ];
 
@@ -87,7 +105,8 @@ const HERO_SLIDES = [
     description: "Since 1993, we have combined generations of Indian craftsmanship with global exports to offer distinctive home décor, hospitality, catering, and giftware collections.",
     mainLocalImage: "/uploads/brass_astrolabe.png",
     bgColor: "#ECEAE6",
-    bgImage: "/uploads/brass_globes.png"
+    bgImage: "/uploads/brass_globes.png",
+    productId: "03"
   },
   {
     name: "Brass Ganesha",
@@ -96,7 +115,8 @@ const HERO_SLIDES = [
     description: "Traditional Indian Ganesha deity sculptures cast in solid premium brass, featuring intricate hand-carved detailing and polished antique patinas.",
     mainLocalImage: "/uploads/brass_ganesha.png",
     bgColor: "#EFECE8",
-    bgImage: "/uploads/story_workshop.png"
+    bgImage: "/uploads/story_workshop.png",
+    productId: "07"
   },
   {
     name: "Brass Peacock Lamp",
@@ -105,7 +125,8 @@ const HERO_SLIDES = [
     description: "Elegantly sculpted peacock lamps and candelabras finished in satin brass gold, capturing centuries of artisanal metalcraft traditions.",
     mainLocalImage: "/uploads/brass_peacock_lamp.png",
     bgColor: "#EAECE6",
-    bgImage: "/uploads/story_buffet.png"
+    bgImage: "/uploads/story_buffet.png",
+    productId: "01"
   },
   {
     name: "Bronze Nataraja",
@@ -114,7 +135,8 @@ const HERO_SLIDES = [
     description: "Intricately detailed antique bronze Nataraja sculpture representing the divine cosmic dance, finished with authentic weathered patinas.",
     mainLocalImage: "/uploads/bronze_nataraja.png",
     bgColor: "#EFEBE6",
-    bgImage: "/uploads/story_sculpture_bust.png"
+    bgImage: "/uploads/story_sculpture_bust.png",
+    productId: "08"
   }
 ];
 
@@ -173,6 +195,379 @@ const LEGAL_TEXTS = {
   }
 };
 
+
+const TESTIMONIALS = [
+  {
+    id: 1,
+    quote: "Giftmark Industries has been our primary supplier for high-end hotel metalware for over a decade. Their consistency in quality, attention to detail, and reliable timelines is unmatched in the industry.",
+    author: "Rajesh Mehta",
+    role: "Procurement Director",
+    company: "Grand Luxury Hotels Group",
+    location: "Dubai, UAE",
+    rating: 5,
+    initial: "R"
+  },
+  {
+    id: 2,
+    quote: "Every season, their new collections at the Canton Fair set a benchmark for craftsmanship. Working with Giftmark means working with artisans who truly understand the global market. A reliable partner for any serious importer.",
+    author: "Klaus Bauer",
+    role: "Head of Imports",
+    company: "Europäische Dekor GmbH",
+    location: "Frankfurt, Germany",
+    rating: 5,
+    initial: "K"
+  },
+  {
+    id: 3,
+    quote: "The brass filigree trays and serving ware we ordered exceeded our expectations. The craftsmanship is extraordinary, and the bulk pricing for our hospitality business was very competitive. We've re-ordered three times already.",
+    author: "Priya Sharma",
+    role: "F&B Procurement Manager",
+    company: "The Heritage Banquet Co.",
+    location: "Mumbai, India",
+    rating: 5,
+    initial: "P"
+  },
+  {
+    id: 4,
+    quote: "As a boutique décor retailer, sourcing unique pieces is everything. Giftmark's handcrafted sculptures and clocks are conversation pieces our customers love. Their export packaging is also flawless — zero damages across all orders.",
+    author: "Sophie Laurent",
+    role: "Owner",
+    company: "Maison Artisanat Boutique",
+    location: "London, UK",
+    rating: 5,
+    initial: "S"
+  },
+  {
+    id: 5,
+    quote: "We've partnered with Giftmark for our annual corporate gifting program for three years running. The customisation options, engraving quality, and the premium packaging make these gifts truly memorable for our clients.",
+    author: "Thomas Nkosi",
+    role: "Corporate Relations Head",
+    company: "Prestige Global Corp.",
+    location: "Johannesburg, South Africa",
+    rating: 5,
+    initial: "T"
+  }
+];
+
+const MOCK_REELS = [
+  {
+    id: "reel-01",
+    title: "Handcrafting Ganesha Deity",
+    views: "18.4K",
+    likes: "2.5K",
+    comments: 142,
+    image: "/uploads/brass_ganesha.png",
+    caption: "Behind the scenes casting our sacred solid brass Ganesha. Generations of devotion and details. 🕉️✨",
+    tags: ["#artisan", "#metalcasting", "#heritage", "#giftmark"],
+    link: "https://www.instagram.com/industriesgiftmark?igsh=aHdxdTBieTdnN28w"
+  },
+  {
+    id: "reel-02",
+    title: "Polishing Peacock Lamp",
+    views: "12.2K",
+    likes: "1.8K",
+    comments: 98,
+    image: "/uploads/brass_peacock_lamp.png",
+    caption: "Polishing the intricate details of our satin gold Peacock Candelabra. ✨🦚",
+    tags: ["#brassdecor", "#luxuryinteriors", "#craftsmanship"],
+    link: "https://www.instagram.com/industriesgiftmark?igsh=aHdxdTBieTdnN28w"
+  },
+  {
+    id: "reel-03",
+    title: "Vibe of Astrolabe Sphere",
+    views: "24.5K",
+    likes: "3.9K",
+    comments: 310,
+    image: "/uploads/brass_astrolabe.png",
+    caption: "A glance into the historical details of our Astrolabe Armillary Sphere. Crafting precision since 1993. 🧭",
+    tags: ["#astronomy", "#vintagedecor", "#maritime", "#giftware"],
+    link: "https://www.instagram.com/industriesgiftmark?igsh=aHdxdTBieTdnN28w"
+  },
+  {
+    id: "reel-04",
+    title: "Bronze Nataraja Sculpting",
+    views: "15.1K",
+    likes: "2.1K",
+    comments: 175,
+    image: "/uploads/bronze_nataraja.png",
+    caption: "Unveiling the award-winning weathered bronze Nataraja sculpture. A masterpiece of movement and power. 🔱",
+    tags: ["#bronzeart", "#indianhandicrafts", "#handmade"],
+    link: "https://www.instagram.com/industriesgiftmark?igsh=aHdxdTBieTdnN28w"
+  }
+];
+
+function InstagramReels() {
+  const [selectedReel, setSelectedReel] = useState(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  useEffect(() => {
+    if (selectedReel) {
+      setIsPlaying(true);
+    } else {
+      setIsPlaying(false);
+    }
+  }, [selectedReel]);
+
+  return (
+    <section className="reels-section" aria-label="Instagram Reels Showcase">
+      <div className="reels-header">
+        <span className="reels-eyebrow">Craft in Motion</span>
+        <h2 className="reels-title">Explore Our Reels</h2>
+        <p className="reels-subtitle">
+          Get a behind-the-scenes look at our workshop, artisanal processes, and latest product releases.
+        </p>
+        <a 
+          href="https://www.instagram.com/industriesgiftmark?igsh=aHdxdTBieTdnN28w" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="reels-handle-link"
+        >
+          @industriesgiftmark
+        </a>
+      </div>
+
+      <div className="reels-grid">
+        {MOCK_REELS.map((reel) => (
+          <div 
+            key={reel.id} 
+            className="reel-card"
+            onClick={() => setSelectedReel(reel)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => e.key === 'Enter' && setSelectedReel(reel)}
+          >
+            <div className="reel-cover-wrapper">
+              <img src={reel.image} alt={reel.title} className="reel-cover-img" />
+              <div className="reel-overlay">
+                <div className="reel-play-btn">
+                  <svg viewBox="0 0 24 24" fill="currentColor" className="play-icon">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </div>
+                <div className="reel-meta">
+                  <span className="reel-meta-item">
+                    <span className="meta-icon">👁️</span> {reel.views}
+                  </span>
+                  <span className="reel-meta-item">
+                    <span className="meta-icon">❤️</span> {reel.likes}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div className="reel-info">
+              <p className="reel-caption">{reel.caption.slice(0, 70)}...</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Lightbox / Video Player Modal */}
+      {selectedReel && (
+        <div className="reel-modal-overlay" onClick={() => setSelectedReel(null)}>
+          <div className="reel-modal-content" onClick={(e) => e.stopPropagation()}>
+            <button 
+              className="reel-modal-close" 
+              onClick={() => setSelectedReel(null)}
+              aria-label="Close modal"
+            >
+              <X size={20} />
+            </button>
+            <div className="reel-modal-body">
+              {/* Left Column: Simulated Video Player */}
+              <div className="reel-video-container">
+                <img src={selectedReel.image} alt="Simulated video" className={`reel-video-mockup ${isPlaying ? 'playing' : ''}`} />
+                <div className="video-glow-blob"></div>
+                {/* Simulated play animation / overlay */}
+                <div className="reel-video-controls">
+                  <button className="video-play-pause-btn" onClick={() => setIsPlaying(!isPlaying)}>
+                    {isPlaying ? (
+                      <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+                      </svg>
+                    ) : (
+                      <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    )}
+                  </button>
+                  <div className="video-progress-bar">
+                    <div className="video-progress-filled" style={{ width: isPlaying ? '100%' : '0%', transition: isPlaying ? 'width 10s linear' : 'none' }}></div>
+                  </div>
+                </div>
+                <div className="video-live-tag">REEL</div>
+              </div>
+
+              {/* Right Column: Profile & Comments */}
+              <div className="reel-details-panel">
+                <div className="reel-details-header">
+                  <div className="reel-profile-avatar">G</div>
+                  <div>
+                    <span className="reel-profile-name">giftmark_industries</span>
+                    <span className="reel-profile-sub">Moradabad, India</span>
+                  </div>
+                </div>
+
+                <div className="reel-details-caption">
+                  <p>{selectedReel.caption}</p>
+                  <div className="reel-details-tags">
+                    {selectedReel.tags.map((tag, i) => (
+                      <span key={i} className="reel-tag-item">{tag}</span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="reel-comments-list">
+                  <div className="reel-comment">
+                    <strong>craft_lover99</strong> Absolutely stunning work! The finish is incredible. 🔥
+                  </div>
+                  <div className="reel-comment">
+                    <strong>hotel_decor_co</strong> Do you ship container volumes of this to the UAE?
+                  </div>
+                  <div className="reel-comment">
+                    <strong>giftmark_industries</strong> @hotel_decor_co Yes, we do! Please send us a WhatsApp enquiry using the link on our profile to discuss terms.
+                  </div>
+                </div>
+
+                <div className="reel-details-footer">
+                  <div className="reel-details-stats">
+                    <span>❤️ {selectedReel.likes} likes</span>
+                    <span>💬 {selectedReel.comments} comments</span>
+                  </div>
+                  <a 
+                    href={selectedReel.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="reel-instagram-cta"
+                  >
+                    View on Instagram
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}
+
+function TestimonialsCarousel() {
+  const [activeIdx, setActiveIdx] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveIdx((prev) => (prev + 1) % TESTIMONIALS.length);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const featured = TESTIMONIALS[activeIdx];
+  const sideItems = TESTIMONIALS.filter((_, i) => i !== activeIdx).slice(0, 2);
+
+  return (
+    <section className="tm-section" aria-label="Customer Testimonials">
+      {/* Section Header */}
+      <div className="tm-section-header">
+        <div className="tm-header-left">
+          <span className="tm-eyebrow">Client Testimonials</span>
+          <h2 className="tm-title">Trusted by Leaders<br />Across the Globe</h2>
+        </div>
+        <div className="tm-header-right">
+          <p className="tm-subtitle">
+            Over three decades of craft, backed by the trust of hospitality groups,
+            importers, and boutique retailers across 20+ countries.
+          </p>
+          <div className="tm-dot-nav">
+            {TESTIMONIALS.map((_, idx) => (
+              <button
+                key={idx}
+                className={`tm-dot${idx === activeIdx ? ' active' : ''}`}
+                onClick={() => setActiveIdx(idx)}
+                aria-label={`Testimonial ${idx + 1}`}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Grid */}
+      <div className="tm-grid">
+        {/* Featured card */}
+        <div className="tm-featured-card" key={featured.id}>
+          <div className="tm-featured-top">
+            <div className="tm-stars">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <span key={i} className="tm-star">★</span>
+              ))}
+            </div>
+            <div className="tm-open-quote">"</div>
+          </div>
+          <blockquote className="tm-featured-quote">
+            {featured.quote}
+          </blockquote>
+          <div className="tm-featured-divider" />
+          <div className="tm-author-row">
+            <div className="tm-avatar tm-avatar-lg">{featured.initial}</div>
+            <div className="tm-author-details">
+              <span className="tm-author-name">{featured.author}</span>
+              <span className="tm-author-role">{featured.role}</span>
+              <span className="tm-author-company">{featured.company}</span>
+              <span className="tm-author-location">{featured.location}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Side cards */}
+        <div className="tm-side-stack">
+          {sideItems.map((t) => (
+            <div
+              key={t.id}
+              className="tm-side-card"
+              onClick={() => setActiveIdx(TESTIMONIALS.findIndex(x => x.id === t.id))}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => e.key === 'Enter' && setActiveIdx(TESTIMONIALS.findIndex(x => x.id === t.id))}
+            >
+              <div className="tm-side-top">
+                <div className="tm-avatar tm-avatar-sm">{t.initial}</div>
+                <div>
+                  <span className="tm-side-name">{t.author}</span>
+                  <span className="tm-side-role">{t.role} · {t.company}</span>
+                </div>
+              </div>
+              <p className="tm-side-quote">"{t.quote.slice(0, 110)}…"</p>
+              <span className="tm-side-location">{t.location}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Stats bar */}
+      <div className="tm-stats-bar">
+        <div className="tm-stat">
+          <span className="tm-stat-num">32+</span>
+          <span className="tm-stat-label">Years in Business</span>
+        </div>
+        <div className="tm-stat-divider" />
+        <div className="tm-stat">
+          <span className="tm-stat-num">20+</span>
+          <span className="tm-stat-label">Countries Served</span>
+        </div>
+        <div className="tm-stat-divider" />
+        <div className="tm-stat">
+          <span className="tm-stat-num">500+</span>
+          <span className="tm-stat-label">B2B Partners</span>
+        </div>
+        <div className="tm-stat-divider" />
+        <div className="tm-stat">
+          <span className="tm-stat-num">5★</span>
+          <span className="tm-stat-label">Avg. Partner Rating</span>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function App() {
   const [currentPage, setCurrentPage] = useState('home'); // 'home', 'about', 'collections', 'contact'
   const [collections, setCollections] = useState(DEFAULT_COLLECTIONS);
@@ -180,6 +575,7 @@ function App() {
   const [backendStatus, setBackendStatus] = useState(false);
   const [isAutoplay, setIsAutoplay] = useState(true);
   const [activeFilter, setActiveFilter] = useState('All');
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   
   // Inquiry form states
   const [inquiryForm, setInquiryForm] = useState({
@@ -357,7 +753,7 @@ function App() {
     if (!isAutoplay || currentPage !== 'home') return;
     const interval = setInterval(() => {
       setHeroIndex((prev) => (prev + 1) % HERO_SLIDES.length);
-    }, 5500);
+    }, 2500);
     return () => clearInterval(interval);
   }, [isAutoplay, currentPage]);
 
@@ -451,13 +847,39 @@ function App() {
                     About Us
                   </span>
                 </li>
-                <li>
+                <li 
+                  className={`nav-item-dropdown ${isDropdownOpen ? 'active-dropdown' : ''}`}
+                  onMouseEnter={() => setIsDropdownOpen(true)}
+                  onMouseLeave={() => setIsDropdownOpen(false)}
+                >
                   <span 
                     className={`nav-link hover-underline ${currentPage === 'collections' ? 'active' : ''}`}
-                    onClick={() => setCurrentPage('collections')}
+                    onClick={() => {
+                      setCurrentPage('collections');
+                      setActiveFilter('All');
+                      setIsDropdownOpen(false);
+                    }}
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}
                   >
-                    Collections
+                    Collections <ChevronDown size={11} className="dropdown-arrow" />
                   </span>
+                  <ul className={`dropdown-menu ${isDropdownOpen ? 'show' : ''}`}>
+                    {['All', 'Home Décor', 'Hospitality', 'Giftware', 'Utility'].map((filter) => (
+                      <li key={filter}>
+                        <span
+                          className="dropdown-item"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setCurrentPage('collections');
+                            setActiveFilter(filter);
+                            setIsDropdownOpen(false);
+                          }}
+                        >
+                          {filter}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
                 </li>
                 <li>
                   <span 
@@ -522,7 +944,7 @@ function App() {
                 className="hero-section"
                 style={{ 
                   backgroundColor: currentHeroSlide.bgColor,
-                  transition: 'background-color 1.2s cubic-bezier(0.16, 1, 0.3, 1)'
+                  transition: 'background-color 0.35s cubic-bezier(0.16, 1, 0.3, 1)'
                 }}
               >
                 {/* Dynamic Faded Background Image Overlay */}
@@ -530,7 +952,7 @@ function App() {
                   className="hero-bg-image-overlay"
                   style={{
                     backgroundImage: `url(${currentHeroSlide.bgImage})`,
-                    transition: 'background-image 1.2s cubic-bezier(0.16, 1, 0.3, 1)'
+                    transition: 'background-image 0.35s cubic-bezier(0.16, 1, 0.3, 1)'
                   }}
                 />
                 {/* Left Panel: Arched white pedestal and revolving stage */}
@@ -552,6 +974,8 @@ function App() {
                         } else {
                           slideClass += " hidden";
                         }
+
+                        const slideProduct = collections.find(p => p.id === slide.productId);
 
                         return (
                           <div className={slideClass} key={idx}>
@@ -577,6 +1001,30 @@ function App() {
                               alt={slide.name} 
                               className="revolving-idol-img"
                             />
+
+                            {/* CTA Buttons — visible only on active slide */}
+                            {idx === heroIndex && slideProduct && (
+                              <div className="hero-product-cta">
+                                <span className="hero-product-price">{slideProduct.price}</span>
+                                <div className="hero-product-cta-buttons">
+                                  <button
+                                    className="hero-cta-add-cart"
+                                    onClick={() => addToCart(slideProduct)}
+                                    title="Add to Cart"
+                                  >
+                                    <ShoppingBag size={13} />
+                                    Add to Cart
+                                  </button>
+                                  <button
+                                    className="hero-cta-enquire"
+                                    onClick={() => handleProductInquiry(slideProduct.title)}
+                                    title="Enquire Now"
+                                  >
+                                    Enquire Now
+                                  </button>
+                                </div>
+                              </div>
+                            )}
                           </div>
                         );
                       })}
@@ -690,36 +1138,39 @@ function App() {
 
               {/* Global Presence */}
               <section className="global-presence-section">
-                <div className="global-presence-grid">
-                  <div className="global-map-mock">
-                    <div className="map-background"></div>
-                    <div className="map-canvas-dots"></div>
-                    <div className="map-node node-india" title="India HQ"></div>
-                    <div className="map-node node-china" title="Canton Fair, China"></div>
-                    <div className="map-node node-germany" title="Germany"></div>
-                    <div className="map-node node-uk" title="United Kingdom"></div>
-                    <div className="map-node node-usa" title="United States"></div>
-                    <div className="map-node node-uae" title="UAE"></div>
-                  </div>
-                  
-                  <div className="global-presence-content">
-                    <h2 className="global-pres-title">A Global Presence</h2>
-                    <p className="global-pres-text">
-                      Over three decades, our handcrafted metalware has traveled across borders. Giftmark Industries has built a strong international presence, serving importers, wholesalers, retailers, and hospitality projects globally. 
-                    </p>
-                    <p className="global-pres-text" style={{ fontSize: '13px' }}>
-                      We exhibit regularly at major trade forums, including the prestigious **Canton Fair in China**, and platforms across Germany, the UK, Singapore, USA, UAE, and major Indian cities.
-                    </p>
-                    <ul className="exhibition-list">
-                      <li className="exhibition-tag">Canton Fair (China)</li>
-                      <li className="exhibition-tag">Frankfurt (Germany)</li>
-                      <li className="exhibition-tag">London (UK)</li>
-                      <li className="exhibition-tag">Dubai (UAE)</li>
-                      <li className="exhibition-tag">Delhi & Mumbai (India)</li>
-                    </ul>
-                  </div>
+                <div className="global-map-mock">
+                  <div className="map-background"></div>
+                  <div className="map-canvas-dots"></div>
+                  <div className="map-node node-india" title="India HQ"></div>
+                  <div className="map-node node-china" title="Canton Fair, China"></div>
+                  <div className="map-node node-germany" title="Germany"></div>
+                  <div className="map-node node-uk" title="United Kingdom"></div>
+                  <div className="map-node node-usa" title="United States"></div>
+                  <div className="map-node node-uae" title="UAE"></div>
+                </div>
+                
+                <div className="global-presence-content">
+                  <h2 className="global-pres-title">A Global Presence</h2>
+                  <p className="global-pres-text">
+                    Over three decades, our handcrafted metalware has traveled across borders. Giftmark Industries has built a strong international presence, serving importers, wholesalers, retailers, and hospitality projects globally. 
+                  </p>
+                  <p className="global-pres-text" style={{ fontSize: '13px' }}>
+                    We exhibit regularly at major trade forums, including the prestigious **Canton Fair in China**, and platforms across Germany, the UK, Singapore, USA, UAE, and major Indian cities.
+                  </p>
+                  <ul className="exhibition-list">
+                    <li className="exhibition-tag">Canton Fair (China)</li>
+                    <li className="exhibition-tag">Frankfurt (Germany)</li>
+                    <li className="exhibition-tag">London (UK)</li>
+                    <li className="exhibition-tag">Dubai (UAE)</li>
+                    <li className="exhibition-tag">Delhi &amp; Mumbai (India)</li>
+                  </ul>
                 </div>
               </section>
+              {/* ==================== INSTAGRAM REELS ==================== */}
+              <InstagramReels />
+
+              {/* ==================== TESTIMONIALS ==================== */}
+              <TestimonialsCarousel />
             </>
           )}
 
@@ -793,7 +1244,7 @@ function App() {
           {currentPage === 'collections' && (
             <div className="collections-page-section">
               <ul className="collections-filter-bar">
-                {['All', 'Home Décor', 'Hospitality', 'Giftware'].map((filter) => (
+                {['All', 'Home Décor', 'Hospitality', 'Giftware', 'Utility'].map((filter) => (
                   <li key={filter}>
                     <button 
                       className={`filter-btn ${activeFilter === filter ? 'active' : ''}`}
@@ -878,7 +1329,7 @@ function App() {
                     </div>
                     <div className="contact-detail-item">
                       <span className="detail-label">Trade Enquiries</span>
-                      <span className="detail-value" style={{ fontSize: '15px', color: 'var(--color-secondary)' }}>
+                      <span className="detail-value" style={{ fontSize: '15px', color: 'rgba(255, 255, 255, 0.7)' }}>
                         Contact us for bulk order and trade enquiries.
                       </span>
                     </div>
@@ -980,21 +1431,126 @@ function App() {
 
           {/* --- FOOTER --- */}
           <footer className="footer">
-            <div className="footer-top">
-              <div className="logo-container" onClick={() => setCurrentPage('home')}>
-                <span className="footer-logo">GIFTMARK INDUSTRIES</span>
+
+            {/* ---- Trust Banner Row ---- */}
+            <div className="footer-trust-row">
+              <div className="footer-trust-label">
+                <span className="footer-trust-heading">ORDER WITH CONFIDENCE</span>
               </div>
-              <ul className="footer-nav">
-                <li><span className="footer-link" onClick={() => setActiveLegal('privacy')}>Privacy Policy</span></li>
-                <li><span className="footer-link" onClick={() => setActiveLegal('refund')}>Refund Policy</span></li>
-                <li><span className="footer-link" onClick={() => setActiveLegal('terms')}>Terms of Service</span></li>
-                <li><span className="footer-link" onClick={() => setActiveLegal('disclaimer')}>Disclaimer</span></li>
-              </ul>
+              <div className="footer-trust-badges">
+                <div className="footer-badge">
+                  <div className="footer-badge-icon">
+                    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="20" cy="14" r="7" stroke="currentColor" strokeWidth="1.5"/>
+                      <path d="M8 34c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                      <path d="M26 18l2 2 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </div>
+                  <span>500+ Happy Clients</span>
+                </div>
+                <div className="footer-badge">
+                  <div className="footer-badge-icon">
+                    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="4" y="14" width="24" height="16" rx="2" stroke="currentColor" strokeWidth="1.5"/>
+                      <path d="M28 20h4l4 6v4h-8V20z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
+                      <circle cx="10" cy="33" r="3" stroke="currentColor" strokeWidth="1.5"/>
+                      <circle cx="28" cy="33" r="3" stroke="currentColor" strokeWidth="1.5"/>
+                    </svg>
+                  </div>
+                  <span>Global Shipping</span>
+                </div>
+                <div className="footer-badge">
+                  <div className="footer-badge-icon">
+                    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M20 6L24.5 15.5L35 17L27.5 24.5L29.5 35L20 30L10.5 35L12.5 24.5L5 17L15.5 15.5L20 6Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
+                    </svg>
+                  </div>
+                  <span>Award-Winning</span>
+                </div>
+                <div className="footer-badge">
+                  <div className="footer-badge-icon">
+                    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 8h16v4l4 4v14H8V16l4-4V8z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
+                      <path d="M16 26v-6M20 26v-9M24 26v-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                    </svg>
+                  </div>
+                  <span>Handcrafted in India</span>
+                </div>
+              </div>
             </div>
-            <div className="footer-bottom">
-              <span>&copy; {new Date().getFullYear()} Giftmark Industries. All Rights Reserved. Estd 1993.</span>
-              <span>Crafted in India. Exported Worldwide.</span>
+
+            {/* ---- Divider ---- */}
+            <div className="footer-hr" />
+
+            {/* ---- 4 Column Links + Brand ---- */}
+            <div className="footer-main">
+
+              {/* Col 1: SHOP */}
+              <div className="footer-col">
+                <h4 className="footer-col-title">Shop</h4>
+                <ul className="footer-col-links">
+                  <li><span className="footer-link" onClick={() => { setCurrentPage('collections'); setActiveFilter('All'); }}>All Collections</span></li>
+                  <li><span className="footer-link" onClick={() => { setCurrentPage('collections'); setActiveFilter('Home Décor'); }}>Home Décor</span></li>
+                  <li><span className="footer-link" onClick={() => { setCurrentPage('collections'); setActiveFilter('Hospitality'); }}>Hospitality</span></li>
+                  <li><span className="footer-link" onClick={() => { setCurrentPage('collections'); setActiveFilter('Giftware'); }}>Giftware</span></li>
+                  <li><span className="footer-link" onClick={() => { setCurrentPage('collections'); setActiveFilter('Utility'); }}>Utility</span></li>
+                </ul>
+              </div>
+
+              {/* Col 2: INFORMATION */}
+              <div className="footer-col">
+                <h4 className="footer-col-title">Information</h4>
+                <ul className="footer-col-links">
+                  <li><span className="footer-link" onClick={() => setCurrentPage('about')}>About Us</span></li>
+                  <li><span className="footer-link" onClick={() => setActiveLegal('refund')}>Return &amp; Exchange Policy</span></li>
+                  <li><span className="footer-link" onClick={() => setActiveLegal('terms')}>Terms &amp; Conditions</span></li>
+                  <li><span className="footer-link" onClick={() => setActiveLegal('privacy')}>Privacy Policy</span></li>
+                  <li><span className="footer-link" onClick={() => setActiveLegal('disclaimer')}>Disclaimer</span></li>
+                </ul>
+              </div>
+
+              {/* Col 3: CONTACT */}
+              <div className="footer-col">
+                <h4 className="footer-col-title">Contact</h4>
+                <ul className="footer-col-links">
+                  <li><span className="footer-link" onClick={() => setCurrentPage('contact')}>Contact Us</span></li>
+                  <li><span className="footer-link" onClick={() => setCurrentPage('contact')}>Bulk Order Enquiry</span></li>
+                  <li><span className="footer-link" onClick={() => setCurrentPage('contact')}>Request a Catalogue</span></li>
+                  <li><span className="footer-link" onClick={() => setCurrentPage('contact')}>Custom Manufacturing</span></li>
+                  <li><a className="footer-link" href="tel:+919897583968">+91 98975 83968</a></li>
+                </ul>
+              </div>
+
+              {/* Col 4: OTHER */}
+              <div className="footer-col">
+                <h4 className="footer-col-title">Other</h4>
+                <ul className="footer-col-links">
+                  <li><span className="footer-link" onClick={() => setCurrentPage('home')}>Home</span></li>
+                  <li><span className="footer-link" onClick={() => setCurrentPage('about')}>Our Heritage</span></li>
+                  <li><span className="footer-link" onClick={() => setCurrentPage('contact')}>Trade Partnerships</span></li>
+                  <li><a className="footer-link" href="mailto:info@giftmarkindustries.com">Get Help</a></li>
+                </ul>
+
+                <h4 className="footer-col-title" style={{ marginTop: '28px' }}>Follow Us</h4>
+                <div className="footer-social-row">
+                  <a href="https://wa.me/919897583968" target="_blank" rel="noopener noreferrer" className="footer-social-icon" aria-label="WhatsApp" title="WhatsApp">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.122 1.532 5.857L.054 23.454a.5.5 0 00.492.546h.055l5.735-1.502A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.814 9.814 0 01-5.014-1.374l-.36-.214-3.733.977.998-3.64-.234-.374A9.815 9.815 0 012.182 12C2.182 6.573 6.573 2.182 12 2.182S21.818 6.573 21.818 12 17.427 21.818 12 21.818z"/></svg>
+                  </a>
+                  <a href="mailto:info@giftmarkindustries.com" className="footer-social-icon" aria-label="Email" title="Email">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+                  </a>
+                  <a href="tel:+919897583968" className="footer-social-icon" aria-label="Phone" title="Phone">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.5 21 3 13.5 3 4.5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z"/></svg>
+                  </a>
+                </div>
+              </div>
             </div>
+
+            {/* ---- Brand Watermark Bottom ---- */}
+            <div className="footer-watermark-bar">
+              <span className="footer-watermark-text">GIFTMARK INDUSTRIES</span>
+            </div>
+
           </footer>
 
           {/* --- LEGAL MODAL OVERLAY --- */}
