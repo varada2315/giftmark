@@ -4930,3 +4930,86 @@ textarea.form-input {
   transform: scale(1.06);
   filter: brightness(1.05);
 }
+
+/* About Us Certifications & Exhibitions Enhanced Cards */
+.clickable-about-cert {
+  cursor: pointer;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.clickable-about-cert:hover {
+  border-color: #c5a059 !important;
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(197, 160, 89, 0.18);
+}
+
+.about-cert-thumb {
+  width: 72px;
+  height: 72px;
+  border-radius: 6px;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1px solid rgba(197, 160, 89, 0.3);
+  background: #ffffff;
+}
+
+.about-cert-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform 0.4s ease;
+}
+
+.clickable-about-cert:hover .about-cert-thumb img {
+  transform: scale(1.08);
+}
+
+.section-column-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.view-more-link {
+  font-size: 12px;
+  font-weight: 600;
+  color: #c5a059;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.view-more-link:hover {
+  color: var(--color-accent-dark, #8b6b23);
+  transform: translateX(3px);
+}
+
+.cert-mini-badge,
+.exhib-mini-badge {
+  display: inline-block;
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #8b6b23;
+  background: rgba(197, 160, 89, 0.15);
+  padding: 2px 8px;
+  border-radius: 12px;
+  width: fit-content;
+  margin-bottom: 4px;
+}
+
+.cert-click-hint {
+  font-size: 11px;
+  font-weight: 600;
+  color: #c5a059;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+}

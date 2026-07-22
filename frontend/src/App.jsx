@@ -1590,46 +1590,73 @@ function App() {
 
             {/* Certifications & Exhibitions */}
             <section className="about-certs-exhibs-section">
+              <div className="about-certs-header" style={{ textAlign: 'center', marginBottom: '40px' }}>
+                <span className="best-sellers-subtitle">Official Recognition &amp; Global Trade</span>
+                <h2 className="best-sellers-title" style={{ marginTop: '4px' }}>Certifications &amp; Global Exhibitions</h2>
+              </div>
+
               <div className="certs-exhibs-grid">
                 
                 {/* Certifications Column */}
                 <div className="certs-column">
-                  <h3 className="certs-exhibs-heading">Our Certifications</h3>
+                  <h3 className="certs-exhibs-heading">Our Certifications &amp; Awards</h3>
+
                   <div className="cert-cards-list">
                     
-                    <div className="cert-item-card">
-                      <div className="cert-icon-box">
-                        <ShieldCheck size={22} />
+                    {/* Card 1: EPCH RCMC Certificate */}
+                    <div
+                      className="cert-item-card clickable-about-cert"
+                      onClick={() => setActiveCertModal(CERTIFICATIONS_DATA[0])}
+                      title="Click to view full certificate document"
+                    >
+                      <div className="about-cert-thumb">
+                        <img src="/uploads/epch_membership_certificate.jpg" alt="EPCH RCMC Registration Certificate" />
                       </div>
                       <div className="cert-info">
-                        <h4 className="cert-title">ISO 9001:2015 Certification</h4>
+                        <span className="cert-mini-badge">Official Document</span>
+                        <h4 className="cert-title">EPCH Registration Certificate (RCMC)</h4>
                         <p className="cert-desc">
-                          Certified Quality Management System, ensuring rigorous standards across design prototyping, sand casting, manual filigree, and chemical polishing.
+                          Export Promotion Council for Handicrafts (Govt. of India) official Manufacturer Exporter Certificate.
                         </p>
+                        <span className="cert-click-hint"><Eye size={12} /> Click to View Document</span>
                       </div>
                     </div>
 
-                    <div className="cert-item-card">
-                      <div className="cert-icon-box">
-                        <Award size={22} />
+                    {/* Card 2: FAIC 2024 Gold Medal Award */}
+                    <div
+                      className="cert-item-card clickable-about-cert"
+                      onClick={() => setActiveCertModal(CERTIFICATIONS_DATA[7])}
+                      title="Click to view award frame"
+                    >
+                      <div className="about-cert-thumb">
+                        <img src="/uploads/award_faic_5th_convention_2024.jpg" alt="FAIC 2024 Gold Medal Award" />
                       </div>
                       <div className="cert-info">
-                        <h4 className="cert-title">EPCH Council Member</h4>
+                        <span className="cert-mini-badge">Gold Medal Award</span>
+                        <h4 className="cert-title">FAIC 5th Convention Award (2024)</h4>
                         <p className="cert-desc">
-                          Registered with the Export Promotion Council for Handicrafts, ensuring authenticity of artisan crafts and compliant export standards.
+                          Federation of All India Caterers Framed Gold Medal Award at Hitex, Hyderabad.
                         </p>
+                        <span className="cert-click-hint"><Eye size={12} /> Click to View Award</span>
                       </div>
                     </div>
 
-                    <div className="cert-item-card">
-                      <div className="cert-icon-box">
-                        <Globe size={22} />
+                    {/* Card 3: 59th IHGF 2025 Allotment */}
+                    <div
+                      className="cert-item-card clickable-about-cert"
+                      onClick={() => setActiveCertModal(CERTIFICATIONS_DATA[3])}
+                      title="Click to view stand allotment"
+                    >
+                      <div className="about-cert-thumb">
+                        <img src="/uploads/ihgf_delhi_fair_2025_allotment.jpg" alt="EPCH 59th IHGF Allotment" />
                       </div>
                       <div className="cert-info">
-                        <h4 className="cert-title">DGFT Export License</h4>
+                        <span className="cert-mini-badge">Trade Expo Allotment</span>
+                        <h4 className="cert-title">EPCH 59th IHGF Delhi Fair Allotment</h4>
                         <p className="cert-desc">
-                          Officially registered with the Directorate General of Foreign Trade (Government of India) for high-volume custom B2B container shipments.
+                          Official EPCH Stand Space Allotment Certificate for Spring 2025 (Hall 11 Stand G-10/05).
                         </p>
+                        <span className="cert-click-hint"><Eye size={12} /> Click to View Document</span>
                       </div>
                     </div>
 
@@ -1638,51 +1665,83 @@ function App() {
 
                 {/* Exhibitions Column */}
                 <div className="exhibs-column">
-                  <h3 className="certs-exhibs-heading">Global Exhibitions</h3>
+                  <h3 className="certs-exhibs-heading">Global Trade Exhibitions</h3>
+
                   <div className="exhib-cards-list">
                     
-                    <div className="exhib-item-card">
-                      <div className="exhib-icon-box">
-                        <Calendar size={22} />
+                    {/* Exhib 1: MEGA SHOW Hong Kong */}
+                    <div
+                      className="exhib-item-card clickable-about-cert"
+                      onClick={() => setActiveCertModal(EXHIBITIONS_DATA[0])}
+                      title="Click to view exhibition photo"
+                    >
+                      <div className="about-cert-thumb">
+                        <img src="/uploads/exhibition_stall_front.jpg" alt="MEGA SHOW Hong Kong Expo" />
                       </div>
                       <div className="exhib-info">
-                        <h4 className="exhib-title">Canton Fair (China)</h4>
+                        <span className="exhib-mini-badge">Hong Kong Expo</span>
+                        <h4 className="exhib-title">MEGA SHOW International Trade Expo</h4>
                         <p className="exhib-desc">
-                          Exhibiting our home décor and hospitality products at China's leading international trade forum, establishing multi-year buyer relationships.
+                          Multi-bay pavilion (Stall 3U-1 &amp; 2) showcasing handcrafted metallic art vases, copper urns, and hotelware.
                         </p>
-                        <span className="exhib-meta">Annual Appearance</span>
+                        <span className="exhib-meta"><Eye size={12} /> Click to View Photo</span>
                       </div>
                     </div>
 
-                    <div className="exhib-item-card">
-                      <div className="exhib-icon-box">
-                        <Calendar size={22} />
+                    {/* Exhib 2: Grand Pavilion Entrance */}
+                    <div
+                      className="exhib-item-card clickable-about-cert"
+                      onClick={() => setActiveCertModal(EXHIBITIONS_DATA[1])}
+                      title="Click to view pavilion entrance photo"
+                    >
+                      <div className="about-cert-thumb">
+                        <img src="/uploads/exhibition_stall_corner.jpg" alt="Giftmark Trade Pavilion Showcase" />
                       </div>
                       <div className="exhib-info">
-                        <h4 className="exhib-title">Ambiente Frankfurt (Germany)</h4>
+                        <span className="exhib-mini-badge">Global Showcase</span>
+                        <h4 className="exhib-title">Giftmark Trade Pavilion Showcase</h4>
                         <p className="exhib-desc">
-                          Showcasing traditional filigree trays, table sculptures, and catering collections to premium European retailers and boutique hoteliers.
+                          Grand entrance view displaying silver-plated pedestal floor vases and heritage brassware.
                         </p>
-                        <span className="exhib-meta">European Showcase</span>
+                        <span className="exhib-meta"><Eye size={12} /> Click to View Photo</span>
                       </div>
                     </div>
 
-                    <div className="exhib-item-card">
-                      <div className="exhib-icon-box">
-                        <Calendar size={22} />
+                    {/* Exhib 3: Metalware Display Gallery */}
+                    <div
+                      className="exhib-item-card clickable-about-cert"
+                      onClick={() => setActiveCertModal(EXHIBITIONS_DATA[2])}
+                      title="Click to view display gallery photo"
+                    >
+                      <div className="about-cert-thumb">
+                        <img src="/uploads/exhibition_display_shelves.jpg" alt="Metalware & Vase Display Gallery" />
                       </div>
                       <div className="exhib-info">
-                        <h4 className="exhib-title">Spring &amp; Autumn Fair (UK)</h4>
+                        <span className="exhib-mini-badge">Interior Display</span>
+                        <h4 className="exhib-title">Metalware &amp; Vase Display Gallery</h4>
                         <p className="exhib-desc">
-                          Presenting corporate giftware, armillary spheres, and restored classics to British wholesalers, retailers, and heritage buyers.
+                          Interior display presenting signature hand-hammered brass urns, textured metallic vases, and hotelware.
                         </p>
-                        <span className="exhib-meta">UK Trade Fair</span>
+                        <span className="exhib-meta"><Eye size={12} /> Click to View Photo</span>
                       </div>
                     </div>
 
                   </div>
                 </div>
 
+              </div>
+
+              {/* View Full Dedicated Page CTA */}
+              <div style={{ textAlign: 'center', marginTop: '40px' }}>
+                <button
+                  className="hero-cta"
+                  onClick={() => {
+                    setCurrentPage('certifications');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                >
+                  Explore Full Certifications &amp; Exhibitions Showcase (16) →
+                </button>
               </div>
             </section>
           </div>
