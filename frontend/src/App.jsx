@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { ShoppingBag, Plus, Minus, Trash2, X, ChevronDown, Award, Globe, ShieldCheck, Calendar, Star, Quote, FileText, MapPin, CheckCircle, Download, Eye } from 'lucide-react';
+import { ShoppingBag, Plus, Minus, Trash2, X, ChevronDown, Award, Globe, ShieldCheck, Calendar, Star, Quote, FileText, MapPin, CheckCircle, Download, Eye, Menu } from 'lucide-react';
 import './App.css';
 
 // Certifications Data
@@ -153,32 +153,30 @@ const CERTIFICATIONS_DATA = [
 // Exhibitions & Trade Fairs Data
 const EXHIBITIONS_DATA = [
   {
-    id: "ex-mega-show",
-    title: "MEGA SHOW International Trade Expo (Booth 3U-1 & 2)",
-    venue: "Hong Kong Convention and Exhibition Centre (HKCEC)",
-    date: "Annual Global Trade Showcase",
-    booth: "Stall 3U-1 & 2 (India Pavilion)",
-    tag: "International Expo",
-    image: "/uploads/exhibition_stall_front.jpg",
-    previewImage: "/uploads/exhibition_stall_front.jpg",
-    downloadUrl: "/uploads/exhibition_stall_front.jpg",
-    badge: "International Trade Expo",
-    issuer: "MEGA SHOW / Hong Kong Trade Fair",
-    description: "Giftmark Industries' grand multi-bay exhibition stall showcasing handcrafted metallic art vases, copper urns, and luxury decorative hardware at MEGA SHOW."
+    id: "ex-aakar-fair-2022",
+    title: "Aakar Beauty & Decor Fair 2022 (Stall 919)",
+    venue: "Aakar Exhibition & Trade Fair Center",
+    date: "2022 Trade Expo",
+    booth: "Stall 919",
+    tag: "Aakar Fair 2022",
+    image: "/uploads/aakar_fair_2022.jpg",
+    previewImage: "/uploads/aakar_fair_2022.jpg",
+    badge: "Aakar Fair 2022",
+    issuer: "Aakar Trade Expo Organisers",
+    description: "Giftmark Industries' custom matte-navy showcase stall (Stall 919) at Aakar Fair 2022 featuring handcrafted metallic vases, gold filigree art pieces, and luxury floor pedestals."
   },
   {
-    id: "ex-booth-entrance",
-    title: "Giftmark Grand Trade Stall Entrance",
-    venue: "International Convention & Exhibition Center",
-    date: "Global B2B Showcase",
-    booth: "Stall 3U-1 & 2 (India Pavilion)",
-    tag: "Trade Showcase",
-    image: "/uploads/exhibition_stall_corner.jpg",
-    previewImage: "/uploads/exhibition_stall_corner.jpg",
-    downloadUrl: "/uploads/exhibition_stall_corner.jpg",
-    badge: "Exhibition Showcase",
-    issuer: "Global Trade Fairs",
-    description: "Elegant entrance view of Giftmark Industries' trade pavilion, lined with red velvet stanchions, silver-plated pedestal floor vases, and heritage metalware."
+    id: "ex-tent-decor-2025",
+    title: "Tent Decor Asia International Exhibition (August 2025)",
+    venue: "Tent Decor Asia International Expo Center",
+    date: "August 2025",
+    booth: "Giftmark Pavilion",
+    tag: "Tent Decor Aug 2025",
+    image: "/uploads/tent_decor_2025.jpg",
+    previewImage: "/uploads/tent_decor_2025.jpg",
+    badge: "Tent Decor Aug 2025",
+    issuer: "Tent Decor Asia Expo",
+    description: "Giftmark Industries' grand white shelving showcase at Tent Decor August 2025, displaying vibrant ceramic-finish metalware, luxury hotel vases, and bespoke catering decor."
   },
   {
     id: "ex-display-bay",
@@ -189,10 +187,22 @@ const EXHIBITIONS_DATA = [
     tag: "Product Exhibition",
     image: "/uploads/exhibition_display_shelves.jpg",
     previewImage: "/uploads/exhibition_display_shelves.jpg",
-    downloadUrl: "/uploads/exhibition_display_shelves.jpg",
     badge: "Artisan Gallery",
     issuer: "Handicrafts & Decor Expo",
     description: "Interior display gallery presenting signature hand-hammered brass urns, textured metallic vases, and hotelware decor collections."
+  },
+  {
+    id: "ex-booth-entrance",
+    title: "Giftmark Grand Trade Stall Entrance",
+    venue: "International Convention & Exhibition Center",
+    date: "Global B2B Showcase",
+    booth: "Stall 3U-1 & 2 (India Pavilion)",
+    tag: "Trade Showcase",
+    image: "/uploads/exhibition_stall_corner.jpg",
+    previewImage: "/uploads/exhibition_stall_corner.jpg",
+    badge: "Exhibition Showcase",
+    issuer: "Global Trade Fairs",
+    description: "Elegant entrance view of Giftmark Industries' trade pavilion, lined with red velvet stanchions, silver-plated pedestal floor vases, and heritage metalware."
   },
   {
     id: "ex-perspective-view",
@@ -203,10 +213,97 @@ const EXHIBITIONS_DATA = [
     tag: "Trade Pavilion",
     image: "/uploads/exhibition_stall_perspective.jpg",
     previewImage: "/uploads/exhibition_stall_perspective.jpg",
-    downloadUrl: "/uploads/exhibition_stall_perspective.jpg",
     badge: "Export Showcase",
     issuer: "Global Handicrafts Expo",
     description: "Wide perspective angle of Giftmark's expansive 3U-1 & 2 stall featuring tier-shelved brassware and customer meeting lounge area."
+  },
+  {
+    id: "ex-ambiente-frankfurt-2026",
+    title: "Messe Frankfurt Ambiente Trade Fair (Hall 10.2 Stand E08, Feb 2026)",
+    venue: "Messe Frankfurt Exhibition Center, Germany",
+    date: "February 2026",
+    booth: "Hall 10.2 Stand E08",
+    tag: "Ambiente Feb 2026",
+    image: "/uploads/ambiente_frankfurt_2026.jpg",
+    previewImage: "/uploads/ambiente_frankfurt_2026.jpg",
+    badge: "Ambiente Feb 2026",
+    issuer: "Messe Frankfurt Exhibition GmbH",
+    description: "Giftmark Industries' prominent black corner pavilion (Hall 10.2 Stand E08) at Messe Frankfurt Ambiente (February 2026), presenting hand-sculpted metallic floor vases, silver candelabras, ornate mirrors, and hotelware."
+  },
+  {
+    id: "ex-dubai-epch-2018",
+    title: "EPCH Dubai India Trade Fair (Stall SS1F142, Sep 2018)",
+    venue: "Dubai International Exhibition & Convention Centre, UAE",
+    date: "September 2018",
+    booth: "Stall SS1F142 (India Pavilion)",
+    tag: "Dubai EPCH Sep 2018",
+    image: "/uploads/dubai_epch_2018.jpg",
+    previewImage: "/uploads/dubai_epch_2018.jpg",
+  },
+  {
+    id: "ex-hongkong-fair-april-2018",
+    title: "Hong Kong Gifts & Premium Fair (April 2018)",
+    venue: "Hong Kong Convention and Exhibition Centre (HKCEC), Hong Kong",
+    date: "April 2018",
+    booth: "India Pavilion (Stall 3CON-150)",
+    tag: "HongKong Fair Apr 2018",
+    image: "/uploads/hongkong_fair_april_2018.jpg",
+    previewImage: "/uploads/hongkong_fair_april_2018.jpg",
+    badge: "HongKong Apr 2018",
+    issuer: "Hong Kong Trade Development Council (HKTDC)",
+    description: "Giftmark Industries' official India Pavilion booth (Stall 3CON-150) at Hong Kong Gifts & Premium Fair (April 2018), displaying copper & silver metallic art vases, platters, and luxury hotel decor."
+  },
+  {
+    id: "ex-epch-delhi-fair-2019",
+    title: "EPCH IHGF Delhi Fair Showcase (Spring 2019)",
+    venue: "India Expo Centre & Mart, Greater Noida, Delhi NCR",
+    date: "Spring 2019",
+    booth: "Giftmark EPCH Pavilion",
+    tag: "IHGF Delhi Fair 2019",
+    image: "/uploads/epch_delhi_fair_2019.jpg",
+    previewImage: "/uploads/epch_delhi_fair_2019.jpg",
+    badge: "EPCH Delhi Fair 2019",
+    issuer: "Export Promotion Council for Handicrafts (EPCH)",
+    description: "Giftmark Industries' multi-shelf artisan gallery at the EPCH IHGF Delhi Fair 2019, showcasing signature hammered bronze urns, textured metallic vases, candle stands, and decorative tableware."
+  },
+  {
+    id: "ex-ambiente-august-2021",
+    title: "Ambiente International Trade Fair (August 2021)",
+    venue: "Messe Frankfurt Exhibition Center, Germany",
+    date: "August 2021",
+    booth: "Giftmark Ambiente Showcase",
+    tag: "Ambiente Aug 2021",
+    image: "/uploads/ambiente_august_2021.jpg",
+    previewImage: "/uploads/ambiente_august_2021.jpg",
+    badge: "Ambiente Aug 2021",
+    issuer: "Messe Frankfurt Exhibition GmbH",
+    description: "Giftmark Industries' multi-tier decor gallery at Ambiente (August 2021), featuring hand-sculpted metallic masks, abstract head sculptures, gold & silver textured vases, and hotelware."
+  },
+  {
+    id: "ex-ihgf-delhi-oct-2017",
+    title: "EPCH 44th IHGF Delhi Fair Showcase (Autumn 2017)",
+    venue: "India Expo Centre & Mart, Greater Noida, Delhi NCR",
+    date: "October 2017",
+    booth: "Giftmark EPCH Pavilion",
+    tag: "IHGF Delhi Oct 2017",
+    image: "/uploads/ihgf_delhi_oct_2017.jpg",
+    previewImage: "/uploads/ihgf_delhi_oct_2017.jpg",
+    badge: "IHGF Delhi Oct 2017",
+    issuer: "Export Promotion Council for Handicrafts (EPCH)",
+    description: "Giftmark Industries' dark-themed artisan showcase at the 44th IHGF Delhi Fair (October 2017), presenting hand-cast metallic animal skull sculptures, horn wall mounts, brass pedestals, and accent furniture."
+  },
+  {
+    id: "ex-ihe-sep-2021",
+    title: "International Hospitality Expo - IHE 2021 (September 2021)",
+    venue: "India Expo Centre & Mart, Greater Noida, Delhi NCR",
+    date: "September 2021",
+    booth: "Giftmark Grand Pavilion",
+    tag: "IHE Sep 2021",
+    image: "/uploads/ihe_sep_2021.jpg",
+    previewImage: "/uploads/ihe_sep_2021.jpg",
+    badge: "IHE Sep 2021",
+    issuer: "International Hospitality Expo (IHE)",
+    description: "Giftmark Industries' grand illuminated pavilion at International Hospitality Expo (IHE September 2021), featuring luxury hotel serving ware, green & copper metallic floor urns, and bespoke B2B decor."
   },
   {
     id: "ex-side-view",
@@ -217,7 +314,6 @@ const EXHIBITIONS_DATA = [
     tag: "Trade Showcase",
     image: "/uploads/exhibition_stall_side.jpg",
     previewImage: "/uploads/exhibition_stall_side.jpg",
-    downloadUrl: "/uploads/exhibition_stall_side.jpg",
     badge: "Exhibition Gallery",
     issuer: "Handicraft Export Council",
     description: "Side entrance display showcasing metallic floor vases, decorative hammered brass bowls, and custom hotel catering accents."
@@ -797,6 +893,7 @@ function App() {
   const [isAutoplay, setIsAutoplay] = useState(true);
   const [activeFilter, setActiveFilter] = useState('All');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Inquiry form states
   const [inquiryForm, setInquiryForm] = useState({
@@ -1045,7 +1142,23 @@ function App() {
         {/* --- HEADER --- */}
         <header className="header">
           <div className="logo-container" onClick={() => { setCurrentPage('home'); setHeroIndex(0); setIsAutoplay(true); }}>
-            <img src="/uploads/giftmark_logo.png" alt="Giftmark Industries Logo" className="logo-img" />
+            <div className="logo-img-wrapper">
+              <svg className="logo-badge-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="60" cy="60" r="56" fill="none" stroke="var(--color-accent)" strokeWidth="1.2" opacity="0.45" />
+                <circle cx="60" cy="60" r="50" fill="none" stroke="var(--color-accent-dark)" strokeWidth="0.8" strokeDasharray="2 3" opacity="0.5" />
+                <circle cx="12" cy="60" r="2.2" fill="var(--color-accent-dark)" opacity="0.85" />
+                <circle cx="108" cy="60" r="2.2" fill="var(--color-accent-dark)" opacity="0.85" />
+                <path id="estdTopPath" d="M 16,60 A 44,44 0 0,1 104,60" fill="none" />
+                <path id="estdBottomPath" d="M 16,60 A 44,44 0 0,0 104,60" fill="none" />
+                <text className="logo-badge-text">
+                  <textPath href="#estdTopPath" startOffset="50%" textAnchor="middle">ESTD</textPath>
+                </text>
+                <text className="logo-badge-text">
+                  <textPath href="#estdBottomPath" startOffset="50%" textAnchor="middle">1993</textPath>
+                </text>
+              </svg>
+              <img src="/uploads/giftmark_logo.png" alt="Giftmark Industries Logo" className="logo-img" />
+            </div>
             <div className="logo-text-wrapper">
               <span className="logo-main">GIFTMARK</span>
               <div className="logo-sub">
@@ -1056,7 +1169,7 @@ function App() {
             </div>
           </div>
 
-          <nav>
+          <nav className="desktop-nav">
             <ul className="nav-menu">
               <li>
                 <span
@@ -1137,8 +1250,85 @@ function App() {
                 <span className="cart-badge">{getCartCount()}</span>
               )}
             </button>
+            <button
+              className="mobile-menu-toggle"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle Mobile Menu"
+              title="Toggle Menu"
+            >
+              {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
           </div>
         </header>
+
+        {/* --- MOBILE NAVIGATION DRAWER --- */}
+        {isMobileMenuOpen && (
+          <div className="mobile-nav-overlay" onClick={() => setIsMobileMenuOpen(false)}>
+            <div className="mobile-nav-drawer" onClick={(e) => e.stopPropagation()}>
+              <div className="mobile-nav-header">
+                <span className="mobile-nav-logo-title">GIFTMARK INDUSTRIES</span>
+                <button className="mobile-nav-close" onClick={() => setIsMobileMenuOpen(false)}>
+                  <X size={20} />
+                </button>
+              </div>
+              <ul className="mobile-nav-links">
+                <li>
+                  <span
+                    className={`mobile-nav-link ${currentPage === 'home' ? 'active' : ''}`}
+                    onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); setIsAutoplay(true); }}
+                  >
+                    Home
+                  </span>
+                </li>
+                <li>
+                  <span
+                    className={`mobile-nav-link ${currentPage === 'about' ? 'active' : ''}`}
+                    onClick={() => { setCurrentPage('about'); setIsMobileMenuOpen(false); }}
+                  >
+                    About Us
+                  </span>
+                </li>
+                <li className="mobile-nav-section-title">Collections</li>
+                <li className="mobile-nav-sub-item">
+                  {['All', 'Home Décor', 'Hospitality', 'Giftware', 'Utility'].map((cat) => (
+                    <span
+                      key={cat}
+                      className={`mobile-nav-sublink ${currentPage === 'collections' && activeFilter === cat ? 'active' : ''}`}
+                      onClick={() => {
+                        setCurrentPage('collections');
+                        setActiveFilter(cat);
+                        setIsMobileMenuOpen(false);
+                      }}
+                    >
+                      • {cat}
+                    </span>
+                  ))}
+                </li>
+                <li>
+                  <span
+                    className={`mobile-nav-link ${currentPage === 'certifications' ? 'active' : ''}`}
+                    onClick={() => { setCurrentPage('certifications'); setIsMobileMenuOpen(false); }}
+                  >
+                    Certifications & Exhibitions
+                  </span>
+                </li>
+                <li>
+                  <span
+                    className={`mobile-nav-link ${currentPage === 'contact' ? 'active' : ''}`}
+                    onClick={() => { setCurrentPage('contact'); setIsMobileMenuOpen(false); }}
+                  >
+                    Contact Us
+                  </span>
+                </li>
+              </ul>
+              <div className="mobile-nav-footer">
+                <a href="https://wa.me/919897583968" target="_blank" rel="noreferrer" className="mobile-nav-wa-btn">
+                  WhatsApp Inquiry (+91 98975 83968)
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* --- TRUST LINE BANNER (MARQUEE) --- */}
         <section className="trust-banner">
@@ -1479,38 +1669,47 @@ function App() {
 
             {/* Global Presence */}
             <section className="global-presence-section">
-              <div className="global-map-mock">
-                <div className="map-background"></div>
-                <div className="map-canvas-dots"></div>
-                <div className="map-node node-india" title="India HQ"></div>
-                <div className="map-node node-mumbai" title="Mumbai, India"></div>
-                <div className="map-node node-hyderabad" title="Hyderabad, India"></div>
-                <div className="map-node node-china" title="Canton Fair, China"></div>
-                <div className="map-node node-hongkong" title="Hong Kong"></div>
-                <div className="map-node node-germany" title="Germany"></div>
-                <div className="map-node node-holland" title="Holland (Netherlands)"></div>
-                <div className="map-node node-uk" title="United Kingdom"></div>
-                <div className="map-node node-usa" title="United States"></div>
-                <div className="map-node node-uae" title="UAE"></div>
-              </div>
+              <div className="global-presence-grid">
+                {/* Left Column: Text & Tags */}
+                <div className="global-presence-content">
+                  <span className="best-sellers-subtitle">32+ YEARS OF EXPORT EXCELLENCE</span>
+                  <h2 className="global-pres-title" style={{ marginTop: '4px' }}>A Global Presence</h2>
+                  <p className="global-pres-text">
+                    Over three decades, our handcrafted metalware has traveled across borders. Giftmark Industries has built a strong international presence, serving importers, wholesalers, retailers, and hospitality projects globally.
+                  </p>
+                  <p className="global-pres-text" style={{ fontSize: '13.5px', marginBottom: '20px' }}>
+                    We exhibit and export regularly across major trade hubs, including <strong>China</strong>, <strong>Singapore</strong>, <strong>America (USA)</strong>, Hong Kong, Holland, Germany, the UK, UAE, Mumbai, Hyderabad, and Chennai.
+                  </p>
+                  <ul className="exhibition-list">
+                    <li className="exhibition-tag">China</li>
+                    <li className="exhibition-tag">Singapore</li>
+                    <li className="exhibition-tag">America (USA)</li>
+                    <li className="exhibition-tag">Hong Kong</li>
+                    <li className="exhibition-tag">Holland (Netherlands)</li>
+                    <li className="exhibition-tag">Frankfurt (Germany)</li>
+                    <li className="exhibition-tag">London (UK)</li>
+                    <li className="exhibition-tag">Dubai (UAE)</li>
+                    <li className="exhibition-tag">Mumbai, Hyderabad &amp; Chennai (India)</li>
+                  </ul>
+                </div>
 
-              <div className="global-presence-content">
-                <h2 className="global-pres-title">A Global Presence</h2>
-                <p className="global-pres-text">
-                  Over three decades, our handcrafted metalware has traveled across borders. Giftmark Industries has built a strong international presence, serving importers, wholesalers, retailers, and hospitality projects globally.
-                </p>
-                <p className="global-pres-text" style={{ fontSize: '13px' }}>
-                  We exhibit regularly at major trade forums, including the prestigious **Canton Fair in China**, Hong Kong, Holland, and major hubs across Germany, the UK, USA, UAE, Mumbai, and Hyderabad.
-                </p>
-                <ul className="exhibition-list">
-                  <li className="exhibition-tag">Canton Fair (China)</li>
-                  <li className="exhibition-tag">Hong Kong</li>
-                  <li className="exhibition-tag">Holland (Netherlands)</li>
-                  <li className="exhibition-tag">Frankfurt (Germany)</li>
-                  <li className="exhibition-tag">London (UK)</li>
-                  <li className="exhibition-tag">Dubai (UAE)</li>
-                  <li className="exhibition-tag">Mumbai &amp; Hyderabad (India)</li>
-                </ul>
+                {/* Right Column: Interactive Map */}
+                <div className="global-map-mock">
+                  <div className="map-background"></div>
+                  <div className="map-canvas-dots"></div>
+                  <div className="map-node node-india" title="India HQ"></div>
+                  <div className="map-node node-mumbai" title="Mumbai, India"></div>
+                  <div className="map-node node-hyderabad" title="Hyderabad, India"></div>
+                  <div className="map-node node-chennai" title="Chennai, India"></div>
+                  <div className="map-node node-china" title="China"></div>
+                  <div className="map-node node-singapore" title="Singapore"></div>
+                  <div className="map-node node-hongkong" title="Hong Kong"></div>
+                  <div className="map-node node-germany" title="Germany"></div>
+                  <div className="map-node node-holland" title="Holland (Netherlands)"></div>
+                  <div className="map-node node-uk" title="United Kingdom"></div>
+                  <div className="map-node node-usa" title="America (USA)"></div>
+                  <div className="map-node node-uae" title="UAE"></div>
+                </div>
               </div>
             </section>
             {/* ==================== INSTAGRAM REELS ==================== */}
@@ -1668,64 +1867,24 @@ function App() {
                   <h3 className="certs-exhibs-heading">Global Trade Exhibitions</h3>
 
                   <div className="exhib-cards-list">
-                    
-                    {/* Exhib 1: MEGA SHOW Hong Kong */}
-                    <div
-                      className="exhib-item-card clickable-about-cert"
-                      onClick={() => setActiveCertModal(EXHIBITIONS_DATA[0])}
-                      title="Click to view exhibition photo"
-                    >
-                      <div className="about-cert-thumb">
-                        <img src="/uploads/exhibition_stall_front.jpg" alt="MEGA SHOW Hong Kong Expo" />
+                    {EXHIBITIONS_DATA.slice(0, 4).map((ex) => (
+                      <div
+                        key={ex.id}
+                        className="exhib-item-card clickable-about-cert"
+                        onClick={() => setActiveCertModal(ex)}
+                        title="Click to view exhibition photo"
+                      >
+                        <div className="about-cert-thumb">
+                          <img src={ex.image} alt={ex.title} />
+                        </div>
+                        <div className="exhib-info">
+                          <span className="exhib-mini-badge">{ex.badge}</span>
+                          <h4 className="exhib-title">{ex.title}</h4>
+                          <p className="exhib-desc">{ex.description}</p>
+                          <span className="exhib-meta"><Eye size={12} /> Click to View Photo</span>
+                        </div>
                       </div>
-                      <div className="exhib-info">
-                        <span className="exhib-mini-badge">Hong Kong Expo</span>
-                        <h4 className="exhib-title">MEGA SHOW International Trade Expo</h4>
-                        <p className="exhib-desc">
-                          Multi-bay pavilion (Stall 3U-1 &amp; 2) showcasing handcrafted metallic art vases, copper urns, and hotelware.
-                        </p>
-                        <span className="exhib-meta"><Eye size={12} /> Click to View Photo</span>
-                      </div>
-                    </div>
-
-                    {/* Exhib 2: Grand Pavilion Entrance */}
-                    <div
-                      className="exhib-item-card clickable-about-cert"
-                      onClick={() => setActiveCertModal(EXHIBITIONS_DATA[1])}
-                      title="Click to view pavilion entrance photo"
-                    >
-                      <div className="about-cert-thumb">
-                        <img src="/uploads/exhibition_stall_corner.jpg" alt="Giftmark Trade Pavilion Showcase" />
-                      </div>
-                      <div className="exhib-info">
-                        <span className="exhib-mini-badge">Global Showcase</span>
-                        <h4 className="exhib-title">Giftmark Trade Pavilion Showcase</h4>
-                        <p className="exhib-desc">
-                          Grand entrance view displaying silver-plated pedestal floor vases and heritage brassware.
-                        </p>
-                        <span className="exhib-meta"><Eye size={12} /> Click to View Photo</span>
-                      </div>
-                    </div>
-
-                    {/* Exhib 3: Metalware Display Gallery */}
-                    <div
-                      className="exhib-item-card clickable-about-cert"
-                      onClick={() => setActiveCertModal(EXHIBITIONS_DATA[2])}
-                      title="Click to view display gallery photo"
-                    >
-                      <div className="about-cert-thumb">
-                        <img src="/uploads/exhibition_display_shelves.jpg" alt="Metalware & Vase Display Gallery" />
-                      </div>
-                      <div className="exhib-info">
-                        <span className="exhib-mini-badge">Interior Display</span>
-                        <h4 className="exhib-title">Metalware &amp; Vase Display Gallery</h4>
-                        <p className="exhib-desc">
-                          Interior display presenting signature hand-hammered brass urns, textured metallic vases, and hotelware.
-                        </p>
-                        <span className="exhib-meta"><Eye size={12} /> Click to View Photo</span>
-                      </div>
-                    </div>
-
+                    ))}
                   </div>
                 </div>
 
@@ -2201,7 +2360,7 @@ function App() {
 
           {/* ---- Brand Watermark Bottom ---- */}
           <div className="footer-watermark-bar">
-            <span className="footer-watermark-text">GIFTMARK INDUSTRIES</span>
+            <span className="footer-watermark-text">GIFTMARK INDUSTRIES • ESTD 1993</span>
           </div>
 
         </footer>
@@ -2245,15 +2404,6 @@ function App() {
 
               <div className="cert-modal-footer">
                 <p className="cert-modal-desc">{activeCertModal.description}</p>
-                {activeCertModal.downloadUrl && (
-                  <a
-                    href={activeCertModal.downloadUrl}
-                    download={`${activeCertModal.title.replace(/[\s\/\&]+/g, '_')}.jpg`}
-                    className="cert-modal-download-btn"
-                  >
-                    <Download size={16} /> Download High-Res File
-                  </a>
-                )}
               </div>
             </div>
           </div>
