@@ -633,6 +633,23 @@ const DEFAULT_COLLECTIONS = [
     description: "Artisanal metallic tabletop sculpture set featuring spiral nautilus gold bases and textured copper flame crests mounted on conical brass pedestals. Available in Big (74cm) and Small (65cm) sizes."
   },
   {
+    id: "25",
+    title: "Handcrafted Avant-Garde Metallic Mask Sculpture",
+    image: "/uploads/abstract_metallic_mask_sculpture.png",
+    images: [
+      "/uploads/abstract_metallic_mask_sculpture.png",
+      "/uploads/abstract_metallic_mask_sculpture_specs.png"
+    ],
+    category: "Home Décor",
+    price: "₹810 / $10",
+    dimensions: {
+      height: '51 cm (20.1")',
+      diameter: '22 cm (8.7")',
+      pendi: 'Textured Brass Pedestal'
+    },
+    description: "Avant-garde tabletop mask sculpture crafted in textured gold brass with openwork features and crowned with a tri-color metallic leaf emblem."
+  },
+  {
     id: "09",
     title: "Traditional Brass Spice Box",
     image: "/uploads/brass_vessels.png",
