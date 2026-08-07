@@ -363,6 +363,23 @@ const collections = [
       pendi: 'Top 16 cm (6")'
     },
     description: "Statement 70cm artisanal floor vase featuring a brushed antique gold collar transition into a deep textured midnight cobalt blue teardrop basin."
+  },
+  {
+    id: "28",
+    title: "Handcrafted Dynamic Flame Metallic Sculpture",
+    image: "/uploads/abstract_flame_metallic_sculpture.png",
+    images: [
+      "/uploads/abstract_flame_metallic_sculpture.png",
+      "/uploads/abstract_flame_metallic_sculpture_specs.png"
+    ],
+    category: "Home Décor",
+    price: "₹1,540 / $19",
+    dimensions: {
+      height: '56 cm (22.0")',
+      diameter: '36 cm (14.2")',
+      pendi: 'Gold Oval Pedestal'
+    },
+    description: "Artisanal abstract metallic tabletop sculpture featuring sweeping copper flame tendrils cradled within a brushed gold crescent shell."
   }
 ];
 
