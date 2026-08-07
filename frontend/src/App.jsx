@@ -514,6 +514,125 @@ const DEFAULT_COLLECTIONS = [
     description: "Abstract geometric faceted metallic sculpture set in copper, antique gold, and silver finishes. Available in Large (50cm), Medium (38cm), and Small (30cm) sizes."
   },
   {
+    id: "18",
+    title: "Handcrafted Circular Lovebirds Tree Sculpture",
+    image: "/uploads/metallic_lovebirds_tree_sculpture.png",
+    images: [
+      "/uploads/metallic_lovebirds_tree_sculpture.png",
+      "/uploads/metallic_lovebirds_tree_sculpture_specs.png"
+    ],
+    category: "Giftware",
+    price: "₹550 / $7",
+    dimensions: {
+      height: '33 cm (13")',
+      diameter: '30 cm (11.8")',
+      pendi: 'Antique Dome Base'
+    },
+    description: "Artisanal circular tabletop sculpture featuring a pair of copper lovebirds perched on silver branches enclosed within a distressed gold circular ring."
+  },
+  {
+    id: "19",
+    title: "Handcrafted Circular Horizon Metallic Sculpture Set",
+    image: "/uploads/abstract_circular_horizon_sculptures.png",
+    images: [
+      "/uploads/abstract_circular_horizon_sculptures.png",
+      "/uploads/abstract_circular_horizon_sculptures_specs.png"
+    ],
+    category: "Giftware",
+    price: "₹1,350 - ₹1,590 / $16 - $19",
+    dimensions: {
+      height: '57 cm - 68 cm (22.4" - 26.8")',
+      diameter: '31 cm - 38 cm (12.2" - 15")',
+      pendi: 'Base 19 cm (7.5")'
+    },
+    description: "Sculptural metallic tabletop art set featuring copper circular frames with gold hand-textured horizon landscapes mounted on tiered silver conical pedestals. Available in Big (68cm) and Small (57cm) sizes."
+  },
+  {
+    id: "20",
+    title: "Sculptural Two-Tone Metallic Leaf Accent Vases",
+    image: "/uploads/sculptural_leaf_accent_vases.png",
+    images: [
+      "/uploads/sculptural_leaf_accent_vases.png",
+      "/uploads/sculptural_leaf_accent_vases_specs.png"
+    ],
+    category: "Home Décor",
+    price: "₹800 - ₹1,350 / $10 - $16",
+    dimensions: {
+      height: '29 cm - 37 cm (11.4" - 14.6")',
+      diameter: '20 cm - 25 cm (7.9" - 9.8")',
+      pendi: 'Top 4 cm - 5 cm (1.6" - 2")'
+    },
+    description: "Artisanal leaf-silhouette vase pair featuring two-tone split finishes in antiqued copper and oxidized silver ribbed textures. Available in Big (37cm) and Small (29cm) sizes."
+  },
+  {
+    id: "21",
+    title: "Handcrafted Spherical Etched Metallic Vase Set",
+    image: "/uploads/spherical_etched_metallic_vases.png",
+    images: [
+      "/uploads/spherical_etched_metallic_vases.png",
+      "/uploads/spherical_etched_metallic_vases_specs.png"
+    ],
+    category: "Home Décor",
+    price: "₹600 - ₹800 / $7 - $10",
+    dimensions: {
+      height: '23 cm - 28 cm (9.1" - 11.0")',
+      diameter: '26 cm (10.2")',
+      pendi: 'Etched Linear Finish'
+    },
+    description: "Spherical metallic tabletop vase pair featuring fine vertical etched linear textures and a two-tone copper to antique gold ombre gradient finish. Available in Big (28cm) and Small (23cm) sizes."
+  },
+  {
+    id: "22",
+    title: "Handcrafted Surrealist Metallic Head Sculpture",
+    image: "/uploads/surrealist_metallic_head_sculpture.png",
+    images: [
+      "/uploads/surrealist_metallic_head_sculpture.png",
+      "/uploads/surrealist_metallic_head_sculpture_specs.png"
+    ],
+    category: "Home Décor",
+    price: "₹1,250 / $15",
+    dimensions: {
+      height: '54 cm (21.2")',
+      diameter: '19 cm (7.5")',
+      pendi: 'Turned Copper Pedestal'
+    },
+    description: "Surrealist tabletop bust sculpture featuring a copper hand covering a textured gold face, mounted on an antiqued turned copper pedestal stand."
+  },
+  {
+    id: "23",
+    title: "Handcrafted Metallic Big Ben Clock Tower Replica",
+    image: "/uploads/big_ben_clock_tower_sculpture.png",
+    images: [
+      "/uploads/big_ben_clock_tower_sculpture.png",
+      "/uploads/big_ben_clock_tower_sculpture_specs.png"
+    ],
+    category: "Home Décor",
+    price: "₹800 / $10",
+    dimensions: {
+      height: '36 cm (14.2")',
+      diameter: '9 cm (3.5")',
+      pendi: 'Detailed Stonework Base'
+    },
+    description: "Detailed antique silver metallic replica of London's iconic Big Ben clock tower, featuring hand-textured stonework facade and clock dial."
+  },
+  {
+    id: "24",
+    title: "Handcrafted Spiral Flame Metallic Sculpture Set",
+    image: "/uploads/spiral_flame_metallic_sculptures.png",
+    images: [
+      "/uploads/spiral_flame_metallic_sculptures.png",
+      "/uploads/spiral_flame_metallic_sculptures_specs.png"
+    ],
+    category: "Home Décor",
+    price: "₹1,300 - ₹1,560 / $16 - $19",
+    dimensions: {
+      height: '65 cm - 74 cm (25.6" - 29.1")',
+      diameter: '24 cm - 28 cm (9.4" - 11.0")',
+      pendi: 'Conical Brass Pedestal'
+    },
+    description: "Artisanal metallic tabletop sculpture set featuring spiral nautilus gold bases and textured copper flame crests mounted on conical brass pedestals. Available in Big (74cm) and Small (65cm) sizes."
+  },
+  {
     id: "09",
     title: "Traditional Brass Spice Box",
     image: "/uploads/brass_vessels.png",
