@@ -667,6 +667,23 @@ const DEFAULT_COLLECTIONS = [
     description: "Artisanal metallic feather tabletop sculpture featuring a split copper and antiqued gold textured quill mounted on a brushed silver pedestal base."
   },
   {
+    id: "27",
+    title: "Handcrafted Cobalt & Gold Textured Floor Vase",
+    image: "/uploads/cobalt_gold_accent_floor_vase.png",
+    images: [
+      "/uploads/cobalt_gold_accent_floor_vase.png",
+      "/uploads/cobalt_gold_accent_floor_vase_specs.png"
+    ],
+    category: "Home Décor",
+    price: "₹6,350 / $78",
+    dimensions: {
+      height: '70 cm (28")',
+      diameter: '35 cm (14")',
+      pendi: 'Top 16 cm (6")'
+    },
+    description: "Statement 70cm artisanal floor vase featuring a brushed antique gold collar transition into a deep textured midnight cobalt blue teardrop basin."
+  },
+  {
     id: "09",
     title: "Traditional Brass Spice Box",
     image: "/uploads/brass_vessels.png",
