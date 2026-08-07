@@ -329,6 +329,23 @@ const collections = [
       pendi: 'Textured Brass Pedestal'
     },
     description: "Avant-garde tabletop mask sculpture crafted in textured gold brass with openwork features and crowned with a tri-color metallic leaf emblem."
+  },
+  {
+    id: "26",
+    title: "Handcrafted Two-Tone Metallic Feather Sculpture",
+    image: "/uploads/two_tone_metallic_feather_sculpture.png",
+    images: [
+      "/uploads/two_tone_metallic_feather_sculpture.png",
+      "/uploads/two_tone_metallic_feather_sculpture_specs.png"
+    ],
+    category: "Home Décor",
+    price: "₹850 / $10",
+    dimensions: {
+      height: '46 cm (18.1")',
+      diameter: '13 cm (5.1")',
+      pendi: 'Silver Pewter Pedestal'
+    },
+    description: "Artisanal metallic feather tabletop sculpture featuring a split copper and antiqued gold textured quill mounted on a brushed silver pedestal base."
   }
 ];
 
