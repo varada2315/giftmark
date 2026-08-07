@@ -8,6 +8,16 @@ export default defineConfig({
     port: 6291,
     host: '0.0.0.0',
     allowedHosts: ['gifty.cyberpunk.co.in'],
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5000',
+        changeOrigin: true,
+      },
+      '/uploads': {
+        target: 'http://localhost:5000',
+        changeOrigin: true,
+      },
+    },
   },
 })
 

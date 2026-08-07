@@ -325,7 +325,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "01",
     title: "Filigree Brass Serving Tray",
-    image: "http://localhost:5000/uploads/brass_tray_bowls.png",
+    image: "/uploads/brass_tray_bowls.png",
     localImage: "/uploads/brass_tray_bowls.png",
     category: "Home Décor",
     price: "₹6,500 / $80",
@@ -334,7 +334,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "02",
     title: "Ornate Brass Candle Holder Set",
-    image: "http://localhost:5000/uploads/metal_sculptures.png",
+    image: "/uploads/metal_sculptures.png",
     localImage: "/uploads/metal_sculptures.png",
     category: "Home Décor",
     price: "₹4,800 / $60",
@@ -343,7 +343,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "03",
     title: "Astrolabe Armillary Sphere",
-    image: "http://localhost:5000/uploads/brass_globes.png",
+    image: "/uploads/brass_globes.png",
     localImage: "/uploads/brass_globes.png",
     category: "Home Décor",
     price: "₹12,500 / $150",
@@ -352,7 +352,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "04",
     title: "Luxury Brass Chafing Dish",
-    image: "http://localhost:5000/uploads/catering_essential.png",
+    image: "/uploads/catering_essential.png",
     localImage: "/uploads/catering_essential.png",
     category: "Hospitality",
     price: "₹18,500 / $225",
@@ -361,7 +361,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "05",
     title: "Polished Brass Fruit Bowl",
-    image: "http://localhost:5000/uploads/brass_tray_bowls.png",
+    image: "/uploads/brass_tray_bowls.png",
     localImage: "/uploads/brass_tray_bowls.png",
     category: "Hospitality",
     price: "₹3,900 / $48",
@@ -370,7 +370,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "06",
     title: "Classic Distressed Sideboard",
-    image: "http://localhost:5000/uploads/restored_classics.png",
+    image: "/uploads/restored_classics.png",
     localImage: "/uploads/restored_classics.png",
     category: "Hospitality",
     price: "₹45,000 / $550",
@@ -379,7 +379,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "07",
     title: "Ornate Gilded Mantle Clock",
-    image: "http://localhost:5000/uploads/brass_clocks.png",
+    image: "/uploads/brass_clocks.png",
     localImage: "/uploads/brass_clocks.png",
     category: "Giftware",
     price: "₹15,000 / $185",
@@ -388,16 +388,135 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "08",
     title: "Hand-Hammered Copper Kettle",
-    image: "http://localhost:5000/uploads/brass_vessels.png",
+    image: "/uploads/brass_vessels.png",
     localImage: "/uploads/brass_vessels.png",
     category: "Giftware",
     price: "₹5,200 / $65",
     description: "Weathered brass and copper tea kettle showcasing rich hand-hammered textures."
   },
   {
+    id: "11",
+    title: "Ornate Vintage Copper & Brass Urn",
+    image: "/uploads/vintage_brass_urn.png",
+    images: [
+      "/uploads/vintage_brass_urn.png",
+      "/uploads/vintage_brass_urn_specs.png"
+    ],
+    category: "Giftware",
+    price: "₹18,500 / $225",
+    dimensions: {
+      height: '90 cm (35.4")',
+      diameter: '36 cm (14.2")',
+      pendi: '36 cm (14.2")'
+    },
+    description: "Traditional handcrafted copper urn vessel with finial lid, rich filigree detailing, and rustic aged finish."
+  },
+  {
+    id: "12",
+    title: "Handcrafted Perforated Copper & Brass Platter",
+    image: "/uploads/perforated_metal_platter.png",
+    images: [
+      "/uploads/perforated_metal_platter.png",
+      "/uploads/perforated_metal_platter_specs.png"
+    ],
+    category: "Giftware",
+    price: "₹8,500 / $105",
+    dimensions: {
+      height: '8 cm (3.1")',
+      diameter: '33 cm (13")',
+      pendi: 'Length 33 cm (13")'
+    },
+    description: "Decorative multi-tone scalloped platter featuring hand-perforated cutouts, two-tone copper and brass sectors, and a textured silver center on an ornate stand."
+  },
+  {
+    id: "13",
+    title: "Handcrafted Square Copper & Brass Accent Platter",
+    image: "/uploads/square_copper_brass_tray.png",
+    images: [
+      "/uploads/square_copper_brass_tray.png",
+      "/uploads/square_copper_brass_tray_specs.png"
+    ],
+    category: "Giftware",
+    price: "₹6,800 / $85",
+    dimensions: {
+      height: '4 cm (1.6")',
+      diameter: '25 cm (9.8")',
+      pendi: 'Length 25 cm (9.8")'
+    },
+    description: "Handcrafted square decorative tray featuring a textured copper center basin, distressed antique brass border with corner motifs, and ornate metal display stand."
+  },
+  {
+    id: "14",
+    title: "Sculptural Multi-Tone Metallic Leaf Vase Set",
+    image: "/uploads/sculptural_leaf_vases.png",
+    images: [
+      "/uploads/sculptural_leaf_vases.png",
+      "/uploads/sculptural_leaf_vases_specs.png"
+    ],
+    category: "Giftware",
+    price: "₹1,350 - ₹2,350 / $16 - $28",
+    dimensions: {
+      height: '50 cm - 65 cm (19.7" - 25.6")',
+      diameter: '21 cm - 23 cm (8.3" - 9.1")',
+      pendi: 'Top Dia 16 cm (6.3")'
+    },
+    description: "Handcrafted sculptural metallic floor vase set featuring spiraling copper leaf necks, hammered brass mid-accents, and textured silver bases. Available in Big (65cm) and Small (50cm) sizes."
+  },
+  {
+    id: "15",
+    title: "Handcrafted Dual Metallic Leaf Tabletop Sculpture",
+    image: "/uploads/dual_metallic_leaf_sculpture.png",
+    images: [
+      "/uploads/dual_metallic_leaf_sculpture.png",
+      "/uploads/dual_metallic_leaf_sculpture_specs.png"
+    ],
+    category: "Giftware",
+    price: "₹1,800 / $22",
+    dimensions: {
+      height: '58 cm (22.8")',
+      diameter: '32 cm (12.6")',
+      pendi: 'Base 34 cm (13.4")'
+    },
+    description: "Artisanal dual leaf tabletop sculpture featuring hand-carved copper and gold leaves mounted on a heavy textured silver pedestal base."
+  },
+  {
+    id: "16",
+    title: "Handcrafted Perforated Metallic Leaf Sculpture Set",
+    image: "/uploads/perforated_leaf_sculptures.png",
+    images: [
+      "/uploads/perforated_leaf_sculptures.png",
+      "/uploads/perforated_leaf_sculptures_specs.png"
+    ],
+    category: "Giftware",
+    price: "₹620 - ₹1,000 / $8 - $12",
+    dimensions: {
+      height: '47 cm - 58 cm (18.5" - 22.8")',
+      diameter: '13 cm - 18 cm (5.1" - 7.1")',
+      pendi: 'Square Silver Pedestal'
+    },
+    description: "Artisanal cut-out metallic leaf sculpture set featuring hand-embossed two-tone copper and gold leaf silhouettes mounted on silver square pedestals. Available in Big (58cm) and Small (47cm) sizes."
+  },
+  {
+    id: "17",
+    title: "Geometric Faceted Metallic Sculpture Trio",
+    image: "/uploads/geometric_metallic_sculpture_trio.png",
+    images: [
+      "/uploads/geometric_metallic_sculpture_trio.png",
+      "/uploads/geometric_metallic_sculpture_trio_specs.png"
+    ],
+    category: "Giftware",
+    price: "₹400 - ₹800 / $5 - $10",
+    dimensions: {
+      height: '30 cm - 50 cm (11.8" - 19.7")',
+      diameter: '12 cm - 21 cm (4.7" - 8.3")',
+      pendi: 'Base 9 cm - 12 cm (3.5" - 4.7")'
+    },
+    description: "Abstract geometric faceted metallic sculpture set in copper, antique gold, and silver finishes. Available in Large (50cm), Medium (38cm), and Small (30cm) sizes."
+  },
+  {
     id: "09",
     title: "Traditional Brass Spice Box",
-    image: "http://localhost:5000/uploads/brass_vessels.png",
+    image: "/uploads/brass_vessels.png",
     localImage: "/uploads/brass_vessels.png",
     category: "Utility",
     price: "₹3,500 / $42",
@@ -406,7 +525,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "10",
     title: "Ornate Lion-Head Brass Lock",
-    image: "http://localhost:5000/uploads/restored_classics.png",
+    image: "/uploads/restored_classics.png",
     localImage: "/uploads/restored_classics.png",
     category: "Utility",
     price: "₹2,800 / $35",
@@ -912,6 +1031,10 @@ function App() {
   // Certifications Viewer Modal state
   const [activeCertModal, setActiveCertModal] = useState(null);
 
+  // Product Detail Lightbox Modal state
+  const [activeProductModal, setActiveProductModal] = useState(null);
+  const [modalActiveImageIndex, setModalActiveImageIndex] = useState(0);
+
   // Cart states
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -1015,7 +1138,7 @@ function App() {
     };
 
     try {
-      await axios.post('http://localhost:5000/api/orders', orderData);
+      await axios.post('/api/orders', orderData);
 
       let waMessage = `*New Order Inquiry - Giftmark Industries*\n`;
       waMessage += `--------------------------------------\n`;
@@ -1058,7 +1181,7 @@ function App() {
 
   // Fetch collections from node backend
   useEffect(() => {
-    axios.get('http://localhost:5000/api/collections')
+    axios.get('/api/collections')
       .then(res => {
         setCollections(res.data);
         setBackendStatus(true);
@@ -1111,7 +1234,7 @@ function App() {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:5000/api/inquiry', inquiryForm)
+    axios.post('/api/inquiry', inquiryForm)
       .then(res => {
         setFormSuccess(res.data.message);
         setInquiryForm({ name: '', email: '', phone: '', product: '', quantity: '100', message: '' });
@@ -1157,7 +1280,12 @@ function App() {
                   <textPath href="#estdBottomPath" startOffset="50%" textAnchor="middle">1993</textPath>
                 </text>
               </svg>
-              <img src="/uploads/giftmark_logo.png" alt="Giftmark Industries Logo" className="logo-img" />
+              <img
+                src="/uploads/giftmark_logo.png"
+                alt="Giftmark Industries Logo"
+                className="logo-img"
+                onError={(e) => { e.currentTarget.style.display = 'none'; }}
+              />
             </div>
             <div className="logo-text-wrapper">
               <span className="logo-main">GIFTMARK</span>
@@ -1542,10 +1670,10 @@ function App() {
                 <span className="collections-preview-subtitle">Curated Categories</span>
                 <h2 className="collections-preview-title">Explore Our Collections</h2>
               </div>
-              
+
               <div className="collections-preview-grid">
                 {/* Home Décor */}
-                <div 
+                <div
                   className="collection-preview-card"
                   onClick={() => {
                     setCurrentPage('collections');
@@ -1569,7 +1697,7 @@ function App() {
                 </div>
 
                 {/* Hospitality */}
-                <div 
+                <div
                   className="collection-preview-card"
                   onClick={() => {
                     setCurrentPage('collections');
@@ -1593,7 +1721,7 @@ function App() {
                 </div>
 
                 {/* Giftware */}
-                <div 
+                <div
                   className="collection-preview-card"
                   onClick={() => {
                     setCurrentPage('collections');
@@ -1602,13 +1730,13 @@ function App() {
                   }}
                 >
                   <div className="collection-preview-image-container">
-                    <img src="/uploads/brass_clocks.png" alt="Giftware" className="collection-preview-image" />
+                    <img src="/uploads/vintage_brass_urn.png" alt="Giftware" className="collection-preview-image" />
                     <div className="collection-preview-overlay">
                       <div className="collection-preview-content">
                         <span className="collection-card-subtitle">Collection</span>
                         <h3 className="collection-card-title">Giftware</h3>
                         <p className="collection-card-description">
-                          Gilded clocks, armillary spheres, and curated premium corporate gifts.
+                          Ornate brass urns, gilded clocks, and curated premium corporate gifts.
                         </p>
                         <span className="collection-card-cta">Explore Collection</span>
                       </div>
@@ -1617,7 +1745,7 @@ function App() {
                 </div>
 
                 {/* Utility */}
-                <div 
+                <div
                   className="collection-preview-card"
                   onClick={() => {
                     setCurrentPage('collections');
@@ -1795,13 +1923,13 @@ function App() {
               </div>
 
               <div className="certs-exhibs-grid">
-                
+
                 {/* Certifications Column */}
                 <div className="certs-column">
                   <h3 className="certs-exhibs-heading">Our Certifications &amp; Awards</h3>
 
                   <div className="cert-cards-list">
-                    
+
                     {/* Card 1: EPCH RCMC Certificate */}
                     <div
                       className="cert-item-card clickable-about-cert"
@@ -1924,7 +2052,14 @@ function App() {
 
             <div className="collections-grid">
               {filteredCollections.map((item) => (
-                <div className="product-card" key={item.id}>
+                <div 
+                  className="product-card clickable-product-card" 
+                  key={item.id}
+                  onClick={() => {
+                    setActiveProductModal(item);
+                    setModalActiveImageIndex(0);
+                  }}
+                >
                   <div className="product-img-container">
                     <img src={getCardImage(item)} alt={item.title} className="product-img" />
                   </div>
@@ -1933,7 +2068,7 @@ function App() {
                   <p className="product-desc">{item.description}</p>
                   <div className="product-footer">
                     <span className="product-price">{item.price}</span>
-                    <div className="product-card-actions">
+                    <div className="product-card-actions" onClick={(e) => e.stopPropagation()}>
                       <button
                         className="product-action-btn cart-btn"
                         title="Add to Cart"
@@ -2125,8 +2260,8 @@ function App() {
                 {CERTIFICATIONS_DATA.map((cert) => {
                   const IconComponent = cert.iconName === 'ShieldCheck' ? ShieldCheck :
                     cert.iconName === 'Award' ? Award :
-                    cert.iconName === 'Star' ? Star :
-                    cert.iconName === 'FileText' ? FileText : Globe;
+                      cert.iconName === 'Star' ? Star :
+                        cert.iconName === 'FileText' ? FileText : Globe;
 
                   const handleCardClick = () => {
                     if (cert.previewImage || cert.downloadUrl) {
@@ -2385,7 +2520,7 @@ function App() {
               <button className="cert-modal-close" onClick={() => setActiveCertModal(null)} title="Close Lightbox">
                 <X size={22} />
               </button>
-              
+
               <div className="cert-modal-header">
                 <span className="cert-modal-badge">{activeCertModal.badge}</span>
                 <h3 className="cert-modal-title">{activeCertModal.title}</h3>
@@ -2404,6 +2539,119 @@ function App() {
 
               <div className="cert-modal-footer">
                 <p className="cert-modal-desc">{activeCertModal.description}</p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* --- PRODUCT DETAIL LIGHTBOX MODAL --- */}
+        {activeProductModal && (
+          <div className="product-modal-overlay" onClick={() => setActiveProductModal(null)}>
+            <div className="product-modal-content" onClick={(e) => e.stopPropagation()}>
+              <button className="product-modal-close" onClick={() => setActiveProductModal(null)} title="Close Modal">
+                <X size={18} />
+              </button>
+
+              <div className="product-modal-grid">
+                {/* Left Column: Image Gallery & Thumbnail Selector */}
+                <div className="product-modal-gallery">
+                  <div className="product-modal-main-img-container">
+                    <img 
+                      src={(activeProductModal.images && activeProductModal.images[modalActiveImageIndex]) || getCardImage(activeProductModal)} 
+                      alt={activeProductModal.title} 
+                      className="product-modal-main-img" 
+                    />
+                    <span className="product-modal-zoom-hint">Click thumbnail to switch view</span>
+                  </div>
+
+                  {(activeProductModal.images || [getCardImage(activeProductModal)]).length > 1 && (
+                    <div className="product-modal-thumbnails">
+                      {(activeProductModal.images || [getCardImage(activeProductModal)]).map((imgUrl, idx) => (
+                        <div 
+                          key={idx} 
+                          className={`product-modal-thumb ${modalActiveImageIndex === idx ? 'active' : ''}`}
+                          onClick={() => setModalActiveImageIndex(idx)}
+                        >
+                          <img src={imgUrl} alt={`View ${idx + 1}`} />
+                          <span className="thumb-label">{idx === 0 ? 'Lifestyle' : 'Dimensions'}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Right Column: Product Information & Specifications */}
+                <div className="product-modal-info">
+                  <div className="product-modal-header-row">
+                    <span className="product-modal-category">
+                      <ShieldCheck size={12} style={{ display: 'inline-block', verticalAlign: '-1px', marginRight: '4px' }} />
+                      {activeProductModal.category} • B2B Export Line
+                    </span>
+                  </div>
+
+                  <h2 className="product-modal-title">{activeProductModal.title}</h2>
+                  
+                  <div className="product-modal-price-row">
+                    <span className="product-modal-price">{activeProductModal.price}</span>
+                    <span className="product-modal-sku">Item ID: GM-{activeProductModal.id || '11'}</span>
+                  </div>
+
+                  <p className="product-modal-desc">{activeProductModal.description}</p>
+
+                  {/* Technical Dimensions Card */}
+                  {activeProductModal.dimensions ? (
+                    <div className="product-modal-specs-box">
+                      <div className="specs-box-header">
+                        <FileText size={14} className="specs-icon" />
+                        <span>DIMENSIONS & TECHNICAL SPECIFICATIONS</span>
+                      </div>
+                      <div className="specs-grid">
+                        <div className="spec-item">
+                          <span className="spec-label">Overall Height</span>
+                          <span className="spec-value">{activeProductModal.dimensions.height}</span>
+                        </div>
+                        <div className="spec-item">
+                          <span className="spec-label">Body Diameter</span>
+                          <span className="spec-value">{activeProductModal.dimensions.diameter}</span>
+                        </div>
+                        <div className="spec-item">
+                          <span className="spec-label">Pendi (Base)</span>
+                          <span className="spec-value">{activeProductModal.dimensions.pendi}</span>
+                        </div>
+                        <div className="spec-item">
+                          <span className="spec-label">Material</span>
+                          <span className="spec-value">Copper & Hand-Hammered Brass</span>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="product-modal-specs-box">
+                      <div className="specs-box-header">
+                        <CheckCircle size={14} className="specs-icon" />
+                        <span>PRODUCT GUARANTEE & EXPORT QUALITY</span>
+                      </div>
+                      <p style={{ fontSize: '12.5px', color: '#666', margin: 0, lineHeight: '1.5' }}>
+                        Handcrafted by master artisans in India. Export quality finish compliant with global B2B standards.
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Call to Action Buttons */}
+                  <div className="product-modal-actions">
+                    <button 
+                      className="pm-btn pm-btn-primary"
+                      onClick={() => { addToCart(activeProductModal); setActiveProductModal(null); }}
+                    >
+                      <ShoppingBag size={15} /> Add to Cart
+                    </button>
+                    <button 
+                      className="pm-btn pm-btn-secondary"
+                      onClick={() => { buyNow(activeProductModal); setActiveProductModal(null); }}
+                    >
+                      Buy Now
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
