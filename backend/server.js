@@ -12,69 +12,40 @@ app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
 const collections = [
   {
-    id: "01",
-    title: "Filigree Brass Serving Tray",
-    image: "/uploads/brass_tray_bowls.png",
-    category: "Home Décor",
-    price: "₹6,500 / $80",
-    description: "Intricately detailed serving tray featuring traditional Indian hand-filigree patterns."
-  },
-  {
-    id: "02",
-    title: "Ornate Brass Candle Holder Set",
-    image: "/uploads/metal_sculptures.png",
-    category: "Home Décor",
-    price: "₹4,800 / $60",
-    description: "Classic metallic accents that combine traditional craftsmanship with modern design."
-  },
-  {
-    id: "03",
-    title: "Astrolabe Armillary Sphere",
-    image: "/uploads/brass_globes.png",
-    category: "Home Décor",
-    price: "₹12,500 / $150",
-    description: "A signature brass marine instrument evoking global exports and historical detail."
-  },
-  {
-    id: "04",
-    title: "Luxury Brass Chafing Dish",
-    image: "/uploads/catering_essential.png",
+    id: "32",
+    title: "Handcrafted Teal & Copper Octagonal Serving Tray Set",
+    image: "/uploads/teal_copper_octagonal_tray_set.png",
+    images: [
+      "/uploads/teal_copper_octagonal_tray_set.png",
+      "/uploads/teal_copper_octagonal_tray_set_specs.png"
+    ],
     category: "Hospitality",
-    price: "₹18,500 / $225",
-    description: "Chafing dish and serving ware crafted for luxury hotels, catering, and restaurants."
+    price: "₹620 - ₹850 / $8 - $10",
+    dimensions: {
+      height: '3 cm (1.2")',
+      diameter: '18 cm - 20 cm (7.1" - 7.9")',
+      pendi: 'Length 34 cm - 40 cm (13.4" - 15.7")'
+    },
+    description: "Handcrafted rectangular octagonal-corner serving tray set featuring a raw copper/rust exterior and a dramatic teal-green abstract terrain-map interior basin with organic cutouts. Available in Big (40×20cm) and Small (34×18cm) sizes."
   },
   {
-    id: "05",
-    title: "Polished Brass Fruit Bowl",
-    image: "/uploads/brass_tray_bowls.png",
+    id: "33",
+    title: "Handcrafted Crescent Metallic Pedestal Bowl",
+    image: "/uploads/crescent_metallic_pedestal_bowl.png",
+    images: [
+      "/uploads/crescent_metallic_pedestal_bowl.png",
+      "/uploads/crescent_metallic_pedestal_bowl_specs.png"
+    ],
     category: "Hospitality",
-    price: "₹3,900 / $48",
-    description: "Decorative and functional hammered brass bowl with traditional scalloped rim."
+    price: "₹1,220 / $15",
+    dimensions: {
+      height: '10 cm (3.9")',
+      diameter: '29 cm (11.4")',
+      pendi: 'Length 37 cm (14.6")'
+    },
+    description: "Artisanal crescent-shaped decorative serving bowl crafted in textured antiqued bronze copper with a slotted comb-tooth rim mounted on a heavy flared pedestal base."
   },
-  {
-    id: "06",
-    title: "Classic Distressed Sideboard",
-    image: "/uploads/restored_classics.png",
-    category: "Hospitality",
-    price: "₹45,000 / $550",
-    description: "Rustic wooden sideboard highlighting copper accents and custom metal hardware."
-  },
-  {
-    id: "07",
-    title: "Ornate Gilded Mantle Clock",
-    image: "/uploads/brass_clocks.png",
-    category: "Giftware",
-    price: "₹15,000 / $185",
-    description: "Gilded pendulum mantle clock designed for premium corporate gifting and heritage decor."
-  },
-  {
-    id: "08",
-    title: "Hand-Hammered Copper Kettle",
-    image: "/uploads/brass_vessels.png",
-    category: "Giftware",
-    price: "₹5,200 / $65",
-    description: "Weathered brass and copper tea kettle showcasing rich hand-hammered textures."
-  },
+
   {
     id: "11",
     title: "Ornate Vintage Copper & Brass Urn",
@@ -380,6 +351,164 @@ const collections = [
       pendi: 'Gold Oval Pedestal'
     },
     description: "Artisanal abstract metallic tabletop sculpture featuring sweeping copper flame tendrils cradled within a brushed gold crescent shell."
+  },
+  {
+    id: "29",
+    title: "Handcrafted 3-Tier Multi-Metallic Serving Stand",
+    image: "/uploads/three_tier_metallic_serving_stand.png",
+    images: [
+      "/uploads/three_tier_metallic_serving_stand.png",
+      "/uploads/three_tier_metallic_serving_stand_specs.png"
+    ],
+    category: "Hospitality, Utility",
+    price: "₹6,500 / $80",
+    dimensions: {
+      height: '99 cm (39")',
+      diameter: 'Small: 33cm | Med: 41cm | Big: 52cm',
+      pendi: 'Base 28 cm (11")'
+    },
+    description: "Handcrafted 3-tier octagonal serving stand featuring textured pewter silver metallic trays mounted on a heavy central spindle column with finial handle. Ideal for luxury hotel buffets, catering displays, and utility serving spaces."
+  },
+  {
+    id: "30",
+    title: "Handcrafted Chevron Metallic Accent Platter",
+    image: "/uploads/chevron_metallic_accent_platter.png",
+    images: [
+      "/uploads/chevron_metallic_accent_platter.png",
+      "/uploads/chevron_metallic_accent_platter_specs.png"
+    ],
+    category: "Hospitality, Utility",
+    price: "₹1,350 - ₹1,550 / $16 - $19",
+    dimensions: {
+      height: '6 cm - 7 cm (2.4" - 2.8")',
+      diameter: '34 cm - 40 cm (13.4" - 15.7")',
+      pendi: 'Square Contour Base'
+    },
+    description: "Handcrafted square metallic serving platter featuring alternating dual-tone silver and brushed gold chevron textured bands. Displayed on a copper scrollwork stand, available in Big (40cm) and Small (34cm) sizes."
+  },
+  {
+    id: "31",
+    title: "Handcrafted Chain-Link Border Brass Accent Tray",
+    image: "/uploads/chain_link_border_brass_tray.png",
+    images: [
+      "/uploads/chain_link_border_brass_tray.png",
+      "/uploads/chain_link_border_brass_tray_specs.png"
+    ],
+    category: "Hospitality, Utility",
+    price: "₹1,820 / $22",
+    dimensions: {
+      height: '5 cm (2.0")',
+      diameter: '40 cm (15.7")',
+      pendi: 'Length 40 cm (15.7")'
+    },
+    description: "Handcrafted square accent tray featuring a deeply textured antique burnished gold center basin framed by a bold cast chain-link border on all four sides."
+  },
+  {
+    id: "34",
+    title: "Handcrafted Corrugated Wave Metallic Platter",
+    image: "/uploads/corrugated_wave_metallic_platter.png",
+    images: [
+      "/uploads/corrugated_wave_metallic_platter.png",
+      "/uploads/corrugated_wave_metallic_platter_specs.png"
+    ],
+    category: "Hospitality, Utility",
+    price: "₹1,650 / $20",
+    dimensions: {
+      height: '7 cm (3")',
+      diameter: '44 cm (17")',
+      pendi: 'Length 60 cm (24")'
+    },
+    description: "Artisanal statement corrugated wave platter featuring alternating textured gold and brushed silver metallic channels, mounted on an ornate scrollwork display stand."
+  },
+  {
+    id: "35",
+    title: "Handcrafted Ruffled Copper Wave Bowl",
+    image: "/uploads/ruffled_copper_bowl.jpg",
+    images: [
+      "/uploads/ruffled_copper_bowl.jpg",
+      "/uploads/ruffled_copper_bowl_specs.jpg"
+    ],
+    category: "Hospitality",
+    price: "₹1,100",
+    colors: ["#C0392B", "#D4A017", "#C2B280", "#2C2C2C"],
+    dimensions: {
+      height: '12 cm (5")',
+      diameter: '28 cm (11")',
+      pendi: 'Length 32 cm (13")'
+    },
+    description: "Artisanal hand-hammered ruffled wave bowl crafted in antique oxidized copper finish with undulating scalloped edges. A statement centrepiece ideal for luxury hotel buffets, catering displays, and fine dining tables. Available in Terracotta Red, Antique Gold, Beige, and Matte Black."
+  },
+  {
+    id: "36",
+    title: "Handcrafted Tri-Tone Metal Pedestal Accent Table",
+    image: "/uploads/pedestal_accent_table.png",
+    images: [
+      "/uploads/pedestal_accent_table.png",
+      "/uploads/pedestal_accent_table_specs.png"
+    ],
+    category: "Hospitality, Utility",
+    price: "₹6,050 / $75",
+    colors: ["#C0392B", "#D4A017", "#C2B280", "#2C2C2C"],
+    dimensions: {
+      height: '91 cm (36")',
+      diameter: 'Top 48 cm (19")',
+      pendi: 'Tri-Pod Base'
+    },
+    description: "Handcrafted tri-tone metal pedestal accent side table featuring a round copper top, an intricately carved antique brass turned spindle central column, and a heavy textured silver tripod base with curved legs. Ideal for luxury hotel lounges, hospitality seating, and utility accent spaces."
+  },
+  {
+    id: "37",
+    title: "Handcrafted Ornate Oval Metallic Footed Platter Set",
+    image: "/uploads/ornate_oval_metallic_platter_set.jpg",
+    images: [
+      "/uploads/ornate_oval_metallic_platter_set.jpg",
+      "/uploads/ornate_oval_metallic_platter_set_specs.jpg"
+    ],
+    category: "Utility, Hospitality",
+    price: "₹2,250 - ₹2,450",
+    colors: ["#C0392B", "#D4A017", "#C2B280", "#2C2C2C"],
+    dimensions: {
+      height: '10 cm - 13 cm (4" - 5")',
+      diameter: '33 cm - 36 cm (13" - 14")',
+      pendi: 'Length 63 cm - 69 cm (21")'
+    },
+    description: "Handcrafted ornate oval serving platter set featuring filigree embossed basins, cast decorative handles, and sculpted claw-foot pedestal bases. Available in Big (69×36cm) and Small (63×33cm) sizes in copper and antique gold finishes."
+  },
+  {
+    id: "38",
+    title: "Handcrafted Multi-Metallic Chevron Leaf Platter",
+    image: "/uploads/multi_metallic_chevron_leaf_platter.jpg",
+    images: [
+      "/uploads/multi_metallic_chevron_leaf_platter.jpg",
+      "/uploads/multi_metallic_chevron_leaf_platter_specs.jpg"
+    ],
+    category: "Hospitality",
+    price: "₹500",
+    colors: ["#C0392B", "#D4A017", "#C2B280", "#2C2C2C"],
+    dimensions: {
+      height: '7 cm (3")',
+      diameter: '19 cm (8")',
+      pendi: 'Length 48 cm (19")'
+    },
+    description: "Handcrafted leaf-shaped serving platter featuring alternating tri-color chevron bands in brushed silver, antique gold, and copper. Displayed on a scrollwork stand, ideal for luxury hotel dining and catering accents."
+  },
+  {
+    id: "39",
+    title: "Handcrafted Dual-Tone Teal & Green Geometric Platter Set",
+    image: "/uploads/teal_green_geometric_platter_set.jpg",
+    images: [
+      "/uploads/teal_green_geometric_platter_set.jpg",
+      "/uploads/teal_green_geometric_platter_set_specs.png"
+    ],
+    category: "Giftware",
+    price: "₹850 - ₹1,050",
+    colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
+    dimensions: {
+      height: '6 cm (2.4")',
+      diameter: '15 cm - 19 cm (5.9" - 7.5")',
+      pendi: 'Length 34 cm - 43 cm (13.4" - 16.9")'
+    },
+    description: "Handcrafted organic dual-tone decorative platter set featuring embossed geometric starburst textures in vibrant ocean teal and emerald green finishes. Displayed on copper scrollwork stands, available in Big (43×19cm) and Small (34×15cm) sizes."
   }
 ];
 
@@ -402,10 +531,10 @@ app.post('/api/orders', (req, res) => {
     date: new Date().toISOString(),
     ...req.body
   };
-  
+
   const ordersFile = path.join(__dirname, 'orders.json');
   let ordersList = [];
-  
+
   if (fs.existsSync(ordersFile)) {
     try {
       ordersList = JSON.parse(fs.readFileSync(ordersFile, 'utf8'));
@@ -413,10 +542,10 @@ app.post('/api/orders', (req, res) => {
       console.error("Error reading orders.json:", e);
     }
   }
-  
+
   ordersList.push(order);
   fs.writeFileSync(ordersFile, JSON.stringify(ordersList, null, 2), 'utf8');
-  
+
   console.log(`New B2B Order Inquiry saved: ${order.id}`);
   res.json({ success: true, orderId: order.id });
 });

@@ -1698,23 +1698,28 @@
 .product-card {
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--color-border);
-  padding: 20px;
-  background-color: #fff;
+  border: 1px solid rgba(212, 160, 23, 0.12);
+  padding: 16px;
+  background-color: #FAF8F5;
+  border-radius: 4px;
   transition: var(--transition-smooth);
 }
 
 .product-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 12px 30px rgba(60, 40, 20, 0.06);
   border-color: var(--color-accent);
 }
 
 .product-img-container {
   height: 280px;
   overflow: hidden;
-  margin-bottom: 20px;
-  border: 1px solid rgba(0, 0, 0, 0.02);
+  margin-bottom: 18px;
+  border-radius: 2px;
+  background-color: #F4F0EA;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .product-img {
