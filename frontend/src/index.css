@@ -1,22 +1,31 @@
 :root {
   /* Earthy Color Palette with Metallic Accents */
-  --bg-main: #FAF8F5; /* Earthy soft clay-cream */
-  --bg-outer: #1E1C1A; /* Deep roasted clay-black */
-  --color-primary: #211E1C; /* Elegant charcoal-brown */
-  --color-secondary: #5D5650; /* Warm stone gray */
-  --color-accent: #C5A880; /* Satin metallic brass/gold */
-  --color-accent-dark: #A6865A; /* Deep brass/bronze */
-  --color-border: rgba(197, 168, 128, 0.3); /* Muted gold border */
-  --color-light-accent: #F4EFEB; /* Soft terracotta-cream */
-  --color-terracotta: #B48267; /* Clay terracotta accent */
-  
+  --bg-main: #FAF8F5;
+  /* Earthy soft clay-cream */
+  --bg-outer: #1E1C1A;
+  /* Deep roasted clay-black */
+  --color-primary: #211E1C;
+  /* Elegant charcoal-brown */
+  --color-secondary: #5D5650;
+  /* Warm stone gray */
+  --color-accent: #C5A880;
+  /* Satin metallic brass/gold */
+  --color-accent-dark: #A6865A;
+  /* Deep brass/bronze */
+  --color-border: rgba(197, 168, 128, 0.3);
+  /* Muted gold border */
+  --color-light-accent: #F4EFEB;
+  /* Soft terracotta-cream */
+  --color-terracotta: #B48267;
+  /* Clay terracotta accent */
+
   /* Fonts */
   --font-serif: 'Cormorant Garamond', Georgia, serif;
   --font-sans: 'Montserrat', 'Inter', sans-serif;
-  
+
   /* Layout */
   --container-width: 1200px;
-  
+
   /* Transitions */
   --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -68,11 +77,15 @@ body {
 }
 
 /* Removed corner filigree frames to maintain modern, edge-to-edge look */
-.inner-frame::before, .inner-frame::after {
+.inner-frame::before,
+.inner-frame::after {
   display: none !important;
 }
 
-h1, h2, h3, .serif-font {
+h1,
+h2,
+h3,
+.serif-font {
   font-family: var(--font-serif);
   font-weight: 400;
 }
@@ -81,12 +94,15 @@ h1, h2, h3, .serif-font {
 ::-webkit-scrollbar {
   width: 6px;
 }
+
 ::-webkit-scrollbar-track {
   background: var(--bg-main);
 }
+
 ::-webkit-scrollbar-thumb {
   background: var(--color-accent);
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-accent-dark);
 }
@@ -120,18 +136,23 @@ h1, h2, h3, .serif-font {
   body {
     padding: 0;
   }
+
   .mockup-header {
     display: none;
   }
+
   .page-container {
     box-shadow: none;
     border: none;
     padding: 0;
   }
+
   .inner-frame {
     border: none;
   }
-  .inner-frame::before, .inner-frame::after {
+
+  .inner-frame::before,
+  .inner-frame::after {
     display: none;
   }
 }

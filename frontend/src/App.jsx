@@ -1571,14 +1571,14 @@ function App() {
   const filteredCollections = activeFilter === 'All'
     ? collections
     : collections.filter(item => {
-        if (!item || !item.category) return false;
-        if (item.category === activeFilter) return true;
-        if (typeof item.category === 'string') {
-          const cats = item.category.split(',').map(c => c.trim().toLowerCase());
-          return cats.includes(activeFilter.toLowerCase()) || item.category.toLowerCase().includes(activeFilter.toLowerCase());
-        }
-        return false;
-      });
+      if (!item || !item.category) return false;
+      if (item.category === activeFilter) return true;
+      if (typeof item.category === 'string') {
+        const cats = item.category.split(',').map(c => c.trim().toLowerCase());
+        return cats.includes(activeFilter.toLowerCase()) || item.category.toLowerCase().includes(activeFilter.toLowerCase());
+      }
+      return false;
+    });
 
   const currentHeroSlide = HERO_SLIDES[heroIndex];
 
