@@ -338,7 +338,7 @@ const EXHIBITIONS_DATA = [
 ];
 
 // IDs of products shown in the Best Sellers section (picked for visual appeal)
-const BESTSELLER_IDS = ["27", "21", "35", "44"];
+const BESTSELLER_IDS = ["38", "40", "12", "53"];
 
 // Fallback data if backend is not reachable
 const DEFAULT_COLLECTIONS = [
