@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { ShoppingBag, Plus, Minus, Trash2, X, ChevronDown, Award, Globe, ShieldCheck, Calendar, Star, Quote, FileText, MapPin, CheckCircle, Download, Eye, Menu, ZoomIn } from 'lucide-react';
+import { ShoppingBag, Plus, Minus, Trash2, X, ChevronDown, Award, Globe, ShieldCheck, Calendar, Star, Quote, FileText, MapPin, CheckCircle, Download, Eye, Menu } from 'lucide-react';
 import './App.css';
 
 const getColorName = (hex) => {
@@ -1749,7 +1749,7 @@ function App() {
   const [activeProductModal, setActiveProductModal] = useState(null);
   const [modalActiveImageIndex, setModalActiveImageIndex] = useState(0);
   const [selectedColor, setSelectedColor] = useState(null);
-  const [isZoomedImageOpen, setIsZoomedImageOpen] = useState(false);
+  const [isImgExpanded, setIsImgExpanded] = useState(false);
 
   // Cart states
   const [cart, setCart] = useState([]);
@@ -3276,29 +3276,44 @@ function App() {
 
         {/* --- PRODUCT DETAIL LIGHTBOX MODAL --- */}
         {activeProductModal && (
-          <div className="product-modal-overlay" onClick={() => { setActiveProductModal(null); setSelectedColor(null); }}>
-            <div className="product-modal-content" onClick={(e) => e.stopPropagation()}>
-              <button className="product-modal-close" onClick={() => { setActiveProductModal(null); setSelectedColor(null); }} title="Close Modal">
-                <X size={18} />
+          <div className="product-modal-overlay" onClick={() => { setActiveProductModal(null); setSelectedColor(null); setIsImgExpanded(false); }}>
+            <div
+              className={`product-modal-content ${isImgExpanded ? 'pmc-img-expanded' : ''}`}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                className="product-modal-close"
+                onClick={() => {
+                  if (isImgExpanded) { setIsImgExpanded(false); }
+                  else { setActiveProductModal(null); setSelectedColor(null); }
+                }}
+                title={isImgExpanded ? 'Back to product details' : 'Close Modal'}
+              >
+                {isImgExpanded
+                  ? <span style={{fontSize:'20px',lineHeight:1,display:'block'}}>&#8592;</span>
+                  : <X size={18} />}
               </button>
 
+              {isImgExpanded ? (
+                <InModalZoomImage
+                  src={(activeProductModal.images && activeProductModal.images[modalActiveImageIndex]) || getCardImage(activeProductModal)}
+                  alt={activeProductModal.title}
+                />
+              ) : (
               <div className="product-modal-grid">
                 {/* Left Column: Image Gallery & Thumbnail Selector */}
                 <div className="product-modal-gallery">
-                  <div 
-                    className="product-modal-main-img-container"
-                    onClick={() => setIsZoomedImageOpen(true)}
-                    title="Click image to open single view & zoom"
+                  <div
+                    className="product-modal-main-img-container pmc-clickable"
+                    onClick={() => setIsImgExpanded(true)}
+                    title="Tap to view full image"
                   >
                     <img
                       src={(activeProductModal.images && activeProductModal.images[modalActiveImageIndex]) || getCardImage(activeProductModal)}
                       alt={activeProductModal.title}
                       className="product-modal-main-img"
                     />
-                    <div className="product-modal-zoom-icon-overlay">
-                      <ZoomIn size={18} />
-                    </div>
-                    <span className="product-modal-zoom-hint">Click image to zoom • Click thumbnail to switch view</span>
+                    <span className="product-modal-zoom-hint">Tap image to expand • Tap thumbnail to switch</span>
                   </div>
 
                   {(activeProductModal.images || [getCardImage(activeProductModal)]).length > 1 && (
@@ -3415,6 +3430,7 @@ function App() {
                   </div>
                 </div>
               </div>
+              )}
             </div>
           </div>
         )}
@@ -3588,234 +3604,130 @@ function App() {
             </div>
           </div>
         )}
-
-        {isZoomedImageOpen && activeProductModal && (
-          <ZoomableImageViewer
-            src={(activeProductModal.images && activeProductModal.images[modalActiveImageIndex]) || getCardImage(activeProductModal)}
-            alt={activeProductModal.title}
-            onClose={() => setIsZoomedImageOpen(false)}
-          />
-        )}
       </div>
     </div>
   );
 }
 
-// --- FULLSCREEN SINGLE IMAGE ZOOM VIEWER COMPONENT ---
-function ZoomableImageViewer({ src, alt, onClose }) {
+// --- IN-MODAL ZOOMABLE IMAGE COMPONENT ---
+function InModalZoomImage({ src, alt }) {
   const [scale, setScale] = useState(1);
   const [translateX, setTranslateX] = useState(0);
   const [translateY, setTranslateY] = useState(0);
-  const [transformOrigin, setTransformOrigin] = useState('center center');
   const [isDragging, setIsDragging] = useState(false);
 
   const containerRef = useRef(null);
   const imgRef = useRef(null);
 
-  const touchStartRef = useRef({
-    initialDistance: 0,
-    initialScale: 1,
-    startX: 0,
-    startY: 0,
-    initialTranslateX: 0,
-    initialTranslateY: 0,
+  const touchRef = useRef({
+    dist: 0, scale: 1,
+    startX: 0, startY: 0,
     isPinching: false,
   });
+  const mouseRef = useRef({ startX: 0, startY: 0 });
 
-  const mouseStartRef = useRef({
-    startX: 0,
-    startY: 0,
-  });
+  const reset = () => { setScale(1); setTranslateX(0); setTranslateY(0); };
 
-  const handleReset = () => {
-    setScale(1);
-    setTranslateX(0);
-    setTranslateY(0);
-    setTransformOrigin('center center');
-  };
-
-  // Mouse hover pan/zoom effect on desktop
-  const handleMouseMoveOverImage = (e) => {
-    if (isDragging || touchStartRef.current.isPinching) return;
-    if (!imgRef.current) return;
-
-    const rect = imgRef.current.getBoundingClientRect();
-    const xPercent = ((e.clientX - rect.left) / rect.width) * 100;
-    const yPercent = ((e.clientY - rect.top) / rect.height) * 100;
-
-    setTransformOrigin(`${xPercent}% ${yPercent}%`);
-    
-    if (scale === 1) {
-      setScale(2);
-    }
-  };
-
-  const handleMouseLeaveImage = () => {
-    if (isDragging || touchStartRef.current.isPinching) return;
-    if (scale === 2) {
-      handleReset();
-    }
-  };
-
-  // Click image toggles zoom state
-  const handleImageClick = (e) => {
-    e.stopPropagation();
-    if (scale > 1) {
-      handleReset();
-    } else {
-      const rect = imgRef.current?.getBoundingClientRect() || { left: 0, top: 0, width: 1, height: 1 };
-      const xPercent = ((e.clientX - rect.left) / rect.width) * 100;
-      const yPercent = ((e.clientY - rect.top) / rect.height) * 100;
-      setTransformOrigin(`${xPercent}% ${yPercent}%`);
-      setScale(2.5);
-    }
-  };
-
-  const handleBackdropClick = (e) => {
-    if (e.target === containerRef.current || e.target.classList?.contains('zoom-viewer-overlay')) {
-      onClose();
-    }
-  };
-
-  // Mouse pan handlers for fixed drag zoom
-  const handleMouseDown = (e) => {
-    if (e.button !== 0) return;
-    if (scale <= 1) return;
-    e.preventDefault();
-    setIsDragging(true);
-    mouseStartRef.current = {
-      startX: e.clientX - translateX,
-      startY: e.clientY - translateY,
-    };
-  };
-
-  const handleMouseMove = (e) => {
-    if (!isDragging) return;
-    e.preventDefault();
-    setTranslateX(e.clientX - mouseStartRef.current.startX);
-    setTranslateY(e.clientY - mouseStartRef.current.startY);
-  };
-
-  const handleMouseUp = () => {
-    setIsDragging(false);
-  };
-
-  // Touch handlers for mobile (Pinch-to-zoom)
-  const handleTouchStart = (e) => {
+  /* --- Touch pinch-to-zoom + pan --- */
+  const onTouchStart = (e) => {
     if (e.touches.length === 2) {
-      const t1 = e.touches[0];
-      const t2 = e.touches[1];
-      const dist = Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY);
-      
-      touchStartRef.current = {
-        initialDistance: dist,
-        initialScale: scale,
-        initialTranslateX: translateX,
-        initialTranslateY: translateY,
-        isPinching: true,
+      const t1 = e.touches[0], t2 = e.touches[1];
+      touchRef.current = {
+        dist: Math.hypot(t2.clientX - t1.clientX, t2.clientY - t1.clientY),
+        scale, startX: 0, startY: 0, isPinching: true,
       };
     } else if (e.touches.length === 1) {
-      const touch = e.touches[0];
-      touchStartRef.current = {
-        startX: touch.clientX - translateX,
-        startY: touch.clientY - translateY,
-        isPinching: false,
-      };
+      const t = e.touches[0];
+      touchRef.current = { startX: t.clientX - translateX, startY: t.clientY - translateY, isPinching: false };
     }
   };
 
-  const handleTouchMove = (e) => {
-    if (e.touches.length === 2 && touchStartRef.current.isPinching) {
-      const t1 = e.touches[0];
-      const t2 = e.touches[1];
-      const dist = Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY);
-      
-      const newScale = Math.min(
-        Math.max((dist / touchStartRef.current.initialDistance) * touchStartRef.current.initialScale, 0.8),
-        5
-      );
+  const onTouchMove = (e) => {
+    if (e.touches.length === 2 && touchRef.current.isPinching) {
+      e.preventDefault();
+      const t1 = e.touches[0], t2 = e.touches[1];
+      const newDist = Math.hypot(t2.clientX - t1.clientX, t2.clientY - t1.clientY);
+      const newScale = Math.min(Math.max((newDist / touchRef.current.dist) * touchRef.current.scale, 1), 5);
       setScale(newScale);
-    } else if (e.touches.length === 1 && !touchStartRef.current.isPinching && scale > 1) {
-      const touch = e.touches[0];
-      setTranslateX(touch.clientX - touchStartRef.current.startX);
-      setTranslateY(touch.clientY - touchStartRef.current.startY);
+    } else if (e.touches.length === 1 && !touchRef.current.isPinching && scale > 1) {
+      const t = e.touches[0];
+      setTranslateX(t.clientX - touchRef.current.startX);
+      setTranslateY(t.clientY - touchRef.current.startY);
     }
   };
 
-  const handleTouchEnd = () => {
-    if (scale < 1) {
-      handleReset();
-    } else if (scale > 5) {
-      setScale(5);
-    }
-    touchStartRef.current.isPinching = false;
+  const onTouchEnd = () => {
+    touchRef.current.isPinching = false;
+    if (scale < 1) reset();
   };
 
-  // Mouse wheel zoom
-  const handleWheel = (e) => {
+  /* --- Mouse drag pan (desktop) --- */
+  const onMouseDown = (e) => {
+    if (e.button !== 0 || scale <= 1) return;
     e.preventDefault();
-    const delta = -e.deltaY * 0.005;
-    const nextScale = Math.min(Math.max(scale + delta, 1), 5);
-    if (nextScale === 1) {
-      handleReset();
-    } else {
-      setScale(nextScale);
-    }
+    setIsDragging(true);
+    mouseRef.current = { startX: e.clientX - translateX, startY: e.clientY - translateY };
+  };
+  const onMouseMove = (e) => {
+    if (!isDragging) return;
+    setTranslateX(e.clientX - mouseRef.current.startX);
+    setTranslateY(e.clientY - mouseRef.current.startY);
+  };
+  const onMouseUp = () => setIsDragging(false);
+
+  /* --- Wheel zoom (desktop) --- */
+  const onWheel = (e) => {
+    e.preventDefault();
+    const next = Math.min(Math.max(scale - e.deltaY * 0.005, 1), 5);
+    if (next === 1) reset(); else setScale(next);
   };
 
   useEffect(() => {
-    const container = containerRef.current;
-    if (container) {
-      container.addEventListener('wheel', handleWheel, { passive: false });
-    }
-    return () => {
-      if (container) {
-        container.removeEventListener('wheel', handleWheel);
-      }
-    };
-  }, [scale, translateX, translateY]);
+    const el = containerRef.current;
+    if (el) el.addEventListener('wheel', onWheel, { passive: false });
+    return () => { if (el) el.removeEventListener('wheel', onWheel); };
+  }, [scale]);
 
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === 'Escape') onClose();
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [onClose]);
+  /* Double-tap / double-click to toggle zoom */
+  const onDoubleClick = (e) => {
+    e.stopPropagation();
+    if (scale > 1) { reset(); return; }
+    if (!imgRef.current) return;
+    const r = imgRef.current.getBoundingClientRect();
+    const px = ((e.clientX - r.left) / r.width) * 100;
+    const py = ((e.clientY - r.top) / r.height) * 100;
+    imgRef.current.style.transformOrigin = `${px}% ${py}%`;
+    setScale(2.5);
+  };
 
   return (
-    <div className="zoom-viewer-overlay" onClick={handleBackdropClick}>
-      <button className="zoom-viewer-close" onClick={onClose} title="Close Single Image View">
-        <X size={24} />
-      </button>
-
-      <div
-        ref={containerRef}
-        className="zoom-viewer-container"
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
-        onMouseLeave={handleMouseUp}
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
-      >
-        <img
-          ref={imgRef}
-          src={src}
-          alt={alt}
-          className="zoom-viewer-img"
-          draggable="false"
-          onClick={handleImageClick}
-          onMouseMove={handleMouseMoveOverImage}
-          onMouseLeave={handleMouseLeaveImage}
-          style={{
-            transformOrigin: transformOrigin,
-            transform: `translate(${translateX}px, ${translateY}px) scale(${scale})`,
-            cursor: scale > 1 ? (isDragging ? 'grabbing' : 'zoom-out') : 'zoom-in',
-          }}
-        />
-      </div>
+    <div
+      ref={containerRef}
+      className="inmz-container"
+      onMouseDown={onMouseDown}
+      onMouseMove={onMouseMove}
+      onMouseUp={onMouseUp}
+      onMouseLeave={onMouseUp}
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+      onTouchEnd={onTouchEnd}
+      onDoubleClick={onDoubleClick}
+      style={{ cursor: scale > 1 ? (isDragging ? 'grabbing' : 'grab') : 'zoom-in' }}
+    >
+      <img
+        ref={imgRef}
+        src={src}
+        alt={alt}
+        className="inmz-img"
+        draggable="false"
+        style={{
+          transform: `translate(${translateX}px, ${translateY}px) scale(${scale})`,
+          transition: isDragging || touchRef.current.isPinching ? 'none' : 'transform 0.18s ease-out',
+        }}
+      />
+      {scale === 1 && (
+        <p className="inmz-hint">Pinch or scroll to zoom • Drag to pan • Double-tap to zoom</p>
+      )}
     </div>
   );
 }
