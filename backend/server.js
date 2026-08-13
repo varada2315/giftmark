@@ -354,7 +354,8 @@ const collections = [
     title: "Handcrafted 3-Tier Multi-Metallic Serving Stand",
     image: "/uploads/three_tier_metallic_serving_stand.jpg",
     images: [
-      "/uploads/three_tier_metallic_serving_stand.jpg"
+      "/uploads/three_tier_metallic_serving_stand.jpg",
+      "/uploads/three_tier_metallic_serving_stand_specs.jpg"
     ],
     category: "Hospitality, Utility",
     price: "₹6,500 / $80",
