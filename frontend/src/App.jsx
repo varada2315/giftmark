@@ -2420,7 +2420,17 @@ function App() {
                   const item = collections.find(c => c.id === bid);
                   if (!item) return null;
                   return (
-                    <div className="best-seller-card" key={item.id} id={`bestseller-card-${item.id}`} onClick={() => navigateToProductCard(item.id, item.category)}>
+                    <div
+                      className="best-seller-card clickable-product-card"
+                      key={item.id}
+                      id={`bestseller-card-${item.id}`}
+                      onClick={() => {
+                        setActiveProductModal(item);
+                        setModalActiveImageIndex(0);
+                        setSelectedColor(item.colors && item.colors.length > 0 ? item.colors[0] : null);
+                      }}
+                      style={{ cursor: 'pointer' }}
+                    >
                       <span className="best-seller-badge">Best Seller</span>
                       <div className="best-seller-image-container">
                         <img src={getCardImage(item)} alt={item.title} className="best-seller-image" />
