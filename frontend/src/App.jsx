@@ -3788,22 +3788,35 @@ function ZoomableImageViewer({ src, alt, onClose }) {
   }, [onClose]);
 
   const handleContainerClick = (e) => {
-    // If image is normal size or click is directly on the backdrop, close the viewer
-    if (scale === 1 || e.target === containerRef.current) {
+    // Close only when clicking directly on the backdrop area around the image
+    if (e.target === containerRef.current || e.target.classList?.contains('zoom-viewer-overlay')) {
       onClose();
     }
   };
 
   const handleImageClick = (e) => {
     e.stopPropagation();
-    // If not zoomed in, a single click on the image itself also closes it
     if (scale === 1) {
-      onClose();
+      // Single click on image zooms in to 2.5x
+      if (!containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      const clickX = e.clientX - rect.left - rect.width / 2;
+      const clickY = e.clientY - rect.top - rect.height / 2;
+      setScale(2.5);
+      setTranslateX(-clickX * 1.5);
+      setTranslateY(-clickY * 1.5);
+    } else {
+      // Single click when zoomed resets back to 1x
+      handleReset();
     }
   };
 
   return (
     <div className="zoom-viewer-overlay" onClick={handleContainerClick}>
+      <button className="zoom-viewer-close" onClick={onClose} title="Close Single Image View">
+        <X size={22} />
+      </button>
+
       <div
         ref={containerRef}
         className="zoom-viewer-container"
