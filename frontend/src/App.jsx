@@ -2317,11 +2317,13 @@ function App() {
                             className="revolving-idol-img"
                             onClick={() => {
                               if (slideProduct) {
-                                navigateToProductCard(slideProduct.id, slideProduct.category);
+                                setActiveProductModal(slideProduct);
+                                setModalActiveImageIndex(0);
+                                setSelectedColor(slideProduct.colors && slideProduct.colors.length > 0 ? slideProduct.colors[0] : null);
                               }
                             }}
                             style={{ cursor: 'pointer' }}
-                            title="Click to navigate to this product card"
+                            title="Click to view product details & full image"
                           />
 
                           {/* CTA Buttons — visible only on active slide */}
@@ -2378,13 +2380,15 @@ function App() {
                     onClick={() => {
                       const activeProduct = collections.find(p => p.id === currentHeroSlide.productId);
                       if (activeProduct) {
-                        navigateToProductCard(activeProduct.id, activeProduct.category);
+                        setActiveProductModal(activeProduct);
+                        setModalActiveImageIndex(0);
+                        setSelectedColor(activeProduct.colors && activeProduct.colors.length > 0 ? activeProduct.colors[0] : null);
                       } else {
                         setCurrentPage('collections');
                       }
                     }}
                   >
-                    View Product Card
+                    View Product Details
                   </button>
 
                   {/* Slider controls placed underneath */}
