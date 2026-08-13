@@ -6021,6 +6021,9 @@ textarea.form-input {
   flex-direction: column;
   padding: 0 !important;
   overflow: hidden;
+  height: 90vh;
+  max-height: 90vh;
+  overflow-y: hidden !important;
 }
 .pmc-img-expanded .product-modal-close {
   position: absolute;
@@ -6030,33 +6033,40 @@ textarea.form-input {
   background: rgba(255, 255, 255, 0.92);
   border: 1px solid rgba(0, 0, 0, 0.1);
   color: #211E1C;
-  z-index: 10;
+  z-index: 20;
   border-radius: 50%;
   width: 40px;
   height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .pmc-img-expanded .product-modal-close:hover {
   background: #fff;
+  transform: scale(1.05);
 }
 
 /* In-modal zoom image container */
 .inmz-container {
   width: 100%;
+  height: 100%;
   flex: 1;
   min-height: 0;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f8f7f4;
+  background: #1a1816;
   touch-action: none;
   position: relative;
 }
 
 .inmz-img {
-  max-width: 100%;
-  max-height: 100%;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
+  object-position: center;
+  display: block;
   user-select: none;
   -webkit-user-drag: none;
   transform-origin: center center;
