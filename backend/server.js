@@ -100,9 +100,9 @@ const collections = [
   {
     id: "14",
     title: "Sculptural Multi-Tone Metallic Leaf Vase Set",
-    image: "/uploads/hero_leaf_vases.png",
+    image: "/uploads/sculptural_leaf_vases.png",
     images: [
-      "/uploads/hero_leaf_vases.png",
+      "/uploads/sculptural_leaf_vases.png",
       "/uploads/sculptural_leaf_vases_specs.png"
     ],
     category: "Giftware",

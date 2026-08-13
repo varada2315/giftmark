@@ -399,10 +399,9 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "12",
     title: "Handcrafted Perforated Copper & Brass Platter",
-    image: "/uploads/hero_perforated_platter.png",
-    localImage: "/uploads/hero_perforated_platter.png",
+    image: "/uploads/perforated_metal_platter.png",
     images: [
-      "/uploads/hero_perforated_platter.png",
+      "/uploads/perforated_metal_platter.png",
       "/uploads/perforated_metal_platter_specs.png"
     ],
     category: "Giftware",
@@ -434,10 +433,9 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "14",
     title: "Sculptural Multi-Tone Metallic Leaf Vase Set",
-    image: "/uploads/hero_leaf_vases.png",
-    localImage: "/uploads/hero_leaf_vases.png",
+    image: "/uploads/sculptural_leaf_vases.png",
     images: [
-      "/uploads/hero_leaf_vases.png",
+      "/uploads/sculptural_leaf_vases.png",
       "/uploads/sculptural_leaf_vases_specs.png"
     ],
     category: "Giftware",
@@ -537,10 +535,9 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "20",
     title: "Sculptural Two-Tone Metallic Leaf Accent Vases",
-    image: "/uploads/hero_leaf_vases.png",
-    localImage: "/uploads/hero_leaf_vases.png",
+    image: "/uploads/sculptural_leaf_accent_vases.png",
     images: [
-      "/uploads/hero_leaf_vases.png",
+      "/uploads/sculptural_leaf_accent_vases.png",
       "/uploads/sculptural_leaf_accent_vases_specs.png"
     ],
     category: "Home Décor",
@@ -798,10 +795,10 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "37",
     title: "Handcrafted Ornate Oval Metallic Footed Platter Set",
-    image: "/uploads/hero_ornate_trays.png",
-    localImage: "/uploads/hero_ornate_trays.png",
+    image: "/uploads/ornate_oval_metallic_platter_set.jpg",
+    localImage: "/uploads/ornate_oval_metallic_platter_set.jpg",
     images: [
-      "/uploads/hero_ornate_trays.png",
+      "/uploads/ornate_oval_metallic_platter_set.jpg",
       "/uploads/ornate_oval_metallic_platter_set_specs.jpg"
     ],
     category: "Utility, Hospitality",
@@ -1102,10 +1099,10 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "53",
     title: "Handcrafted Antlered Moose Skull Wall Mount",
-    image: "/uploads/hero_moose_skull.png",
-    localImage: "/uploads/hero_moose_skull.png",
+    image: "/uploads/moose_skull_wall_mount.jpg",
+    localImage: "/uploads/moose_skull_wall_mount.jpg",
     images: [
-      "/uploads/hero_moose_skull.png",
+      "/uploads/moose_skull_wall_mount.jpg",
       "/uploads/moose_skull_wall_mount_specs.png"
     ],
     category: "Home Décor",
@@ -1262,7 +1259,7 @@ const HERO_SLIDES = [
     mainLocalImage: "/uploads/hero_leaf_vases.png",
     bgColor: "#ECEAE6",
     bgImage: "/uploads/bg_limewash_texture.png",
-    productId: "14"
+    productId: "20"
   },
   {
     name: "Perforated Copper & Brass Platter",
@@ -1282,7 +1279,7 @@ const HERO_SLIDES = [
     mainLocalImage: "/uploads/hero_ornate_trays.png",
     bgColor: "#EAECE6",
     bgImage: "/uploads/bg_dark_chevron_wood.png",
-    productId: "37"
+    productId: "14"
   },
   {
     name: "Antlered Moose Skull Wall Mount",
@@ -1761,6 +1758,36 @@ function App() {
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isCheckingOut, setIsCheckingOut] = useState(false);
+
+  // Smooth scroll and highlight navigation to specific product card
+  const navigateToProductCard = (productId, category) => {
+    // Switch to home or collections if on legal/other subpages
+    if (currentPage !== 'home' && currentPage !== 'collections') {
+      setCurrentPage('home');
+    }
+
+    setTimeout(() => {
+      let cardEl = document.getElementById(`bestseller-card-${productId}`) || document.getElementById(`product-card-${productId}`);
+
+      if (!cardEl) {
+        // If not found on home (e.g. filtered out on collections page), switch to collections with 'All' filter
+        setCurrentPage('collections');
+        setActiveFilter('All');
+        setTimeout(() => {
+          cardEl = document.getElementById(`product-card-${productId}`);
+          if (cardEl) {
+            cardEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            cardEl.classList.add('product-card-highlight');
+            setTimeout(() => cardEl.classList.remove('product-card-highlight'), 2500);
+          }
+        }, 200);
+      } else {
+        cardEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        cardEl.classList.add('product-card-highlight');
+        setTimeout(() => cardEl.classList.remove('product-card-highlight'), 2500);
+      }
+    }, 100);
+  };
   const [checkoutForm, setCheckoutForm] = useState({
     name: '',
     company: '',
@@ -2290,12 +2317,11 @@ function App() {
                             className="revolving-idol-img"
                             onClick={() => {
                               if (slideProduct) {
-                                setActiveProductModal(slideProduct);
-                                setModalActiveImageIndex(0);
+                                navigateToProductCard(slideProduct.id, slideProduct.category);
                               }
                             }}
                             style={{ cursor: 'pointer' }}
-                            title="Click to view product image & details"
+                            title="Click to navigate to this product card"
                           />
 
                           {/* CTA Buttons — visible only on active slide */}
@@ -2352,14 +2378,13 @@ function App() {
                     onClick={() => {
                       const activeProduct = collections.find(p => p.id === currentHeroSlide.productId);
                       if (activeProduct) {
-                        setActiveProductModal(activeProduct);
-                        setModalActiveImageIndex(0);
+                        navigateToProductCard(activeProduct.id, activeProduct.category);
                       } else {
                         setCurrentPage('collections');
                       }
                     }}
                   >
-                    View Product Details
+                    View Product Card
                   </button>
 
                   {/* Slider controls placed underneath */}
@@ -2389,34 +2414,34 @@ function App() {
                   const item = collections.find(c => c.id === bid);
                   if (!item) return null;
                   return (
-                  <div className="best-seller-card" key={item.id}>
-                    <span className="best-seller-badge">Best Seller</span>
-                    <div className="best-seller-image-container">
-                      <img src={getCardImage(item)} alt={item.title} className="best-seller-image" />
-                    </div>
-                    <div className="best-seller-info">
-                      <span className="best-seller-cat">{item.category}</span>
-                      <h3 className="best-seller-name">{item.title}</h3>
-                      <div className="product-card-footer">
-                        <span className="best-seller-price">{item.price}</span>
-                        <div className="product-card-actions">
-                          <button
-                            className="product-action-btn cart-btn"
-                            title="Add to Cart"
-                            onClick={() => addToCart(item)}
-                          >
-                            <ShoppingBag size={14} />
-                          </button>
-                          <button
-                            className="product-action-btn buy-btn"
-                            onClick={() => buyNow(item)}
-                          >
-                            Buy Now
-                          </button>
+                    <div className="best-seller-card" key={item.id} id={`bestseller-card-${item.id}`} onClick={() => navigateToProductCard(item.id, item.category)}>
+                      <span className="best-seller-badge">Best Seller</span>
+                      <div className="best-seller-image-container">
+                        <img src={getCardImage(item)} alt={item.title} className="best-seller-image" />
+                      </div>
+                      <div className="best-seller-info">
+                        <span className="best-seller-cat">{item.category}</span>
+                        <h3 className="best-seller-name">{item.title}</h3>
+                        <div className="product-card-footer">
+                          <span className="best-seller-price">{item.price}</span>
+                          <div className="product-card-actions">
+                            <button
+                              className="product-action-btn cart-btn"
+                              title="Add to Cart"
+                              onClick={(e) => { e.stopPropagation(); addToCart(item); }}
+                            >
+                              <ShoppingBag size={14} />
+                            </button>
+                            <button
+                              className="product-action-btn buy-btn"
+                              onClick={(e) => { e.stopPropagation(); buyNow(item); }}
+                            >
+                              Buy Now
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
                   );
                 })}
               </div>
@@ -2813,6 +2838,7 @@ function App() {
                 <div
                   className="product-card clickable-product-card"
                   key={item.id}
+                  id={`product-card-${item.id}`}
                   onClick={() => {
                     setActiveProductModal(item);
                     setModalActiveImageIndex(item.id === "47" ? 1 : 0);
@@ -3319,7 +3345,7 @@ function App() {
                 title={isImgExpanded ? 'Back to product details' : 'Close Modal'}
               >
                 {isImgExpanded
-                  ? <span style={{fontSize:'20px',lineHeight:1,display:'block'}}>&#8592;</span>
+                  ? <span style={{ fontSize: '20px', lineHeight: 1, display: 'block' }}>&#8592;</span>
                   : <X size={18} />}
               </button>
 
@@ -3329,136 +3355,136 @@ function App() {
                   alt={activeProductModal.title}
                 />
               ) : (
-              <div className="product-modal-grid">
-                {/* Left Column: Image Gallery & Thumbnail Selector */}
-                <div className="product-modal-gallery">
-                  <div
-                    className="product-modal-main-img-container pmc-clickable"
-                    onClick={() => setIsImgExpanded(true)}
-                    title="Tap to view full image"
-                  >
-                    <img
-                      src={(activeProductModal.images && activeProductModal.images[modalActiveImageIndex]) || getCardImage(activeProductModal)}
-                      alt={activeProductModal.title}
-                      className="product-modal-main-img"
-                    />
-                    <span className="product-modal-zoom-hint">Tap image to expand • Tap thumbnail to switch</span>
-                  </div>
-
-                  {(activeProductModal.images || [getCardImage(activeProductModal)]).length > 1 && (
-                    <div className="product-modal-thumbnails">
-                      {(activeProductModal.images || [getCardImage(activeProductModal)]).map((imgUrl, idx) => (
-                        <div
-                          key={idx}
-                          className={`product-modal-thumb ${modalActiveImageIndex === idx ? 'active' : ''}`}
-                          onClick={() => setModalActiveImageIndex(idx)}
-                        >
-                          <img src={imgUrl} alt={`View ${idx + 1}`} />
-                          <span className="thumb-label">{idx === 0 ? 'Lifestyle' : 'Dimensions'}</span>
-                        </div>
-                      ))}
+                <div className="product-modal-grid">
+                  {/* Left Column: Image Gallery & Thumbnail Selector */}
+                  <div className="product-modal-gallery">
+                    <div
+                      className="product-modal-main-img-container pmc-clickable"
+                      onClick={() => setIsImgExpanded(true)}
+                      title="Tap to view full image"
+                    >
+                      <img
+                        src={(activeProductModal.images && activeProductModal.images[modalActiveImageIndex]) || getCardImage(activeProductModal)}
+                        alt={activeProductModal.title}
+                        className="product-modal-main-img"
+                      />
+                      <span className="product-modal-zoom-hint">Tap image to expand • Tap thumbnail to switch</span>
                     </div>
-                  )}
-                </div>
 
-                {/* Right Column: Product Information & Specifications */}
-                <div className="product-modal-info">
-                  <div className="product-modal-header-row">
-                    <span className="product-modal-category">
-                      <ShieldCheck size={12} style={{ display: 'inline-block', verticalAlign: '-1px', marginRight: '4px' }} />
-                      {activeProductModal.category} • B2B Export Line
-                    </span>
-                  </div>
-
-                  <h2 className="product-modal-title">{activeProductModal.title}</h2>
-
-                  <div className="product-modal-price-row">
-                    <span className="product-modal-price">{activeProductModal.price}</span>
-                    <span className="product-modal-sku">Item ID: GM-{activeProductModal.id || '11'}</span>
-                  </div>
-
-                  <p className="product-modal-desc">{activeProductModal.description}</p>
-
-                  {/* Available Finishes Selector */}
-                  {activeProductModal.colors && activeProductModal.colors.length > 0 && (
-                    <div className="product-modal-colors-section">
-                      <span className="colors-label">AVAILABLE FINISHES:</span>
-                      <div className="colors-list">
-                        {activeProductModal.colors.map((colorHex, idx) => (
+                    {(activeProductModal.images || [getCardImage(activeProductModal)]).length > 1 && (
+                      <div className="product-modal-thumbnails">
+                        {(activeProductModal.images || [getCardImage(activeProductModal)]).map((imgUrl, idx) => (
                           <div
                             key={idx}
-                            className={`color-swatch-wrapper ${selectedColor === colorHex ? 'active' : ''}`}
-                            onClick={() => setSelectedColor(colorHex)}
-                            title={getColorName(colorHex)}
+                            className={`product-modal-thumb ${modalActiveImageIndex === idx ? 'active' : ''}`}
+                            onClick={() => setModalActiveImageIndex(idx)}
                           >
-                            <span
-                              className="color-swatch-circle"
-                              style={{ backgroundColor: colorHex }}
-                            />
+                            <img src={imgUrl} alt={`View ${idx + 1}`} />
+                            <span className="thumb-label">{idx === 0 ? 'Lifestyle' : 'Dimensions'}</span>
                           </div>
                         ))}
                       </div>
-                      <span className="selected-color-name">
-                        Finish selected: <strong>{getColorName(selectedColor || '')}</strong>
+                    )}
+                  </div>
+
+                  {/* Right Column: Product Information & Specifications */}
+                  <div className="product-modal-info">
+                    <div className="product-modal-header-row">
+                      <span className="product-modal-category">
+                        <ShieldCheck size={12} style={{ display: 'inline-block', verticalAlign: '-1px', marginRight: '4px' }} />
+                        {activeProductModal.category} • B2B Export Line
                       </span>
                     </div>
-                  )}
 
-                  {/* Technical Dimensions Card */}
-                  {activeProductModal.dimensions ? (
-                    <div className="product-modal-specs-box">
-                      <div className="specs-box-header">
-                        <FileText size={14} className="specs-icon" />
-                        <span>DIMENSIONS & TECHNICAL SPECIFICATIONS</span>
-                      </div>
-                      <div className="specs-grid">
-                        <div className="spec-item">
-                          <span className="spec-label">Overall Height</span>
-                          <span className="spec-value">{activeProductModal.dimensions.height}</span>
-                        </div>
-                        <div className="spec-item">
-                          <span className="spec-label">Body Diameter</span>
-                          <span className="spec-value">{activeProductModal.dimensions.diameter}</span>
-                        </div>
-                        <div className="spec-item">
-                          <span className="spec-label">Pendi (Base)</span>
-                          <span className="spec-value">{activeProductModal.dimensions.pendi}</span>
-                        </div>
-                        <div className="spec-item">
-                          <span className="spec-label">Material</span>
-                          <span className="spec-value">Copper & Hand-Hammered Brass</span>
-                        </div>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="product-modal-specs-box">
-                      <div className="specs-box-header">
-                        <CheckCircle size={14} className="specs-icon" />
-                        <span>PRODUCT GUARANTEE & EXPORT QUALITY</span>
-                      </div>
-                      <p style={{ fontSize: '12.5px', color: '#666', margin: 0, lineHeight: '1.5' }}>
-                        Handcrafted by master artisans in India. Export quality finish compliant with global B2B standards.
-                      </p>
-                    </div>
-                  )}
+                    <h2 className="product-modal-title">{activeProductModal.title}</h2>
 
-                  {/* Call to Action Buttons */}
-                  <div className="product-modal-actions">
-                    <button
-                      className="pm-btn pm-btn-primary"
-                      onClick={() => { addToCart(activeProductModal, selectedColor); setActiveProductModal(null); setSelectedColor(null); }}
-                    >
-                      <ShoppingBag size={15} /> Add to Cart
-                    </button>
-                    <button
-                      className="pm-btn pm-btn-secondary"
-                      onClick={() => { buyNow(activeProductModal, selectedColor); setActiveProductModal(null); setSelectedColor(null); }}
-                    >
-                      Buy Now
-                    </button>
+                    <div className="product-modal-price-row">
+                      <span className="product-modal-price">{activeProductModal.price}</span>
+                      <span className="product-modal-sku">Item ID: GM-{activeProductModal.id || '11'}</span>
+                    </div>
+
+                    <p className="product-modal-desc">{activeProductModal.description}</p>
+
+                    {/* Available Finishes Selector */}
+                    {activeProductModal.colors && activeProductModal.colors.length > 0 && (
+                      <div className="product-modal-colors-section">
+                        <span className="colors-label">AVAILABLE FINISHES:</span>
+                        <div className="colors-list">
+                          {activeProductModal.colors.map((colorHex, idx) => (
+                            <div
+                              key={idx}
+                              className={`color-swatch-wrapper ${selectedColor === colorHex ? 'active' : ''}`}
+                              onClick={() => setSelectedColor(colorHex)}
+                              title={getColorName(colorHex)}
+                            >
+                              <span
+                                className="color-swatch-circle"
+                                style={{ backgroundColor: colorHex }}
+                              />
+                            </div>
+                          ))}
+                        </div>
+                        <span className="selected-color-name">
+                          Finish selected: <strong>{getColorName(selectedColor || '')}</strong>
+                        </span>
+                      </div>
+                    )}
+
+                    {/* Technical Dimensions Card */}
+                    {activeProductModal.dimensions ? (
+                      <div className="product-modal-specs-box">
+                        <div className="specs-box-header">
+                          <FileText size={14} className="specs-icon" />
+                          <span>DIMENSIONS & TECHNICAL SPECIFICATIONS</span>
+                        </div>
+                        <div className="specs-grid">
+                          <div className="spec-item">
+                            <span className="spec-label">Overall Height</span>
+                            <span className="spec-value">{activeProductModal.dimensions.height}</span>
+                          </div>
+                          <div className="spec-item">
+                            <span className="spec-label">Body Diameter</span>
+                            <span className="spec-value">{activeProductModal.dimensions.diameter}</span>
+                          </div>
+                          <div className="spec-item">
+                            <span className="spec-label">Pendi (Base)</span>
+                            <span className="spec-value">{activeProductModal.dimensions.pendi}</span>
+                          </div>
+                          <div className="spec-item">
+                            <span className="spec-label">Material</span>
+                            <span className="spec-value">Copper & Hand-Hammered Brass</span>
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="product-modal-specs-box">
+                        <div className="specs-box-header">
+                          <CheckCircle size={14} className="specs-icon" />
+                          <span>PRODUCT GUARANTEE & EXPORT QUALITY</span>
+                        </div>
+                        <p style={{ fontSize: '12.5px', color: '#666', margin: 0, lineHeight: '1.5' }}>
+                          Handcrafted by master artisans in India. Export quality finish compliant with global B2B standards.
+                        </p>
+                      </div>
+                    )}
+
+                    {/* Call to Action Buttons */}
+                    <div className="product-modal-actions">
+                      <button
+                        className="pm-btn pm-btn-primary"
+                        onClick={() => { addToCart(activeProductModal, selectedColor); setActiveProductModal(null); setSelectedColor(null); }}
+                      >
+                        <ShoppingBag size={15} /> Add to Cart
+                      </button>
+                      <button
+                        className="pm-btn pm-btn-secondary"
+                        onClick={() => { buyNow(activeProductModal, selectedColor); setActiveProductModal(null); setSelectedColor(null); }}
+                      >
+                        Buy Now
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
               )}
             </div>
           </div>

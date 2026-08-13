@@ -6167,3 +6167,23 @@ textarea.form-input {
     padding: 13px;
   }
 }
+
+/* --- PRODUCT CARD NAVIGATION HIGHLIGHT --- */
+.product-card-highlight {
+  outline: 3px solid #b88c48 !important;
+  outline-offset: 4px;
+  box-shadow: 0 0 30px rgba(184, 140, 72, 0.5) !important;
+  animation: cardPulseGlow 1.2s ease-in-out 2 !important;
+  border-radius: 8px;
+}
+
+@keyframes cardPulseGlow {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 15px rgba(184, 140, 72, 0.3);
+  }
+  50% {
+    transform: scale(1.03);
+    box-shadow: 0 0 35px rgba(184, 140, 72, 0.7);
+  }
+}
