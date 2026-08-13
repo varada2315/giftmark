@@ -1252,44 +1252,44 @@ const DEFAULT_COLLECTIONS = [
 
 const HERO_SLIDES = [
   {
-    name: "Brass Astrolabe",
-    subtitle: "ESTABLISHED IN 1993",
-    title: "THE ART OF\nLEAVING A MARK",
-    description: "Since 1993, we have combined generations of Indian craftsmanship with global exports to offer distinctive home décor, hospitality, catering, and giftware collections.",
-    mainLocalImage: "/uploads/brass_astrolabe.png",
+    name: "Sculptural Leaf Vase Set",
+    subtitle: "HOME DÉCOR COLLECTION",
+    title: "NATURE FORGED\nIN METAL",
+    description: "Hand-hammered copper and silver leaf vases that bring organic artistry into every interior. Each piece is individually textured by master craftsmen for a finish that is entirely one of a kind.",
+    mainLocalImage: "/uploads/hero_leaf_vases.jpg",
     bgColor: "#ECEAE6",
-    bgImage: "/uploads/brass_globes.png",
-    productId: "03"
+    bgImage: "/uploads/bg_limewash_texture.png",
+    productId: "20"
   },
   {
-    name: "Brass Ganesha",
-    subtitle: "HANDCRAFTED DEITY SCULPTURES",
-    title: "SACRED\nBRASS ART",
-    description: "Traditional Indian Ganesha deity sculptures cast in solid premium brass, featuring intricate hand-carved detailing and polished antique patinas.",
-    mainLocalImage: "/uploads/brass_ganesha.png",
+    name: "Perforated Copper & Brass Platter",
+    subtitle: "HOME DÉCOR COLLECTION",
+    title: "ARTISTRY IN\nEVERY DETAIL",
+    description: "A stunning multi-tone perforated platter in hand-finished copper and antique brass, crafted to become the centrepiece of any room. Exported globally across 40+ countries.",
+    mainLocalImage: "/uploads/hero_perforated_platter.jpg",
     bgColor: "#EFECE8",
-    bgImage: "/uploads/story_workshop.png",
-    productId: "07"
+    bgImage: "/uploads/bg_plaster_limewash.png",
+    productId: "12"
   },
   {
-    name: "Brass Peacock Lamp",
-    subtitle: "LUXURY DECORATIVE PIECES",
-    title: "PRECISION\nGOLD & BRASS",
-    description: "Elegantly sculpted peacock lamps and candelabras finished in satin brass gold, capturing centuries of artisanal metalcraft traditions.",
-    mainLocalImage: "/uploads/brass_peacock_lamp.png",
+    name: "Ornate Oval Serving Tray Set",
+    subtitle: "HOSPITALITY COLLECTION",
+    title: "ELEVATE YOUR\nHOSPITALITY",
+    description: "Exquisite hand-etched oval trays in antique copper and burnished brass, designed for luxury hotel buffets, fine dining presentations, and premium catering events worldwide.",
+    mainLocalImage: "/uploads/hero_ornate_trays.jpg",
     bgColor: "#EAECE6",
-    bgImage: "/uploads/story_buffet.png",
-    productId: "01"
+    bgImage: "/uploads/bg_dark_chevron_wood.png",
+    productId: "14"
   },
   {
-    name: "Bronze Nataraja",
-    subtitle: "AWARD-WINNING METALWORK",
-    title: "CONTEMPORARY\nBRONZE DESIGN",
-    description: "Intricately detailed antique bronze Nataraja sculpture representing the divine cosmic dance, finished with authentic weathered patinas.",
-    mainLocalImage: "/uploads/bronze_nataraja.png",
+    name: "Antlered Moose Skull Wall Mount",
+    subtitle: "WALL DÉCOR COLLECTION",
+    title: "BOLD STATEMENT\nWALL ART",
+    description: "A commanding hand-patinated moose skull wall sculpture in gold and antique copper — an iconic accent for modern offices, boutique hotels, and statement interiors.",
+    mainLocalImage: "/uploads/hero_moose_skull.png",
     bgColor: "#EFEBE6",
-    bgImage: "/uploads/story_sculpture_bust.png",
-    productId: "08"
+    bgImage: "/uploads/bg_fluted_panel_studio.png",
+    productId: "53"
   }
 ];
 
