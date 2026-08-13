@@ -202,9 +202,9 @@ const collections = [
   {
     id: "20",
     title: "Sculptural Two-Tone Metallic Leaf Accent Vases",
-    image: "/uploads/sculptural_leaf_accent_vases.png",
+    image: "/uploads/hero_leaf_vases.png",
     images: [
-      "/uploads/sculptural_leaf_accent_vases.png",
+      "/uploads/hero_leaf_vases.png",
       "/uploads/sculptural_leaf_accent_vases_specs.png"
     ],
     category: "Home Décor",

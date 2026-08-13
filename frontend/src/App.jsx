@@ -535,9 +535,10 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "20",
     title: "Sculptural Two-Tone Metallic Leaf Accent Vases",
-    image: "/uploads/sculptural_leaf_accent_vases.png",
+    image: "/uploads/hero_leaf_vases.png",
+    localImage: "/uploads/hero_leaf_vases.png",
     images: [
-      "/uploads/sculptural_leaf_accent_vases.png",
+      "/uploads/hero_leaf_vases.png",
       "/uploads/sculptural_leaf_accent_vases_specs.png"
     ],
     category: "Home Décor",
@@ -1260,7 +1261,7 @@ const HERO_SLIDES = [
     mainLocalImage: "/uploads/hero_leaf_vases.png",
     bgColor: "#ECEAE6",
     bgImage: "/uploads/bg_limewash_texture.png",
-    productId: "14"
+    productId: "20"
   },
   {
     name: "Perforated Copper & Brass Platter",
