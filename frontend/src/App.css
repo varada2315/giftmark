@@ -6088,3 +6088,84 @@ textarea.form-input {
   white-space: nowrap;
   pointer-events: none;
 }
+
+/* ================================================
+   FLOATING WHATSAPP CTA BUTTON
+================================================ */
+.whatsapp-float-btn {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #25D366 0%, #1ebe5d 100%);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 50px;
+  padding: 14px 20px 14px 16px;
+  box-shadow:
+    0 4px 20px rgba(37, 211, 102, 0.45),
+    0 2px 8px rgba(0, 0, 0, 0.18);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  max-width: 52px;
+}
+
+.whatsapp-float-btn:hover {
+  max-width: 200px;
+  padding: 14px 22px 14px 16px;
+  box-shadow:
+    0 6px 28px rgba(37, 211, 102, 0.55),
+    0 4px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+.whatsapp-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.whatsapp-float-label {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(-8px);
+  transition:
+    opacity 0.25s ease 0.05s,
+    transform 0.25s ease 0.05s;
+  font-family: 'Inter', 'Outfit', sans-serif;
+}
+
+.whatsapp-float-btn:hover .whatsapp-float-label {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Pulse ring animation */
+.whatsapp-float-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50px;
+  background: rgba(37, 211, 102, 0.35);
+  animation: waPulse 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  pointer-events: none;
+}
+
+@keyframes waPulse {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.12); opacity: 0; }
+}
+
+@media (max-width: 480px) {
+  .whatsapp-float-btn {
+    bottom: 20px;
+    right: 16px;
+    padding: 13px;
+  }
+}
