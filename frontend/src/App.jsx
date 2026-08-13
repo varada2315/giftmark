@@ -434,9 +434,10 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "14",
     title: "Sculptural Multi-Tone Metallic Leaf Vase Set",
-    image: "/uploads/sculptural_leaf_vases.png",
+    image: "/uploads/hero_leaf_vases.png",
+    localImage: "/uploads/hero_leaf_vases.png",
     images: [
-      "/uploads/sculptural_leaf_vases.png",
+      "/uploads/hero_leaf_vases.png",
       "/uploads/sculptural_leaf_vases_specs.png"
     ],
     category: "Giftware",
@@ -1261,7 +1262,7 @@ const HERO_SLIDES = [
     mainLocalImage: "/uploads/hero_leaf_vases.png",
     bgColor: "#ECEAE6",
     bgImage: "/uploads/bg_limewash_texture.png",
-    productId: "20"
+    productId: "14"
   },
   {
     name: "Perforated Copper & Brass Platter",
