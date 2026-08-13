@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { ShoppingBag, Plus, Minus, Trash2, X, ChevronDown, Award, Globe, ShieldCheck, Calendar, Star, Quote, FileText, MapPin, CheckCircle, Download, Eye, Menu, ZoomIn, ZoomOut } from 'lucide-react';
+import { ShoppingBag, Plus, Minus, Trash2, X, ChevronDown, Award, Globe, ShieldCheck, Calendar, Star, Quote, FileText, MapPin, CheckCircle, Download, Eye, Menu, ZoomIn } from 'lucide-react';
 import './App.css';
 
 const getColorName = (hex) => {
@@ -3288,7 +3288,7 @@ function App() {
                   <div 
                     className="product-modal-main-img-container"
                     onClick={() => setIsZoomedImageOpen(true)}
-                    title="Click to Zoom Fullscreen"
+                    title="Click image to open single view & zoom"
                   >
                     <img
                       src={(activeProductModal.images && activeProductModal.images[modalActiveImageIndex]) || getCardImage(activeProductModal)}
@@ -3601,17 +3601,17 @@ function App() {
   );
 }
 
-// --- ZOOMABLE IMAGE VIEWER COMPONENT (WITH TOUCH PINCH-TO-ZOOM & MOUSE WHEEL ZOOM) ---
+// --- FULLSCREEN SINGLE IMAGE ZOOM VIEWER COMPONENT ---
 function ZoomableImageViewer({ src, alt, onClose }) {
   const [scale, setScale] = useState(1);
   const [translateX, setTranslateX] = useState(0);
   const [translateY, setTranslateY] = useState(0);
+  const [transformOrigin, setTransformOrigin] = useState('center center');
   const [isDragging, setIsDragging] = useState(false);
 
   const containerRef = useRef(null);
   const imgRef = useRef(null);
 
-  // Keep track of starts for pinch / pan
   const touchStartRef = useRef({
     initialDistance: 0,
     initialScale: 1,
@@ -3631,43 +3631,55 @@ function ZoomableImageViewer({ src, alt, onClose }) {
     setScale(1);
     setTranslateX(0);
     setTranslateY(0);
+    setTransformOrigin('center center');
   };
 
-  const handleZoomIn = () => {
-    setScale((prev) => Math.min(prev + 0.5, 5));
+  // Mouse hover pan/zoom effect on desktop
+  const handleMouseMoveOverImage = (e) => {
+    if (isDragging || touchStartRef.current.isPinching) return;
+    if (!imgRef.current) return;
+
+    const rect = imgRef.current.getBoundingClientRect();
+    const xPercent = ((e.clientX - rect.left) / rect.width) * 100;
+    const yPercent = ((e.clientY - rect.top) / rect.height) * 100;
+
+    setTransformOrigin(`${xPercent}% ${yPercent}%`);
+    
+    if (scale === 1) {
+      setScale(2);
+    }
   };
 
-  const handleZoomOut = () => {
-    setScale((prev) => {
-      const next = prev - 0.5;
-      if (next <= 1) {
-        setTranslateX(0);
-        setTranslateY(0);
-        return 1;
-      }
-      return next;
-    });
+  const handleMouseLeaveImage = () => {
+    if (isDragging || touchStartRef.current.isPinching) return;
+    if (scale === 2) {
+      handleReset();
+    }
   };
 
-  // Double click / Double tap toggles between 1x and 2.5x
-  const handleDoubleClick = (e) => {
+  // Click image toggles zoom state
+  const handleImageClick = (e) => {
     e.stopPropagation();
     if (scale > 1) {
       handleReset();
     } else {
-      if (!containerRef.current) return;
-      const rect = containerRef.current.getBoundingClientRect();
-      const clickX = e.clientX - rect.left - rect.width / 2;
-      const clickY = e.clientY - rect.top - rect.height / 2;
+      const rect = imgRef.current?.getBoundingClientRect() || { left: 0, top: 0, width: 1, height: 1 };
+      const xPercent = ((e.clientX - rect.left) / rect.width) * 100;
+      const yPercent = ((e.clientY - rect.top) / rect.height) * 100;
+      setTransformOrigin(`${xPercent}% ${yPercent}%`);
       setScale(2.5);
-      setTranslateX(-clickX * 1.5);
-      setTranslateY(-clickY * 1.5);
     }
   };
 
-  // Mouse pan handlers
+  const handleBackdropClick = (e) => {
+    if (e.target === containerRef.current || e.target.classList?.contains('zoom-viewer-overlay')) {
+      onClose();
+    }
+  };
+
+  // Mouse pan handlers for fixed drag zoom
   const handleMouseDown = (e) => {
-    if (e.button !== 0) return; // Left click only
+    if (e.button !== 0) return;
     if (scale <= 1) return;
     e.preventDefault();
     setIsDragging(true);
@@ -3688,7 +3700,7 @@ function ZoomableImageViewer({ src, alt, onClose }) {
     setIsDragging(false);
   };
 
-  // Touch handlers for mobile (Pinch and Pan)
+  // Touch handlers for mobile (Pinch-to-zoom)
   const handleTouchStart = (e) => {
     if (e.touches.length === 2) {
       const t1 = e.touches[0];
@@ -3739,33 +3751,18 @@ function ZoomableImageViewer({ src, alt, onClose }) {
     touchStartRef.current.isPinching = false;
   };
 
-  // Wheel zoom (Desktop)
+  // Mouse wheel zoom
   const handleWheel = (e) => {
     e.preventDefault();
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const mouseX = e.clientX - rect.left - rect.width / 2;
-    const mouseY = e.clientY - rect.top - rect.height / 2;
-
     const delta = -e.deltaY * 0.005;
     const nextScale = Math.min(Math.max(scale + delta, 1), 5);
-
     if (nextScale === 1) {
-      setScale(1);
-      setTranslateX(0);
-      setTranslateY(0);
+      handleReset();
     } else {
-      const scaleRatio = nextScale / scale;
-      const nextTranslateX = mouseX - (mouseX - translateX) * scaleRatio;
-      const nextTranslateY = mouseY - (mouseY - translateY) * scaleRatio;
-
       setScale(nextScale);
-      setTranslateX(nextTranslateX);
-      setTranslateY(nextTranslateY);
     }
   };
 
-  // Add event listener for wheel on mount to allow preventDefault (non-passive)
   useEffect(() => {
     const container = containerRef.current;
     if (container) {
@@ -3778,7 +3775,6 @@ function ZoomableImageViewer({ src, alt, onClose }) {
     };
   }, [scale, translateX, translateY]);
 
-  // Handle escape key to close
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') onClose();
@@ -3787,34 +3783,10 @@ function ZoomableImageViewer({ src, alt, onClose }) {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [onClose]);
 
-  const handleContainerClick = (e) => {
-    // Close only when clicking directly on the backdrop area around the image
-    if (e.target === containerRef.current || e.target.classList?.contains('zoom-viewer-overlay')) {
-      onClose();
-    }
-  };
-
-  const handleImageClick = (e) => {
-    e.stopPropagation();
-    if (scale === 1) {
-      // Single click on image zooms in to 2.5x
-      if (!containerRef.current) return;
-      const rect = containerRef.current.getBoundingClientRect();
-      const clickX = e.clientX - rect.left - rect.width / 2;
-      const clickY = e.clientY - rect.top - rect.height / 2;
-      setScale(2.5);
-      setTranslateX(-clickX * 1.5);
-      setTranslateY(-clickY * 1.5);
-    } else {
-      // Single click when zoomed resets back to 1x
-      handleReset();
-    }
-  };
-
   return (
-    <div className="zoom-viewer-overlay" onClick={handleContainerClick}>
+    <div className="zoom-viewer-overlay" onClick={handleBackdropClick}>
       <button className="zoom-viewer-close" onClick={onClose} title="Close Single Image View">
-        <X size={22} />
+        <X size={24} />
       </button>
 
       <div
@@ -3827,10 +3799,6 @@ function ZoomableImageViewer({ src, alt, onClose }) {
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
-        onDoubleClick={handleDoubleClick}
-        style={{
-          cursor: scale > 1 ? (isDragging ? 'grabbing' : 'grab') : 'zoom-in',
-        }}
       >
         <img
           ref={imgRef}
@@ -3839,9 +3807,12 @@ function ZoomableImageViewer({ src, alt, onClose }) {
           className="zoom-viewer-img"
           draggable="false"
           onClick={handleImageClick}
+          onMouseMove={handleMouseMoveOverImage}
+          onMouseLeave={handleMouseLeaveImage}
           style={{
+            transformOrigin: transformOrigin,
             transform: `translate(${translateX}px, ${translateY}px) scale(${scale})`,
-            transition: isDragging || touchStartRef.current.isPinching ? 'none' : 'transform 0.15s ease-out',
+            cursor: scale > 1 ? (isDragging ? 'grabbing' : 'zoom-out') : 'zoom-in',
           }}
         />
       </div>
