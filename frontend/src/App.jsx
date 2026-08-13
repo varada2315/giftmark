@@ -3,6 +3,23 @@ import axios from 'axios';
 import { ShoppingBag, Plus, Minus, Trash2, X, ChevronDown, Award, Globe, ShieldCheck, Calendar, Star, Quote, FileText, MapPin, CheckCircle, Download, Eye, Menu } from 'lucide-react';
 import './App.css';
 
+const getColorName = (hex) => {
+  if (!hex) return '';
+  const map = {
+    '#C0392B': 'Terracotta Red',
+    '#D4A017': 'Antique Gold',
+    '#C2B280': 'Beige / Sand',
+    '#2C2C2C': 'Matte Black',
+    '#4E9F3D': 'Emerald Green',
+    '#1E759A': 'Ocean Teal',
+    '#53565A': 'Dark Grey / Charcoal',
+    '#DFBFA1': 'Sand / Beige',
+    '#9E7D62': 'Brown / Bronze',
+    '#C84E18': 'Orange / Rust',
+  };
+  return map[hex.toUpperCase()] || hex;
+};
+
 // Certifications Data
 const CERTIFICATIONS_DATA = [
   {
@@ -532,9 +549,9 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "21",
     title: "Handcrafted Spherical Etched Metallic Vase Set",
-    image: "/uploads/spherical_etched_metallic_vases.png",
+    image: "/uploads/spherical_etched_metallic_vases_aesthetic.jpg",
     images: [
-      "/uploads/spherical_etched_metallic_vases.png",
+      "/uploads/spherical_etched_metallic_vases_aesthetic.jpg",
       "/uploads/spherical_etched_metallic_vases_specs.png"
     ],
     category: "Home Décor",
@@ -549,9 +566,9 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "22",
     title: "Handcrafted Surrealist Metallic Head Sculpture",
-    image: "/uploads/surrealist_metallic_head_sculpture.png",
+    image: "/uploads/surrealist_metallic_head_sculpture_aesthetic.jpg",
     images: [
-      "/uploads/surrealist_metallic_head_sculpture.png",
+      "/uploads/surrealist_metallic_head_sculpture_aesthetic.jpg",
       "/uploads/surrealist_metallic_head_sculpture_specs.png"
     ],
     category: "Home Décor",
@@ -566,10 +583,9 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "23",
     title: "Handcrafted Metallic Big Ben Clock Tower Replica",
-    image: "/uploads/big_ben_clock_tower_sculpture.png",
+    image: "/uploads/big_ben_clock_tower_sculpture.jpg",
     images: [
-      "/uploads/big_ben_clock_tower_sculpture.png",
-      "/uploads/big_ben_clock_tower_sculpture_specs.png"
+      "/uploads/big_ben_clock_tower_sculpture.jpg"
     ],
     category: "Home Décor",
     price: "₹800 / $10",
@@ -583,9 +599,9 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "24",
     title: "Handcrafted Spiral Flame Metallic Sculpture Set",
-    image: "/uploads/spiral_flame_metallic_sculptures.png",
+    image: "/uploads/spiral_flame_metallic_sculptures_aesthetic.jpg",
     images: [
-      "/uploads/spiral_flame_metallic_sculptures.png",
+      "/uploads/spiral_flame_metallic_sculptures_aesthetic.jpg",
       "/uploads/spiral_flame_metallic_sculptures_specs.png"
     ],
     category: "Home Décor",
@@ -600,9 +616,9 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "25",
     title: "Handcrafted Avant-Garde Metallic Mask Sculpture",
-    image: "/uploads/abstract_metallic_mask_sculpture.png",
+    image: "/uploads/abstract_metallic_mask_sculpture.jpg",
     images: [
-      "/uploads/abstract_metallic_mask_sculpture.png",
+      "/uploads/abstract_metallic_mask_sculpture.jpg",
       "/uploads/abstract_metallic_mask_sculpture_specs.png"
     ],
     category: "Home Décor",
@@ -619,8 +635,7 @@ const DEFAULT_COLLECTIONS = [
     title: "Handcrafted Two-Tone Metallic Feather Sculpture",
     image: "/uploads/two_tone_metallic_feather_sculpture.png",
     images: [
-      "/uploads/two_tone_metallic_feather_sculpture.png",
-      "/uploads/two_tone_metallic_feather_sculpture_specs.png"
+      "/uploads/two_tone_metallic_feather_sculpture.png"
     ],
     category: "Home Décor",
     price: "₹850 / $10",
@@ -651,10 +666,9 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "28",
     title: "Handcrafted Dynamic Flame Metallic Sculpture",
-    image: "/uploads/abstract_flame_metallic_sculpture.png",
+    image: "/uploads/abstract_flame_metallic_sculpture.jpg",
     images: [
-      "/uploads/abstract_flame_metallic_sculpture.png",
-      "/uploads/abstract_flame_metallic_sculpture_specs.png"
+      "/uploads/abstract_flame_metallic_sculpture.jpg"
     ],
     category: "Home Décor",
     price: "₹1,540 / $19",
@@ -668,11 +682,10 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "29",
     title: "Handcrafted 3-Tier Multi-Metallic Serving Stand",
-    image: "/uploads/three_tier_metallic_serving_stand.png",
-    localImage: "/uploads/three_tier_metallic_serving_stand.png",
+    image: "/uploads/three_tier_metallic_serving_stand.jpg",
+    localImage: "/uploads/three_tier_metallic_serving_stand.jpg",
     images: [
-      "/uploads/three_tier_metallic_serving_stand.png",
-      "/uploads/three_tier_metallic_serving_stand_specs.png"
+      "/uploads/three_tier_metallic_serving_stand.jpg"
     ],
     category: "Hospitality, Utility",
     price: "₹6,500 / $80",
@@ -686,10 +699,10 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "30",
     title: "Handcrafted Chevron Metallic Accent Platter",
-    image: "/uploads/chevron_metallic_accent_platter.png",
-    localImage: "/uploads/chevron_metallic_accent_platter.png",
+    image: "/uploads/chevron_metallic_accent_platter_aesthetic.jpg",
+    localImage: "/uploads/chevron_metallic_accent_platter_aesthetic.jpg",
     images: [
-      "/uploads/chevron_metallic_accent_platter.png",
+      "/uploads/chevron_metallic_accent_platter_aesthetic.jpg",
       "/uploads/chevron_metallic_accent_platter_specs.png"
     ],
     category: "Hospitality, Utility",
@@ -701,15 +714,7 @@ const DEFAULT_COLLECTIONS = [
     },
     description: "Handcrafted square metallic serving platter featuring alternating dual-tone silver and brushed gold chevron textured bands. Displayed on a copper scrollwork stand, available in Big (40cm) and Small (34cm) sizes."
   },
-  {
-    id: "09",
-    title: "Traditional Brass Spice Box",
-    image: "/uploads/brass_vessels.png",
-    localImage: "/uploads/brass_vessels.png",
-    category: "Hospitality, Utility",
-    price: "₹3,500 / $42",
-    description: "A functional and decorative multi-compartment container for kitchen organization."
-  },
+
   {
     id: "31",
     title: "Handcrafted Chain-Link Border Brass Accent Tray",
@@ -719,7 +724,7 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/chain_link_border_brass_tray.png",
       "/uploads/chain_link_border_brass_tray_specs.png"
     ],
-    category: "Hospitality, Utility",
+    category: "Hospitality",
     price: "₹1,820 / $22",
     dimensions: {
       height: '5 cm (2.0")',
@@ -731,11 +736,10 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "34",
     title: "Handcrafted Corrugated Wave Metallic Platter",
-    image: "/uploads/corrugated_wave_metallic_platter.png",
-    localImage: "/uploads/corrugated_wave_metallic_platter.png",
+    image: "/uploads/corrugated_wave_metallic_platter.jpg",
+    localImage: "/uploads/corrugated_wave_metallic_platter.jpg",
     images: [
-      "/uploads/corrugated_wave_metallic_platter.png",
-      "/uploads/corrugated_wave_metallic_platter_specs.png"
+      "/uploads/corrugated_wave_metallic_platter.jpg"
     ],
     category: "Hospitality, Utility",
     price: "₹1,650 / $20",
@@ -746,22 +750,14 @@ const DEFAULT_COLLECTIONS = [
     },
     description: "Artisanal statement corrugated wave platter featuring alternating textured gold and brushed silver metallic channels, mounted on an ornate scrollwork display stand."
   },
-  {
-    id: "10",
-    title: "Ornate Lion-Head Brass Lock",
-    image: "/uploads/restored_classics.png",
-    localImage: "/uploads/restored_classics.png",
-    category: "Utility",
-    price: "₹2,800 / $35",
-    description: "Heavy-duty traditional padlock featuring antique detailing, functional keys, and keyhole cover."
-  },
+
   {
     id: "35",
     title: "Handcrafted Ruffled Copper Wave Bowl",
-    image: "/uploads/ruffled_copper_bowl.jpg",
-    localImage: "/uploads/ruffled_copper_bowl.jpg",
+    image: "/uploads/ruffled_copper_bowl_aesthetic.jpg",
+    localImage: "/uploads/ruffled_copper_bowl_aesthetic.jpg",
     images: [
-      "/uploads/ruffled_copper_bowl.jpg",
+      "/uploads/ruffled_copper_bowl_aesthetic.jpg",
       "/uploads/ruffled_copper_bowl_specs.jpg"
     ],
     category: "Hospitality",
@@ -777,19 +773,19 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "36",
     title: "Handcrafted Tri-Tone Metal Pedestal Accent Table",
-    image: "/uploads/pedestal_accent_table.png",
-    localImage: "/uploads/pedestal_accent_table.png",
+    image: "/uploads/pedestal_accent_table_aesthetic.jpg",
+    localImage: "/uploads/pedestal_accent_table_aesthetic.jpg",
     images: [
-      "/uploads/pedestal_accent_table.png",
+      "/uploads/pedestal_accent_table_aesthetic.jpg",
       "/uploads/pedestal_accent_table_specs.png"
     ],
     category: "Hospitality, Utility",
-    price: "₹6,050 / $75",
+    price: "₹3,500 / $42",
     colors: ["#C0392B", "#D4A017", "#C2B280", "#2C2C2C"],
     dimensions: {
-      height: '91 cm (36")',
-      diameter: 'Top 48 cm (19")',
-      pendi: 'Tri-Pod Base'
+      height: '61 cm (24")',
+      diameter: 'Top: 41 cm (16")',
+      pendi: 'Base: 23 cm (9")'
     },
     description: "Handcrafted tri-tone metal pedestal accent side table featuring a round copper top, an intricately carved antique brass turned spindle central column, and a heavy textured silver tripod base with curved legs. Ideal for luxury hotel lounges, hospitality seating, and utility accent spaces."
   },
@@ -815,10 +811,10 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "38",
     title: "Handcrafted Multi-Metallic Chevron Leaf Platter",
-    image: "/uploads/multi_metallic_chevron_leaf_platter.jpg",
-    localImage: "/uploads/multi_metallic_chevron_leaf_platter.jpg",
+    image: "/uploads/multi_metallic_chevron_leaf_platter_aesthetic.jpg",
+    localImage: "/uploads/multi_metallic_chevron_leaf_platter_aesthetic.jpg",
     images: [
-      "/uploads/multi_metallic_chevron_leaf_platter.jpg",
+      "/uploads/multi_metallic_chevron_leaf_platter_aesthetic.jpg",
       "/uploads/multi_metallic_chevron_leaf_platter_specs.jpg"
     ],
     category: "Hospitality",
@@ -849,6 +845,405 @@ const DEFAULT_COLLECTIONS = [
       pendi: 'Length 34 cm - 43 cm (13.4" - 16.9")'
     },
     description: "Handcrafted organic dual-tone decorative platter set featuring embossed geometric starburst textures in vibrant ocean teal and emerald green finishes. Displayed on copper scrollwork stands, available in Big (43×19cm) and Small (34×15cm) sizes."
+  },
+  {
+    id: "40",
+    title: "Handcrafted Chain-Link Border Brass Accent Tray",
+    image: "/uploads/chain_link_border_brass_tray.png",
+    localImage: "/uploads/chain_link_border_brass_tray.png",
+    images: [
+      "/uploads/chain_link_border_brass_tray.png",
+      "/uploads/chain_link_border_brass_tray_specs.png"
+    ],
+    category: "Utility",
+    colors: ["#53565A", "#DFBFA1", "#9E7D62", "#C84E18"],
+    price: "₹1,820 / $22",
+    dimensions: {
+      height: '5 cm (2.0")',
+      diameter: '40 cm (15.7")',
+      pendi: 'Length 40 cm (15.7")'
+    },
+    description: "Handcrafted square accent tray featuring a deeply textured antique burnished gold center basin framed by a bold cast chain-link border on all four sides."
+  },
+  {
+    id: "41",
+    title: "Handcrafted Whitewashed & Gold Pedestal Accent Table",
+    image: "/uploads/whitewashed_pedestal_table_aesthetic.jpg",
+    localImage: "/uploads/whitewashed_pedestal_table_aesthetic.jpg",
+    images: [
+      "/uploads/whitewashed_pedestal_table_aesthetic.jpg",
+      "/uploads/whitewashed_pedestal_table_specs.png"
+    ],
+    category: "Hospitality, Utility",
+    colors: ["#C84E18", "#D4A017", "#9E7D62", "#2C2C2C"],
+    price: "₹2,350 / $28",
+    dimensions: {
+      height: '63 cm (25")',
+      diameter: 'Top: 37 cm (15")',
+      pendi: 'Base: 23 cm (9")'
+    },
+    description: "Handcrafted vintage-style pedestal accent side table featuring a round whitewashed distressed wooden top, a turned spindle central column with gold highlighting, and a matching pedestal base."
+  },
+  {
+    id: "42",
+    title: "Handcrafted Copper & Gold Pedestal Accent Table",
+    image: "/uploads/copper_gold_pedestal_table_aesthetic.jpg",
+    localImage: "/uploads/copper_gold_pedestal_table_aesthetic.jpg",
+    images: [
+      "/uploads/copper_gold_pedestal_table_aesthetic.jpg",
+      "/uploads/copper_gold_pedestal_table_specs.png"
+    ],
+    category: "Hospitality, Utility",
+    colors: ["#C84E18", "#E67E22", "#9E7D62", "#2C2C2C"],
+    price: "₹3,200 / $39",
+    dimensions: {
+      height: '65 cm (26")',
+      diameter: 'Top: 40 cm (16")',
+      pendi: 'Base: 24 cm (10")'
+    },
+    description: "Handcrafted metal pedestal accent side table featuring a round textured copper top, an elegant gold baluster spindle column, and a heavy textured silver dome base."
+  },
+  {
+    id: "43",
+    title: "Handcrafted Heart Cutout Filigree Pedestal Accent Table",
+    image: "/uploads/filigree_pedestal_table_aesthetic.jpg",
+    localImage: "/uploads/filigree_pedestal_table_aesthetic.jpg",
+    images: [
+      "/uploads/filigree_pedestal_table_aesthetic.jpg",
+      "/uploads/filigree_pedestal_table_specs.png"
+    ],
+    category: "Hospitality, Utility",
+    colors: ["#C84E18", "#D4A017", "#9E7D62", "#2C2C2C"],
+    price: "₹3,590 / $44",
+    dimensions: {
+      height: '70 cm (28")',
+      diameter: 'Top: 40 cm (16")',
+      pendi: 'Heart Cutout Base'
+    },
+    description: "Handcrafted metallic pedestal accent side table featuring a round copper top with intricate heart-shaped cutout filigree patterns, an antique brass spindle column, and a matching silver filigree base."
+  },
+  {
+    id: "44",
+    title: "Handcrafted Cellular Mosaic Textured Platter",
+    image: "/uploads/mosaic_platter_aesthetic.jpg",
+    localImage: "/uploads/mosaic_platter_aesthetic.jpg",
+    images: [
+      "/uploads/mosaic_platter_aesthetic.jpg",
+      "/uploads/mosaic_platter_specs.png"
+    ],
+    category: "Giftware",
+    colors: ["#5D9B43", "#2A7B9B", "#F39C12", "#2C2C2C"],
+    price: "₹1,050 / $13",
+    dimensions: {
+      height: '7 cm (2.8")',
+      diameter: '34 cm (13.4")',
+      pendi: 'Length 34 cm (13.4")'
+    },
+    description: "Handcrafted square metallic accent platter featuring a cellular mosaic-textured surface in a hand-painted antique turquoise-copper ombre finish, displayed on a scrollwork metal stand."
+  },
+  {
+    id: "45",
+    title: "Handcrafted Giant Spoon & Fork Wall Decor",
+    image: "/uploads/giant_cutlery_wall_decor_aesthetic.jpg",
+    localImage: "/uploads/giant_cutlery_wall_decor_aesthetic.jpg",
+    images: [
+      "/uploads/giant_cutlery_wall_decor_aesthetic.jpg",
+      "/uploads/giant_cutlery_wall_decor_specs.png"
+    ],
+    category: "Hospitality, Utility",
+    colors: ["#A04000", "#D4A017", "#5D6D7E", "#2C2C2C"],
+    price: "₹1,200 - ₹1,250 / $15 - $16",
+    dimensions: {
+      height: '120 cm (47.2")',
+      diameter: 'Spoon & Fork Set',
+      pendi: 'Wall Mounted'
+    },
+    description: "Handcrafted giant decorative wall-mounted cutlery set featuring a textured copper spoon and an antique gold fork. A unique statement art piece ideal for luxury dining rooms, hotel restaurants, and hospitality spaces. Available as Spoon (₹1,200) and Fork (₹1,250)."
+  },
+  {
+    id: "46",
+    title: "Handcrafted Leaf-Shaped Metallic Platter",
+    image: "/uploads/leaf_platter_set_aesthetic.jpg",
+    localImage: "/uploads/leaf_platter_set_aesthetic.jpg",
+    images: [
+      "/uploads/leaf_platter_set_aesthetic.jpg",
+      "/uploads/leaf_platter_set_specs.png"
+    ],
+    category: "Giftware",
+    colors: ["#5D9B43", "#2A7B9B", "#F39C12", "#2C2C2C"],
+    price: "₹350 - ₹450 / $4 - $6",
+    dimensions: {
+      height: '3 cm',
+      diameter: 'Small: 13 cm (5.1") / Big: 17 cm (6.7")',
+      pendi: 'Small Length: 30 cm (11.8") / Big Length: 36 cm (14.2")'
+    },
+    description: "Handcrafted leaf-shaped metallic serving platters featuring a detailed foliage pattern in a dual-tone teal and green antique wash. Available in Big (₹450) and Small (₹350) sizes, displayed on bronze scrollwork stands."
+  },
+  {
+    id: "47",
+    title: "Handcrafted Ginkgo Leaf Accent Platter",
+    image: "/uploads/ginkgo_leaf_platter_aesthetic.jpg",
+    localImage: "/uploads/ginkgo_leaf_platter_aesthetic.jpg",
+    images: [
+      "/uploads/ginkgo_leaf_platter_aesthetic.jpg",
+      "/uploads/ginkgo_leaf_platter_specs.png"
+    ],
+    category: "Giftware",
+    colors: ["#5D9B43", "#2A7B9B", "#F39C12", "#2C2C2C"],
+    price: "₹1,100 / $14",
+    dimensions: {
+      height: '7 cm (2.8")',
+      diameter: '38 cm (15.0")',
+      pendi: 'Length 36 cm (14.2")'
+    },
+    description: "Handcrafted ginkgo leaf-shaped metallic accent platter featuring detailed radiating leaf veins in a dual-tone teal and green antique wash, displayed on a scrollwork metal stand."
+  },
+  {
+    id: "48",
+    title: "Handcrafted Hexagonal Three-Tier Serving Stand",
+    image: "/uploads/hexagonal_serving_stand_aesthetic.jpg",
+    localImage: "/uploads/hexagonal_serving_stand_aesthetic.jpg",
+    images: [
+      "/uploads/hexagonal_serving_stand_aesthetic.jpg",
+      "/uploads/hexagonal_serving_stand_specs.jpg"
+    ],
+    category: "Hospitality, Utility",
+    colors: ["#A04000", "#D4A017", "#5D6D7E", "#2C2C2C"],
+    price: "₹6,200 / $75",
+    dimensions: {
+      height: '93 cm (36.6")',
+      diameter: 'Small: 32cm / Medium: 41cm / Big: 51cm',
+      pendi: 'Base: 22 cm (8.7")'
+    },
+    description: "Handcrafted three-tier metallic serving and display stand featuring detailed hexagonal plates in a distressed antique brass-gold texture finish. Ideal for premium buffet setups, catering hospitality, and retail utility displays."
+  },
+  {
+    id: "49",
+    title: "Handcrafted Round Three-Tier Serving Stand",
+    image: "/uploads/round_serving_stand_aesthetic.jpg",
+    localImage: "/uploads/round_serving_stand_aesthetic.jpg",
+    images: [
+      "/uploads/round_serving_stand_aesthetic.jpg",
+      "/uploads/round_serving_stand_specs.jpg"
+    ],
+    category: "Utility",
+    colors: ["#A04000", "#D4A017", "#5D6D7E", "#2C2C2C"],
+    price: "₹2,550 / $31",
+    dimensions: {
+      height: '43 cm (16.9")',
+      diameter: 'Small: 27cm / Medium: 33cm / Big: 40cm',
+      pendi: 'Base: 13 cm (5.1")'
+    },
+    description: "Handcrafted three-tier metallic serving and display stand featuring circular plates in copper, gold, and silver finishes. A versatile piece for catering hospitality, buffet display, and home utility organization."
+  },
+  {
+    id: "50",
+    title: "Handcrafted Tri-Tone Fan Accent Platter",
+    image: "/uploads/tri_tone_fan_platter_aesthetic.jpg",
+    localImage: "/uploads/tri_tone_fan_platter_aesthetic.jpg",
+    images: [
+      "/uploads/tri_tone_fan_platter_aesthetic.jpg",
+      "/uploads/tri_tone_fan_platter_specs.jpg"
+    ],
+    category: "Giftware",
+    colors: ["#4E9F3D", "#196B7F", "#D4AC0D", "#1C2833"],
+    price: "₹1,000 / $12",
+    dimensions: {
+      height: '12 cm (4.7")',
+      diameter: '20 cm (7.9")',
+      pendi: 'Length 55 cm (21.7")'
+    },
+    description: "Handcrafted tri-tone metallic serving and display platter featuring an elegant fan-shaped design in silver, copper, and gold textured finishes. Set on an ornate metal display scrollwork stand."
+  },
+  {
+    id: "51",
+    title: "Handcrafted Rectangular Patina Tray Set with Handles",
+    image: "/uploads/rectangular_patina_tray_set.jpg",
+    localImage: "/uploads/rectangular_patina_tray_set.jpg",
+    images: [
+      "/uploads/rectangular_patina_tray_set.jpg",
+      "/uploads/rectangular_patina_tray_set_specs.png"
+    ],
+    category: "Utility",
+    colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
+    price: "₹1,300 - ₹1,500 / $16 - $18",
+    dimensions: {
+      height: '5 cm (2")',
+      diameter: '30 cm - 32 cm (11.8" - 12.6")',
+      pendi: 'Length 50 cm - 63 cm (19.7" - 24.8")'
+    },
+    description: "Handcrafted rectangular patina serving tray set with integrated side handles. Features a rustic weathered finish, available in Emerald Green, Ocean Teal, Antique Gold, and Matte Black. A durable and functional utility piece perfect for hospitality serving, room service, and organization. Available in Big (63×32cm) and Small (50×30cm) sizes."
+  },
+  {
+    id: "52",
+    title: "Handcrafted Antelope Skull Tabletop Sculpture",
+    image: "/uploads/antelope_skull_sculpture.jpg",
+    localImage: "/uploads/antelope_skull_sculpture.jpg",
+    images: [
+      "/uploads/antelope_skull_sculpture.jpg",
+      "/uploads/antelope_skull_sculpture_specs.png"
+    ],
+    category: "Home Décor",
+    colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
+    price: "₹2,450 / $30",
+    dimensions: {
+      height: '67 cm (26.4")',
+      diameter: '28 cm (11")',
+      pendi: 'Square Pedestal Base'
+    },
+    description: "An exquisite handcrafted metallic antelope skull tabletop sculpture. Features an antiqued gold skull with textured copper/bronze horns mounted on a detailed silver-pewter square pedestal base. A unique statement art piece ideal for luxury home décor, sideboards, study tables, and upscale B2B hospitality interiors. Available in Emerald Green, Ocean Teal, Antique Gold, and Matte Black finishes."
+  },
+  {
+    id: "53",
+    title: "Handcrafted Antlered Moose Skull Wall Mount",
+    image: "/uploads/moose_skull_wall_mount.jpg",
+    localImage: "/uploads/moose_skull_wall_mount.jpg",
+    images: [
+      "/uploads/moose_skull_wall_mount.jpg",
+      "/uploads/moose_skull_wall_mount_specs.png"
+    ],
+    category: "Home Décor",
+    colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
+    price: "₹2,700 / $33",
+    dimensions: {
+      height: '40 cm (15.7")',
+      diameter: '45 cm (17.7")',
+      pendi: 'Wall Mounted'
+    },
+    description: "A striking handcrafted metallic moose skull wall mount sculpture. Features a gold-patinated hand-textured skull with detailed copper-finished antlers. A bold, rustic accent piece perfect for lodge-style interiors, living rooms, and modern B2B office hospitality decors. Available in Emerald Green, Ocean Teal, Antique Gold, and Matte Black finishes."
+  },
+  {
+    id: "54",
+    title: "Handcrafted Longhorn Bull Skull Wall Mount",
+    image: "/uploads/bull_skull_wall_mount.jpg",
+    localImage: "/uploads/bull_skull_wall_mount.jpg",
+    images: [
+      "/uploads/bull_skull_wall_mount.jpg",
+      "/uploads/bull_skull_wall_mount_specs.png"
+    ],
+    category: "Home Décor",
+    colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
+    price: "₹3,400 / $41",
+    dimensions: {
+      height: '43 cm (16.9")',
+      diameter: '55 cm (21.7")',
+      pendi: 'Wall Mounted'
+    },
+    description: "An impressive handcrafted metallic longhorn bull skull wall mount sculpture. Features a detailed hand-textured copper-bronze finish skull with swept-out textured steel horns. A powerful rustic statement piece perfect for western-style interiors, living rooms, and bold corporate B2B lounge spaces. Available in Emerald Green, Ocean Teal, Antique Gold, and Matte Black finishes."
+  },
+  {
+    id: "55",
+    title: "Handcrafted Spiraled Ram Skull Wall Mount",
+    image: "/uploads/ram_skull_wall_mount.jpg",
+    localImage: "/uploads/ram_skull_wall_mount.jpg",
+    images: [
+      "/uploads/ram_skull_wall_mount.jpg",
+      "/uploads/ram_skull_wall_mount_specs.jpg"
+    ],
+    category: "Home Décor",
+    colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
+    price: "₹4,100 / $49",
+    dimensions: {
+      height: '64 cm (25.2")',
+      diameter: '58 cm (22.8")',
+      pendi: 'Wall Mounted'
+    },
+    description: "An extraordinary handcrafted metallic ram skull wall mount sculpture. Features a gold-finished hand-textured skull with majestic spiraling copper-patinated horns. A bold and theatrical statement art piece ideal for luxury home décor, living rooms, corridors, and upscale hospitality lounges. Available in Emerald Green, Ocean Teal, Antique Gold, and Matte Black finishes."
+  },
+  {
+    id: "56",
+    title: "Handcrafted Patina Tray Set with Deer Handles",
+    image: "/uploads/deer_handle_patina_tray_set.jpg",
+    localImage: "/uploads/deer_handle_patina_tray_set.jpg",
+    images: [
+      "/uploads/deer_handle_patina_tray_set.jpg",
+      "/uploads/deer_handle_patina_tray_set_specs.jpg"
+    ],
+    category: "Giftware",
+    colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
+    price: "₹850 - ₹1,200 / $10 - $15",
+    dimensions: {
+      height: '4 cm (1.6")',
+      diameter: '17 cm - 20 cm (6.7" - 7.9")',
+      pendi: 'Length 36 cm - 42 cm (14.2" - 16.5")'
+    },
+    description: "A gorgeous handcrafted rectangular patina serving tray set featuring cast deer head figurines as side handles. Finished in a rustic distressed turquoise-green patinated texture. Perfect as a premium B2B corporate gift, holiday present, or table serving ware for rustic luxury settings. Available in Emerald Green, Ocean Teal, Antique Gold, and Matte Black finishes. Comes in Big (42×20cm) and Small (36×17cm) sizes."
+  },
+  {
+    id: "57",
+    title: "Handcrafted Circular Patina Portal Sculpture",
+    image: "/uploads/circular_patina_portal_sculpture.jpg",
+    localImage: "/uploads/circular_patina_portal_sculpture.jpg",
+    images: [
+      "/uploads/circular_patina_portal_sculpture.jpg",
+      "/uploads/circular_patina_portal_sculpture_specs.jpg"
+    ],
+    category: "Home Décor",
+    colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
+    price: "₹1,150 / $14",
+    dimensions: {
+      height: '40 cm (15.7")',
+      diameter: '38 cm (15.0")',
+      pendi: 'Base 18 cm (7.1")'
+    },
+    description: "An outstanding handcrafted circular patina portal tabletop sculpture. Features an antiqued gold, silver, and copper textured concentric ring design with a hollow center basin, mounted on a solid pewter square pedestal base. A gorgeous modern art piece ideal for luxury home décor, study tables, mantels, and hotel lobbies. Available in Emerald Green, Ocean Teal, Antique Gold, and Matte Black finishes."
+  },
+  {
+    id: "58",
+    title: "Handcrafted Abstract Crescent Flame Sculpture",
+    image: "/uploads/abstract_crescent_flame_sculpture.jpg",
+    localImage: "/uploads/abstract_crescent_flame_sculpture.jpg",
+    images: [
+      "/uploads/abstract_crescent_flame_sculpture.jpg",
+      "/uploads/abstract_crescent_flame_sculpture_specs.jpg"
+    ],
+    category: "Home Décor",
+    colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
+    price: "₹1,200 / $15",
+    dimensions: {
+      height: '41 cm (16.1")',
+      diameter: '17 cm (6.7")',
+      pendi: 'Base 12 cm (4.7")'
+    },
+    description: "An striking handcrafted abstract crescent flame tabletop sculpture. Features a textured silver base, a crescent gold-textured flame-like body, and a central copper/red textured oval focal element. A bold and modern artistic accent piece perfect for living rooms, reception tables, mantels, and luxury hotel decors. Available in Emerald Green, Ocean Teal, Antique Gold, and Matte Black finishes."
+  },
+  {
+    id: "59",
+    title: "Handcrafted Circular Ripple Coral Sculpture",
+    image: "/uploads/circular_ripple_coral_sculpture.jpg",
+    localImage: "/uploads/circular_ripple_coral_sculpture.jpg",
+    images: [
+      "/uploads/circular_ripple_coral_sculpture.jpg",
+      "/uploads/circular_ripple_coral_sculpture_specs.jpg"
+    ],
+    category: "Home Décor",
+    colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
+    price: "₹1,000 / $12",
+    dimensions: {
+      height: '29 cm (11.4")',
+      diameter: '27 cm (10.6")',
+      pendi: 'Length 29 cm (11.4")'
+    },
+    description: "A striking handcrafted circular ripple coral tabletop sculpture. Features a textured circular gear-like frame with intricate organic ridges, finished in a stunning ocean turquoise-blue top gradient transitioning into a distressed gold and white base. Set on a circular gold-brushed base. A beautiful modern art piece ideal for shelves, study tables, and upscale coastal hospitality lounge settings. Available in Emerald Green, Ocean Teal, Antique Gold, and Matte Black finishes."
+  },
+  {
+    id: "60",
+    title: "Handcrafted Tall Spindle Pedestal Accent Table",
+    image: "/uploads/spindle_pedestal_accent_table.jpg",
+    localImage: "/uploads/spindle_pedestal_accent_table.jpg",
+    images: [
+      "/uploads/spindle_pedestal_accent_table.jpg",
+      "/uploads/spindle_pedestal_accent_table_specs.png"
+    ],
+    category: "Hospitality, Utility",
+    colors: ["#C84E18", "#E67E22", "#9E7D62", "#2C2C2C"],
+    price: "₹6,050 / $73",
+    dimensions: {
+      height: '91 cm (36")',
+      diameter: 'Top: 48 cm (19")',
+      pendi: 'Tripod Claw-Foot Base'
+    },
+    description: "An elegant handcrafted tall metal pedestal side accent table. Features a round copper-finished wooden top, a turned antique gold/brass spindle central column, and a heavy textured silver tripod base with curved claw-foot legs. A versatile and premium furniture piece ideal for luxury hotel lounges, hospitality seating areas, and home utility accent spaces. Available in Orange/Rust, Orange, Brown/Bronze, and Matte Black finishes."
   }
 ];
 
@@ -1353,6 +1748,7 @@ function App() {
   // Product Detail Lightbox Modal state
   const [activeProductModal, setActiveProductModal] = useState(null);
   const [modalActiveImageIndex, setModalActiveImageIndex] = useState(0);
+  const [selectedColor, setSelectedColor] = useState(null);
 
   // Cart states
   const [cart, setCart] = useState([]);
@@ -1377,45 +1773,47 @@ function App() {
     }
   };
 
-  const addToCart = (product) => {
+  const addToCart = (product, color) => {
+    const selectedCol = color || (product.colors && product.colors.length > 0 ? product.colors[0] : null);
     setCart((prevCart) => {
-      const existing = prevCart.find((item) => item.product.id === product.id);
+      const existing = prevCart.find((item) => item.product.id === product.id && item.color === selectedCol);
       if (existing) {
         return prevCart.map((item) =>
-          item.product.id === product.id
+          item.product.id === product.id && item.color === selectedCol
             ? { ...item, quantity: item.quantity + 1 }
             : item
         );
       }
-      return [...prevCart, { product, quantity: 1 }];
+      return [...prevCart, { product, color: selectedCol, quantity: 1 }];
     });
     setIsCartOpen(true);
   };
 
-  const buyNow = (product) => {
+  const buyNow = (product, color) => {
+    const selectedCol = color || (product.colors && product.colors.length > 0 ? product.colors[0] : null);
     setCart((prevCart) => {
-      const existing = prevCart.find((item) => item.product.id === product.id);
+      const existing = prevCart.find((item) => item.product.id === product.id && item.color === selectedCol);
       if (existing) {
         return prevCart.map((item) =>
-          item.product.id === product.id
+          item.product.id === product.id && item.color === selectedCol
             ? { ...item, quantity: item.quantity + 1 }
             : item
         );
       }
-      return [...prevCart, { product, quantity: 1 }];
+      return [...prevCart, { product, color: selectedCol, quantity: 1 }];
     });
     setIsCartOpen(true);
     setIsCheckingOut(true);
   };
 
-  const removeFromCart = (productId) => {
-    setCart((prevCart) => prevCart.filter((item) => item.product.id !== productId));
+  const removeFromCart = (productId, color) => {
+    setCart((prevCart) => prevCart.filter((item) => !(item.product.id === productId && item.color === color)));
   };
 
-  const updateQuantity = (productId, delta) => {
+  const updateQuantity = (productId, color, delta) => {
     setCart((prevCart) =>
       prevCart.map((item) => {
-        if (item.product.id === productId) {
+        if (item.product.id === productId && item.color === color) {
           const newQty = item.quantity + delta;
           return { ...item, quantity: newQty >= 1 ? newQty : 1 };
         }
@@ -1451,6 +1849,7 @@ function App() {
         id: item.product.id,
         title: item.product.title,
         price: item.product.price,
+        color: item.color || null,
         quantity: item.quantity
       })),
       totalPrice: `₹${getCartTotal().toLocaleString()}`
@@ -1470,7 +1869,8 @@ function App() {
 
       waMessage += `*Requested Items:*\n`;
       orderData.items.forEach((item, idx) => {
-        waMessage += `${idx + 1}. ${item.title} (Qty: ${item.quantity}) - [${item.price}]\n`;
+        const colorSuffix = item.color ? ` (Finish: ${getColorName(item.color)})` : '';
+        waMessage += `${idx + 1}. ${item.title}${colorSuffix} (Qty: ${item.quantity}) - [${item.price}]\n`;
       });
       waMessage += `\n*Estimated Subtotal:* ${orderData.totalPrice}\n`;
       waMessage += `--------------------------------------\n`;
@@ -2082,7 +2482,7 @@ function App() {
                   }}
                 >
                   <div className="collection-preview-image-container">
-                    <img src="/uploads/brass_vessels.png" alt="Utility" className="collection-preview-image" />
+                    <img src="/uploads/chain_link_border_brass_tray.png" alt="Utility" className="collection-preview-image" />
                     <div className="collection-preview-overlay">
                       <div className="collection-preview-content">
                         <span className="collection-card-subtitle">Collection</span>
@@ -2385,7 +2785,8 @@ function App() {
                   key={item.id}
                   onClick={() => {
                     setActiveProductModal(item);
-                    setModalActiveImageIndex(0);
+                    setModalActiveImageIndex(item.id === "47" ? 1 : 0);
+                    setSelectedColor(item.colors && item.colors.length > 0 ? item.colors[0] : null);
                   }}
                 >
                   <div className="product-img-container">
@@ -2874,9 +3275,9 @@ function App() {
 
         {/* --- PRODUCT DETAIL LIGHTBOX MODAL --- */}
         {activeProductModal && (
-          <div className="product-modal-overlay" onClick={() => setActiveProductModal(null)}>
+          <div className="product-modal-overlay" onClick={() => { setActiveProductModal(null); setSelectedColor(null); }}>
             <div className="product-modal-content" onClick={(e) => e.stopPropagation()}>
-              <button className="product-modal-close" onClick={() => setActiveProductModal(null)} title="Close Modal">
+              <button className="product-modal-close" onClick={() => { setActiveProductModal(null); setSelectedColor(null); }} title="Close Modal">
                 <X size={18} />
               </button>
 
@@ -2926,6 +3327,31 @@ function App() {
 
                   <p className="product-modal-desc">{activeProductModal.description}</p>
 
+                  {/* Available Finishes Selector */}
+                  {activeProductModal.colors && activeProductModal.colors.length > 0 && (
+                    <div className="product-modal-colors-section">
+                      <span className="colors-label">AVAILABLE FINISHES:</span>
+                      <div className="colors-list">
+                        {activeProductModal.colors.map((colorHex, idx) => (
+                          <div
+                            key={idx}
+                            className={`color-swatch-wrapper ${selectedColor === colorHex ? 'active' : ''}`}
+                            onClick={() => setSelectedColor(colorHex)}
+                            title={getColorName(colorHex)}
+                          >
+                            <span
+                              className="color-swatch-circle"
+                              style={{ backgroundColor: colorHex }}
+                            />
+                          </div>
+                        ))}
+                      </div>
+                      <span className="selected-color-name">
+                        Finish selected: <strong>{getColorName(selectedColor || '')}</strong>
+                      </span>
+                    </div>
+                  )}
+
                   {/* Technical Dimensions Card */}
                   {activeProductModal.dimensions ? (
                     <div className="product-modal-specs-box">
@@ -2968,13 +3394,13 @@ function App() {
                   <div className="product-modal-actions">
                     <button
                       className="pm-btn pm-btn-primary"
-                      onClick={() => { addToCart(activeProductModal); setActiveProductModal(null); }}
+                      onClick={() => { addToCart(activeProductModal, selectedColor); setActiveProductModal(null); setSelectedColor(null); }}
                     >
                       <ShoppingBag size={15} /> Add to Cart
                     </button>
                     <button
                       className="pm-btn pm-btn-secondary"
-                      onClick={() => { buyNow(activeProductModal); setActiveProductModal(null); }}
+                      onClick={() => { buyNow(activeProductModal, selectedColor); setActiveProductModal(null); setSelectedColor(null); }}
                     >
                       Buy Now
                     </button>
@@ -3011,22 +3437,41 @@ function App() {
                     <div className="cart-body">
                       <div className="cart-items-list">
                         {cart.map((item) => (
-                          <div className="cart-item-card" key={item.product.id}>
+                          <div className="cart-item-card" key={`${item.product.id}-${item.color || ''}`}>
                             <img src={getCardImage(item.product)} alt={item.product.title} className="cart-item-img" />
                             <div className="cart-item-info">
                               <h4 className="cart-item-title">{item.product.title}</h4>
+                              {item.color && (
+                                <div className="cart-item-color-display" style={{ display: 'flex', alignItems: 'center', gap: '6px', margin: '4px 0' }}>
+                                  <span style={{ fontSize: '11px', color: '#777' }}>Finish:</span>
+                                  <span
+                                    className="cart-item-color-circle"
+                                    style={{
+                                      display: 'inline-block',
+                                      width: '10px',
+                                      height: '10px',
+                                      borderRadius: '50%',
+                                      backgroundColor: item.color,
+                                      border: '1px solid rgba(0,0,0,0.1)'
+                                    }}
+                                  />
+                                  <span style={{ fontSize: '11px', color: '#333', fontWeight: 600 }}>
+                                    {getColorName(item.color)}
+                                  </span>
+                                </div>
+                              )}
                               <span className="cart-item-price">{item.product.price}</span>
                               <div className="cart-item-qty-actions">
-                                <button className="qty-btn" onClick={() => updateQuantity(item.product.id, -1)}>
+                                <button className="qty-btn" onClick={() => updateQuantity(item.product.id, item.color, -1)}>
                                   <Minus size={12} />
                                 </button>
                                 <span className="qty-value">{item.quantity}</span>
-                                <button className="qty-btn" onClick={() => updateQuantity(item.product.id, 1)}>
+                                <button className="qty-btn" onClick={() => updateQuantity(item.product.id, item.color, 1)}>
                                   <Plus size={12} />
                                 </button>
                               </div>
                             </div>
-                            <button className="cart-item-remove-btn" onClick={() => removeFromCart(item.product.id)}>
+                            <button className="cart-item-remove-btn" onClick={() => removeFromCart(item.product.id, item.color)}>
                               <Trash2 size={16} />
                             </button>
                           </div>

@@ -5939,3 +5939,70 @@ textarea.form-input {
     gap: 10px;
   }
 }
+
+/* Product Detail Color Selector */
+.product-modal-colors-section {
+  margin-bottom: 20px;
+  padding: 12px 14px;
+  background-color: #fcfbfa;
+  border: 1px solid rgba(184, 140, 72, 0.12);
+  border-radius: 6px;
+}
+
+.colors-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #555;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.colors-list {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.color-swatch-wrapper {
+  position: relative;
+  cursor: pointer;
+  padding: 2px;
+  border: 1.5px solid transparent;
+  border-radius: 50%;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.color-swatch-wrapper:hover {
+  border-color: #B88C48;
+  transform: scale(1.1);
+}
+
+.color-swatch-wrapper.active {
+  border-color: #1A1612;
+  box-shadow: 0 0 0 1px rgba(26, 22, 18, 0.15);
+}
+
+.color-swatch-circle {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  display: block;
+}
+
+.selected-color-name {
+  font-size: 11px;
+  color: #666;
+  display: block;
+  margin-top: 4px;
+}
+
+.selected-color-name strong {
+  color: #1A1612;
+}
