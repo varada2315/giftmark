@@ -795,9 +795,10 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "37",
     title: "Handcrafted Ornate Oval Metallic Footed Platter Set",
-    image: "/uploads/ornate_oval_metallic_platter_set.jpg",
-    localImage: "/uploads/ornate_oval_metallic_platter_set.jpg",
+    image: "/uploads/hero_ornate_trays.png",
+    localImage: "/uploads/hero_ornate_trays.png",
     images: [
+      "/uploads/hero_ornate_trays.png",
       "/uploads/ornate_oval_metallic_platter_set.jpg",
       "/uploads/ornate_oval_metallic_platter_set_specs.jpg"
     ],
@@ -1259,7 +1260,7 @@ const HERO_SLIDES = [
     mainLocalImage: "/uploads/hero_leaf_vases.png",
     bgColor: "#ECEAE6",
     bgImage: "/uploads/bg_limewash_texture.png",
-    productId: "20"
+    productId: "14"
   },
   {
     name: "Perforated Copper & Brass Platter",
@@ -1279,7 +1280,7 @@ const HERO_SLIDES = [
     mainLocalImage: "/uploads/hero_ornate_trays.png",
     bgColor: "#EAECE6",
     bgImage: "/uploads/bg_dark_chevron_wood.png",
-    productId: "14"
+    productId: "37"
   },
   {
     name: "Antlered Moose Skull Wall Mount",

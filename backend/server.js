@@ -456,8 +456,9 @@ const collections = [
   {
     id: "37",
     title: "Handcrafted Ornate Oval Metallic Footed Platter Set",
-    image: "/uploads/ornate_oval_metallic_platter_set.jpg",
+    image: "/uploads/hero_ornate_trays.png",
     images: [
+      "/uploads/hero_ornate_trays.png",
       "/uploads/ornate_oval_metallic_platter_set.jpg",
       "/uploads/ornate_oval_metallic_platter_set_specs.jpg"
     ],
