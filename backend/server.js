@@ -202,9 +202,9 @@ const collections = [
   {
     id: "20",
     title: "Sculptural Two-Tone Metallic Leaf Accent Vases",
-    image: "/uploads/hero_leaf_vases.png",
+    image: "/uploads/sculptural_leaf_accent_vases.png",
     images: [
-      "/uploads/hero_leaf_vases.png",
+      "/uploads/sculptural_leaf_accent_vases.png",
       "/uploads/sculptural_leaf_accent_vases_specs.png"
     ],
     category: "Home Décor",
@@ -457,9 +457,8 @@ const collections = [
   {
     id: "37",
     title: "Handcrafted Ornate Oval Metallic Footed Platter Set",
-    image: "/uploads/hero_ornate_trays.png",
+    image: "/uploads/ornate_oval_metallic_platter_set.jpg",
     images: [
-      "/uploads/hero_ornate_trays.png",
       "/uploads/ornate_oval_metallic_platter_set.jpg",
       "/uploads/ornate_oval_metallic_platter_set_specs.jpg"
     ],
