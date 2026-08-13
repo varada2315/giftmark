@@ -2481,7 +2481,7 @@ function App() {
                   }}
                 >
                   <div className="collection-preview-image-container">
-                    <img src="/uploads/brass_tray_bowls.png" alt="Home Décor" className="collection-preview-image" />
+                    <img src="/uploads/cobalt_gold_accent_floor_vase.png" alt="Home Décor" className="collection-preview-image" />
                     <div className="collection-preview-overlay">
                       <div className="collection-preview-content">
                         <span className="collection-card-subtitle">Collection</span>
@@ -2505,7 +2505,7 @@ function App() {
                   }}
                 >
                   <div className="collection-preview-image-container">
-                    <img src="/uploads/catering_essential.png" alt="Hospitality" className="collection-preview-image" />
+                    <img src="/uploads/crescent_metallic_pedestal_bowl.png" alt="Hospitality" className="collection-preview-image" />
                     <div className="collection-preview-overlay">
                       <div className="collection-preview-content">
                         <span className="collection-card-subtitle">Collection</span>
