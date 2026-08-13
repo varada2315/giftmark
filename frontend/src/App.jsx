@@ -337,6 +337,9 @@ const EXHIBITIONS_DATA = [
   }
 ];
 
+// IDs of products shown in the Best Sellers section (picked for visual appeal)
+const BESTSELLER_IDS = ["27", "21", "35", "44"];
+
 // Fallback data if backend is not reachable
 const DEFAULT_COLLECTIONS = [
   {
@@ -2360,7 +2363,10 @@ function App() {
               </div>
 
               <div className="best-sellers-grid">
-                {collections.slice(0, 4).map((item) => (
+                {BESTSELLER_IDS.map(bid => {
+                  const item = collections.find(c => c.id === bid);
+                  if (!item) return null;
+                  return (
                   <div className="best-seller-card" key={item.id}>
                     <span className="best-seller-badge">Best Seller</span>
                     <div className="best-seller-image-container">
@@ -2389,7 +2395,8 @@ function App() {
                       </div>
                     </div>
                   </div>
-                ))}
+                  );
+                })}
               </div>
             </section>
 
