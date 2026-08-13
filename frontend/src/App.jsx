@@ -1259,7 +1259,7 @@ const HERO_SLIDES = [
     mainLocalImage: "/uploads/hero_leaf_vases.png",
     bgColor: "#ECEAE6",
     bgImage: "/uploads/bg_limewash_texture.png",
-    productId: "20"
+    productId: "14"
   },
   {
     name: "Perforated Copper & Brass Platter",
@@ -1279,7 +1279,7 @@ const HERO_SLIDES = [
     mainLocalImage: "/uploads/hero_ornate_trays.png",
     bgColor: "#EAECE6",
     bgImage: "/uploads/bg_dark_chevron_wood.png",
-    productId: "14"
+    productId: "37"
   },
   {
     name: "Antlered Moose Skull Wall Mount",
