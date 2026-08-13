@@ -3787,20 +3787,26 @@ function ZoomableImageViewer({ src, alt, onClose }) {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [onClose]);
 
+  const handleContainerClick = (e) => {
+    // If image is normal size or click is directly on the backdrop, close the viewer
+    if (scale === 1 || e.target === containerRef.current) {
+      onClose();
+    }
+  };
+
+  const handleImageClick = (e) => {
+    e.stopPropagation();
+    // If not zoomed in, a single click on the image itself also closes it
+    if (scale === 1) {
+      onClose();
+    }
+  };
+
   return (
-    <div className="zoom-viewer-overlay" onClick={onClose}>
-      <button className="zoom-viewer-close" onClick={onClose} title="Close Fullscreen View">
-        <X size={24} />
-      </button>
-
-      <div className="zoom-viewer-header">
-        <h3 className="zoom-viewer-title">{alt}</h3>
-      </div>
-
+    <div className="zoom-viewer-overlay" onClick={handleContainerClick}>
       <div
         ref={containerRef}
         className="zoom-viewer-container"
-        onClick={(e) => e.stopPropagation()}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
@@ -3819,31 +3825,12 @@ function ZoomableImageViewer({ src, alt, onClose }) {
           alt={alt}
           className="zoom-viewer-img"
           draggable="false"
+          onClick={handleImageClick}
           style={{
             transform: `translate(${translateX}px, ${translateY}px) scale(${scale})`,
             transition: isDragging || touchStartRef.current.isPinching ? 'none' : 'transform 0.15s ease-out',
           }}
         />
-      </div>
-
-      <div className="zoom-viewer-footer" onClick={(e) => e.stopPropagation()}>
-        <div className="zoom-viewer-controls">
-          <button className="zoom-btn" onClick={handleZoomOut} disabled={scale <= 1} title="Zoom Out">
-            <Minus size={18} />
-          </button>
-          <span className="zoom-indicator">{Math.round(scale * 100)}%</span>
-          <button className="zoom-btn" onClick={handleZoomIn} disabled={scale >= 5} title="Zoom In">
-            <Plus size={18} />
-          </button>
-          {scale > 1 && (
-            <button className="zoom-reset-btn" onClick={handleReset} title="Reset Zoom">
-              Reset
-            </button>
-          )}
-        </div>
-        <p className="zoom-viewer-hint">
-          Pinch or double-tap to zoom • Drag to pan
-        </p>
       </div>
     </div>
   );
