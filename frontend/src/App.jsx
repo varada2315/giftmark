@@ -1256,7 +1256,7 @@ const HERO_SLIDES = [
     subtitle: "HOME DÉCOR COLLECTION",
     title: "NATURE FORGED\nIN METAL",
     description: "Hand-hammered copper and silver leaf vases that bring organic artistry into every interior. Each piece is individually textured by master craftsmen for a finish that is entirely one of a kind.",
-    mainLocalImage: "/uploads/hero_leaf_vases.jpg",
+    mainLocalImage: "/uploads/hero_leaf_vases.png",
     bgColor: "#ECEAE6",
     bgImage: "/uploads/bg_limewash_texture.png",
     productId: "20"
@@ -1266,7 +1266,7 @@ const HERO_SLIDES = [
     subtitle: "HOME DÉCOR COLLECTION",
     title: "ARTISTRY IN\nEVERY DETAIL",
     description: "A stunning multi-tone perforated platter in hand-finished copper and antique brass, crafted to become the centrepiece of any room. Exported globally across 40+ countries.",
-    mainLocalImage: "/uploads/hero_perforated_platter.jpg",
+    mainLocalImage: "/uploads/hero_perforated_platter.png",
     bgColor: "#EFECE8",
     bgImage: "/uploads/bg_plaster_limewash.png",
     productId: "12"
@@ -1276,7 +1276,7 @@ const HERO_SLIDES = [
     subtitle: "HOSPITALITY COLLECTION",
     title: "ELEVATE YOUR\nHOSPITALITY",
     description: "Exquisite hand-etched oval trays in antique copper and burnished brass, designed for luxury hotel buffets, fine dining presentations, and premium catering events worldwide.",
-    mainLocalImage: "/uploads/hero_ornate_trays.jpg",
+    mainLocalImage: "/uploads/hero_ornate_trays.png",
     bgColor: "#EAECE6",
     bgImage: "/uploads/bg_dark_chevron_wood.png",
     productId: "14"

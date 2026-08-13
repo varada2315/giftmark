@@ -615,12 +615,10 @@
 
 /* revolving transparent background idol images */
 .revolving-idol-img {
-  max-width: 90%;
-  max-height: 90%;
+  max-width: 82%;
+  max-height: 78%;
   object-fit: contain;
-  filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.12));
-  mix-blend-mode: multiply;
-  /* Make white backgrounds transparent */
+  filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.12));
   transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
