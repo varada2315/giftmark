@@ -2285,6 +2285,14 @@ function App() {
                             src={slide.mainLocalImage + "?v=2"}
                             alt={slide.name}
                             className="revolving-idol-img"
+                            onClick={() => {
+                              if (slideProduct) {
+                                setActiveProductModal(slideProduct);
+                                setModalActiveImageIndex(0);
+                              }
+                            }}
+                            style={{ cursor: 'pointer' }}
+                            title="Click to view product image & details"
                           />
 
                           {/* CTA Buttons — visible only on active slide */}
@@ -2336,8 +2344,19 @@ function App() {
                   <p className="hero-description hero-animate-text-3">
                     {currentHeroSlide.description}
                   </p>
-                  <button className="hero-cta hero-animate-text-4" onClick={() => setCurrentPage('collections')}>
-                    Explore Collection
+                  <button
+                    className="hero-cta hero-animate-text-4"
+                    onClick={() => {
+                      const activeProduct = collections.find(p => p.id === currentHeroSlide.productId);
+                      if (activeProduct) {
+                        setActiveProductModal(activeProduct);
+                        setModalActiveImageIndex(0);
+                      } else {
+                        setCurrentPage('collections');
+                      }
+                    }}
+                  >
+                    View Product Details
                   </button>
 
                   {/* Slider controls placed underneath */}
