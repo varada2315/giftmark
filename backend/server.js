@@ -66,9 +66,10 @@ const collections = [
   {
     id: "12",
     title: "Handcrafted Perforated Copper & Brass Platter",
-    image: "/uploads/perforated_metal_platter.png",
+    image: "/uploads/perforated_metal_platter_aesthetic.jpg",
+    localImage: "/uploads/perforated_metal_platter_aesthetic.jpg",
     images: [
-      "/uploads/perforated_metal_platter.png",
+      "/uploads/perforated_metal_platter_aesthetic.jpg",
       "/uploads/perforated_metal_platter_specs.png"
     ],
     category: "Giftware",
@@ -83,9 +84,10 @@ const collections = [
   {
     id: "13",
     title: "Handcrafted Square Copper & Brass Accent Platter",
-    image: "/uploads/square_copper_brass_tray.png",
+    image: "/uploads/square_copper_brass_tray_aesthetic.jpg",
+    localImage: "/uploads/square_copper_brass_tray_aesthetic.jpg",
     images: [
-      "/uploads/square_copper_brass_tray.png",
+      "/uploads/square_copper_brass_tray_aesthetic.jpg",
       "/uploads/square_copper_brass_tray_specs.png"
     ],
     category: "Giftware",
@@ -255,7 +257,8 @@ const collections = [
     title: "Handcrafted Metallic Big Ben Clock Tower Replica",
     image: "/uploads/big_ben_clock_tower_sculpture.jpg",
     images: [
-      "/uploads/big_ben_clock_tower_sculpture.jpg"
+      "/uploads/big_ben_clock_tower_sculpture.jpg",
+      "/uploads/big_ben_clock_tower_sculpture_specs.png"
     ],
     category: "Home Décor",
     price: "₹800 / $10",
@@ -305,7 +308,8 @@ const collections = [
     title: "Handcrafted Two-Tone Metallic Feather Sculpture",
     image: "/uploads/two_tone_metallic_feather_sculpture.png",
     images: [
-      "/uploads/two_tone_metallic_feather_sculpture.png"
+      "/uploads/two_tone_metallic_feather_sculpture.png",
+      "/uploads/two_tone_metallic_feather_sculpture_specs.png"
     ],
     category: "Home Décor",
     price: "₹850 / $10",
@@ -338,7 +342,8 @@ const collections = [
     title: "Handcrafted Dynamic Flame Metallic Sculpture",
     image: "/uploads/abstract_flame_metallic_sculpture.jpg",
     images: [
-      "/uploads/abstract_flame_metallic_sculpture.jpg"
+      "/uploads/abstract_flame_metallic_sculpture.jpg",
+      "/uploads/abstract_flame_metallic_sculpture_specs.jpg"
     ],
     category: "Home Décor",
     price: "₹1,540 / $19",
@@ -387,9 +392,10 @@ const collections = [
   {
     id: "31",
     title: "Handcrafted Chain-Link Border Brass Accent Tray",
-    image: "/uploads/chain_link_border_brass_tray.png",
+    image: "/uploads/chain_link_border_brass_tray_aesthetic.jpg",
+    localImage: "/uploads/chain_link_border_brass_tray_aesthetic.jpg",
     images: [
-      "/uploads/chain_link_border_brass_tray.png",
+      "/uploads/chain_link_border_brass_tray_aesthetic.jpg",
       "/uploads/chain_link_border_brass_tray_specs.png"
     ],
     category: "Hospitality",
@@ -406,7 +412,9 @@ const collections = [
     title: "Handcrafted Corrugated Wave Metallic Platter",
     image: "/uploads/corrugated_wave_metallic_platter.jpg",
     images: [
-      "/uploads/corrugated_wave_metallic_platter.jpg"
+      "/uploads/corrugated_wave_metallic_platter.jpg",
+      "/uploads/corrugated_wave_metallic_platter_stand.jpg",
+      "/uploads/corrugated_wave_metallic_platter_specs.png"
     ],
     category: "Hospitality, Utility",
     price: "₹1,650 / $20",
@@ -510,9 +518,10 @@ const collections = [
   {
     id: "40",
     title: "Handcrafted Chain-Link Border Brass Accent Tray",
-    image: "/uploads/chain_link_border_brass_tray.png",
+    image: "/uploads/chain_link_border_brass_tray_aesthetic.jpg",
+    localImage: "/uploads/chain_link_border_brass_tray_aesthetic.jpg",
     images: [
-      "/uploads/chain_link_border_brass_tray.png",
+      "/uploads/chain_link_border_brass_tray_aesthetic.jpg",
       "/uploads/chain_link_border_brass_tray_specs.png"
     ],
     category: "Utility",
@@ -585,6 +594,7 @@ const collections = [
     image: "/uploads/mosaic_platter_aesthetic.jpg",
     images: [
       "/uploads/mosaic_platter_aesthetic.jpg",
+      "/uploads/mosaic_platter_stand.jpg",
       "/uploads/mosaic_platter_specs.png"
     ],
     category: "Giftware",
@@ -693,6 +703,7 @@ const collections = [
     image: "/uploads/tri_tone_fan_platter_aesthetic.jpg",
     images: [
       "/uploads/tri_tone_fan_platter_aesthetic.jpg",
+      "/uploads/tri_tone_fan_platter_stand.jpg",
       "/uploads/tri_tone_fan_platter_specs.jpg"
     ],
     category: "Giftware",
@@ -711,6 +722,7 @@ const collections = [
     image: "/uploads/rectangular_patina_tray_set.jpg",
     images: [
       "/uploads/rectangular_patina_tray_set.jpg",
+      "/uploads/rectangular_patina_tray_set_stand.jpg",
       "/uploads/rectangular_patina_tray_set_specs.png"
     ],
     category: "Utility",
@@ -783,6 +795,7 @@ const collections = [
     image: "/uploads/ram_skull_wall_mount.jpg",
     images: [
       "/uploads/ram_skull_wall_mount.jpg",
+      "/uploads/ram_skull_wall_mount_close.jpg",
       "/uploads/ram_skull_wall_mount_specs.jpg"
     ],
     category: "Home Décor",

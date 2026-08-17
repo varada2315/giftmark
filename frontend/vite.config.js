@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     port: 6291,
     host: '0.0.0.0',
-    allowedHosts: ['gifty.cyberpunk.co.in'],
+    allowedHosts: true,
     proxy: {
       '/api': {
         target: 'http://localhost:5000',
