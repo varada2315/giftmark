@@ -338,7 +338,7 @@ const EXHIBITIONS_DATA = [
 ];
 
 // IDs of products shown in the Best Sellers section (picked for visual appeal)
-const BESTSELLER_IDS = ["38", "40", "12", "53"];
+const BESTSELLER_IDS = ["38", "40", "12", "23"];
 
 // Fallback data if backend is not reachable
 const DEFAULT_COLLECTIONS = [
@@ -590,6 +590,7 @@ const DEFAULT_COLLECTIONS = [
     id: "23",
     title: "Handcrafted Metallic Big Ben Clock Tower Replica",
     image: "/uploads/big_ben_clock_tower_sculpture.jpg",
+    localImage: "/uploads/big_ben_clock_tower_sculpture.jpg",
     images: [
       "/uploads/big_ben_clock_tower_sculpture.jpg",
       "/uploads/big_ben_clock_tower_sculpture_specs.png"
@@ -1268,44 +1269,44 @@ const DEFAULT_COLLECTIONS = [
 
 const HERO_SLIDES = [
   {
-    name: "Sculptural Leaf Vase Set",
-    subtitle: "HOME DÉCOR COLLECTION",
-    title: "NATURE FORGED\nIN METAL",
-    description: "Hand-hammered copper and silver leaf vases that bring organic artistry into every interior. Each piece is individually textured by master craftsmen for a finish that is entirely one of a kind.",
-    mainLocalImage: "/uploads/hero_leaf_vases.png",
+    name: "Whitewashed & Gold Pedestal Table",
+    subtitle: "HOSPITALITY & UTILITY",
+    title: "TIMELESS ELEGANCE\nIN ACCENT DESIGN",
+    description: "Handcrafted vintage-style pedestal accent side table featuring a round whitewashed distressed wooden top and turned spindle column with gold highlights.",
+    mainLocalImage: "/uploads/hero_whitewashed_table.png",
     bgColor: "#ECEAE6",
     bgImage: "/uploads/bg_limewash_texture.png",
-    productId: "20"
+    productId: "41"
   },
   {
-    name: "Perforated Copper & Brass Platter",
+    name: "Geometric Faceted Sculpture Trio",
     subtitle: "HOME DÉCOR COLLECTION",
-    title: "ARTISTRY IN\nEVERY DETAIL",
-    description: "A stunning multi-tone perforated platter in hand-finished copper and antique brass, crafted to become the centrepiece of any room. Exported globally across 40+ countries.",
-    mainLocalImage: "/uploads/hero_perforated_platter.png",
+    title: "MODERN FACETED\nMETALLIC ART",
+    description: "Abstract geometric faceted metallic sculpture set in antique copper, gold, and silver finishes, bringing dynamic architectural energy to luxury interiors.",
+    mainLocalImage: "/uploads/hero_geometric_sculptures.png",
     bgColor: "#EFECE8",
     bgImage: "/uploads/bg_plaster_limewash.png",
-    productId: "12"
+    productId: "17"
   },
   {
-    name: "Ornate Oval Serving Tray Set",
-    subtitle: "HOSPITALITY COLLECTION",
-    title: "ELEVATE YOUR\nHOSPITALITY",
-    description: "Exquisite hand-etched oval trays in antique copper and burnished brass, designed for luxury hotel buffets, fine dining presentations, and premium catering events worldwide.",
-    mainLocalImage: "/uploads/hero_ornate_trays.png",
-    bgColor: "#EAECE6",
-    bgImage: "/uploads/bg_dark_chevron_wood.png",
-    productId: "37"
-  },
-  {
-    name: "Antlered Moose Skull Wall Mount",
+    name: "Longhorn Bull Skull Wall Mount",
     subtitle: "WALL DÉCOR COLLECTION",
-    title: "BOLD STATEMENT\nWALL ART",
-    description: "A commanding hand-patinated moose skull wall sculpture in gold and antique copper — an iconic accent for modern offices, boutique hotels, and statement interiors.",
-    mainLocalImage: "/uploads/hero_moose_skull.png",
+    title: "BOLD RUSTIC\nSTATEMENT ART",
+    description: "An impressive handcrafted metallic longhorn bull skull wall mount sculpture with textured copper-bronze patina and swept-out textured steel horns.",
+    mainLocalImage: "/uploads/hero_bull_skull.png",
     bgColor: "#EFEBE6",
     bgImage: "/uploads/bg_fluted_panel_studio.png",
-    productId: "53"
+    productId: "54"
+  },
+  {
+    name: "Crescent Metallic Pedestal Bowl",
+    subtitle: "HOSPITALITY COLLECTION",
+    title: "ARTISANAL FORM\n& TEXTURE",
+    description: "Artisanal crescent-shaped decorative serving bowl crafted in textured antiqued bronze copper with a slotted comb-tooth rim mounted on a heavy flared pedestal base.",
+    mainLocalImage: "/uploads/hero_crescent_bowl.png",
+    bgColor: "#EAECE6",
+    bgImage: "/uploads/bg_dark_chevron_wood.png",
+    productId: "33"
   }
 ];
 
@@ -2328,7 +2329,7 @@ function App() {
                           )}
 
                           <img
-                            src={slide.mainLocalImage + "?v=2"}
+                            src={slide.mainLocalImage + "?v=3"}
                             alt={slide.name}
                             className="revolving-idol-img"
                             onClick={() => {
@@ -2567,7 +2568,7 @@ function App() {
                   }}
                 >
                   <div className="collection-preview-image-container">
-                    <img src="/uploads/chain_link_border_brass_tray.png" alt="Utility" className="collection-preview-image" />
+                    <img src="/uploads/giant_cutlery_wall_decor_aesthetic.jpg" alt="Utility" className="collection-preview-image" />
                     <div className="collection-preview-overlay">
                       <div className="collection-preview-content">
                         <span className="collection-card-subtitle">Collection</span>

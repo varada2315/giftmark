@@ -256,6 +256,7 @@ const collections = [
     id: "23",
     title: "Handcrafted Metallic Big Ben Clock Tower Replica",
     image: "/uploads/big_ben_clock_tower_sculpture.jpg",
+    localImage: "/uploads/big_ben_clock_tower_sculpture.jpg",
     images: [
       "/uploads/big_ben_clock_tower_sculpture.jpg",
       "/uploads/big_ben_clock_tower_sculpture_specs.png"
