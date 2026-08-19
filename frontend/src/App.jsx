@@ -16,8 +16,28 @@ const getColorName = (hex) => {
     '#DFBFA1': 'Sand / Beige',
     '#9E7D62': 'Brown / Bronze',
     '#C84E18': 'Orange / Rust',
+    '#E67E22': 'Rust Bronze',
+    '#5D9B43': 'Moss Green',
+    '#2A7B9B': 'Antique Turquoise',
+    '#F39C12': 'Polished Gold',
+    '#A04000': 'Aged Rust Patina',
+    '#5D6D7E': 'Slate Pewter',
+    '#196B7F': 'Deep Teal',
+    '#D4AC0D': 'Champagne Gold',
+    '#1C2833': 'Gunmetal Black',
   };
   return map[hex.toUpperCase()] || hex;
+};
+
+const hasMultipleOptions = (product) => {
+  if (!product) return false;
+  if (Array.isArray(product.colors) && product.colors.length > 1) return true;
+  if (Array.isArray(product.variants) && product.variants.length > 1) return true;
+  if (Array.isArray(product.options) && product.options.length > 1) return true;
+  if (Array.isArray(product.sizes) && product.sizes.length > 1) return true;
+  if (typeof product.price === 'string' && product.price.includes('-')) return true;
+  if (typeof product.description === 'string' && /(available in (big|large|medium|small|various)|available as |sizes\.)/i.test(product.description)) return true;
+  return false;
 };
 
 // Certifications Data
@@ -206,7 +226,7 @@ const EXHIBITIONS_DATA = [
     previewImage: "/uploads/exhibition_display_shelves.jpg",
     badge: "Artisan Gallery",
     issuer: "Handicrafts & Decor Expo",
-    description: "Interior display gallery presenting signature hand-hammered brass urns, textured metallic vases, and hotelware decor collections."
+    description: "Interior display gallery presenting signature hand-hammered aluminium urns, textured metallic vases, and hotelware decor collections."
   },
   {
     id: "ex-booth-entrance",
@@ -232,7 +252,7 @@ const EXHIBITIONS_DATA = [
     previewImage: "/uploads/exhibition_stall_perspective.jpg",
     badge: "Export Showcase",
     issuer: "Global Handicrafts Expo",
-    description: "Wide perspective angle of Giftmark's expansive 3U-1 & 2 stall featuring tier-shelved brassware and customer meeting lounge area."
+    description: "Wide perspective angle of Giftmark's expansive 3U-1 & 2 stall featuring tier-shelved aluminium metalware and customer meeting lounge area."
   },
   {
     id: "ex-ambiente-frankfurt-2026",
@@ -268,7 +288,7 @@ const EXHIBITIONS_DATA = [
     previewImage: "/uploads/hongkong_fair_april_2018.jpg",
     badge: "HongKong Apr 2018",
     issuer: "Hong Kong Trade Development Council (HKTDC)",
-    description: "Giftmark Industries' official India Pavilion booth (Stall 3CON-150) at Hong Kong Gifts & Premium Fair (April 2018), displaying copper & silver metallic art vases, platters, and luxury hotel decor."
+    description: "Giftmark Industries' official India Pavilion booth (Stall 3CON-150) at Hong Kong Gifts & Premium Fair (April 2018), displaying aluminium & silver metallic art vases, platters, and luxury hotel decor."
   },
   {
     id: "ex-epch-delhi-fair-2019",
@@ -307,7 +327,7 @@ const EXHIBITIONS_DATA = [
     previewImage: "/uploads/ihgf_delhi_oct_2017.jpg",
     badge: "IHGF Delhi Oct 2017",
     issuer: "Export Promotion Council for Handicrafts (EPCH)",
-    description: "Giftmark Industries' dark-themed artisan showcase at the 44th IHGF Delhi Fair (October 2017), presenting hand-cast metallic animal skull sculptures, horn wall mounts, brass pedestals, and accent furniture."
+    description: "Giftmark Industries' dark-themed artisan showcase at the 44th IHGF Delhi Fair (October 2017), presenting hand-cast metallic animal skull sculptures, horn wall mounts, aluminium pedestals, and accent furniture."
   },
   {
     id: "ex-ihe-sep-2021",
@@ -320,7 +340,7 @@ const EXHIBITIONS_DATA = [
     previewImage: "/uploads/ihe_sep_2021.jpg",
     badge: "IHE Sep 2021",
     issuer: "International Hospitality Expo (IHE)",
-    description: "Giftmark Industries' grand illuminated pavilion at International Hospitality Expo (IHE September 2021), featuring luxury hotel serving ware, green & copper metallic floor urns, and bespoke B2B decor."
+    description: "Giftmark Industries' grand illuminated pavilion at International Hospitality Expo (IHE September 2021), featuring luxury hotel serving ware, green & aluminium metallic floor urns, and bespoke B2B decor."
   },
   {
     id: "ex-side-view",
@@ -333,7 +353,7 @@ const EXHIBITIONS_DATA = [
     previewImage: "/uploads/exhibition_stall_side.jpg",
     badge: "Exhibition Gallery",
     issuer: "Handicraft Export Council",
-    description: "Side entrance display showcasing metallic floor vases, decorative hammered brass bowls, and custom hotel catering accents."
+    description: "Side entrance display showcasing metallic floor vases, decorative hammered aluminium bowls, and custom hotel catering accents."
   }
 ];
 
@@ -344,7 +364,7 @@ const BESTSELLER_IDS = ["38", "40", "12", "23"];
 const DEFAULT_COLLECTIONS = [
   {
     id: "32",
-    title: "Handcrafted Teal & Copper Octagonal Serving Tray Set",
+    title: "Handcrafted Teal & Aluminium Octagonal Serving Tray Set",
     image: "/uploads/teal_copper_octagonal_tray_set.png",
     localImage: "/uploads/teal_copper_octagonal_tray_set.png",
     images: [
@@ -352,13 +372,16 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/teal_copper_octagonal_tray_set_specs.png"
     ],
     category: "Hospitality",
+    material: "Aluminium",
+    colors: ["#1E759A", "#4E9F3D", "#D4A017", "#2C2C2C"],
+    
     price: "₹620 - ₹850 / $8 - $10",
     dimensions: {
       height: '3 cm (1.2")',
       diameter: '18 cm - 20 cm (7.1" - 7.9")',
       pendi: 'Length 34 cm - 40 cm (13.4" - 15.7")'
     },
-    description: "Handcrafted rectangular octagonal-corner serving tray set featuring a raw copper/rust exterior and a dramatic teal-green abstract terrain-map interior basin with organic cutouts. Available in Big (40×20cm) and Small (34×18cm) sizes."
+    description: "Handcrafted rectangular octagonal-corner serving tray set featuring a raw aluminium rust exterior and a dramatic teal-green abstract terrain-map interior basin with organic cutouts. Available in Big (40×20cm) and Small (34×18cm) sizes."
   },
   {
     id: "33",
@@ -370,35 +393,41 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/crescent_metallic_pedestal_bowl_specs.png"
     ],
     category: "Hospitality",
+    material: "Aluminium",
+    colors: ["#9E7D62", "#D4A017", "#53565A", "#2C2C2C"],
+    
     price: "₹1,220 / $15",
     dimensions: {
       height: '10 cm (3.9")',
       diameter: '29 cm (11.4")',
       pendi: 'Length 37 cm (14.6")'
     },
-    description: "Artisanal crescent-shaped decorative serving bowl crafted in textured antiqued bronze copper with a slotted comb-tooth rim mounted on a heavy flared pedestal base."
+    description: "Artisanal crescent-shaped decorative serving bowl crafted in textured antiqued bronze aluminium with a slotted comb-tooth rim mounted on a heavy flared pedestal base."
   },
 
   {
     id: "11",
-    title: "Ornate Vintage Copper & Brass Urn",
+    title: "Ornate Vintage Aluminium Urn",
     image: "/uploads/vintage_brass_urn.png",
     images: [
       "/uploads/vintage_brass_urn.png",
       "/uploads/vintage_brass_urn_specs.png"
     ],
     category: "Giftware",
+    material: "Aluminium",
+    colors: ["#D4A017", "#9E7D62", "#53565A", "#2C2C2C"],
+    
     price: "₹18,500 / $225",
     dimensions: {
       height: '90 cm (35.4")',
       diameter: '36 cm (14.2")',
       pendi: '36 cm (14.2")'
     },
-    description: "Traditional handcrafted copper urn vessel with finial lid, rich filigree detailing, and rustic aged finish."
+    description: "Traditional handcrafted aluminium urn vessel with finial lid, rich filigree detailing, and rustic aged finish."
   },
   {
     id: "12",
-    title: "Handcrafted Perforated Copper & Brass Platter",
+    title: "Handcrafted Perforated Aluminium Platter",
     image: "/uploads/perforated_metal_platter_aesthetic.jpg",
     localImage: "/uploads/perforated_metal_platter_aesthetic.jpg",
     images: [
@@ -406,17 +435,20 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/perforated_metal_platter_specs.png"
     ],
     category: "Giftware",
+    material: "Aluminium",
+    colors: ["#D4A017", "#53565A", "#9E7D62", "#2C2C2C"],
+    
     price: "₹8,500 / $105",
     dimensions: {
       height: '8 cm (3.1")',
       diameter: '33 cm (13")',
       pendi: 'Length 33 cm (13")'
     },
-    description: "Decorative multi-tone scalloped platter featuring hand-perforated cutouts, two-tone copper and brass sectors, and a textured silver center on an ornate stand."
+    description: "Decorative multi-tone scalloped platter featuring hand-perforated cutouts, two-tone aluminium sectors, and a textured silver center on an ornate stand."
   },
   {
     id: "13",
-    title: "Handcrafted Square Copper & Brass Accent Platter",
+    title: "Handcrafted Square Aluminium Accent Platter",
     image: "/uploads/square_copper_brass_tray_aesthetic.jpg",
     localImage: "/uploads/square_copper_brass_tray_aesthetic.jpg",
     images: [
@@ -424,13 +456,16 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/square_copper_brass_tray_specs.png"
     ],
     category: "Giftware",
+    material: "Aluminium",
+    colors: ["#D4A017", "#9E7D62", "#53565A", "#2C2C2C"],
+    
     price: "₹6,800 / $85",
     dimensions: {
       height: '4 cm (1.6")',
       diameter: '25 cm (9.8")',
       pendi: 'Length 25 cm (9.8")'
     },
-    description: "Handcrafted square decorative tray featuring a textured copper center basin, distressed antique brass border with corner motifs, and ornate metal display stand."
+    description: "Handcrafted square decorative tray featuring a textured aluminium center basin, distressed antique aluminium border with corner motifs, and ornate metal display stand."
   },
   {
     id: "14",
@@ -441,13 +476,16 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/sculptural_leaf_vases_specs.png"
     ],
     category: "Giftware",
+    material: "Aluminium",
+    colors: ["#D4A017", "#53565A", "#9E7D62", "#2C2C2C"],
+    
     price: "₹1,350 - ₹2,350 / $16 - $28",
     dimensions: {
       height: '50 cm - 65 cm (19.7" - 25.6")',
       diameter: '21 cm - 23 cm (8.3" - 9.1")',
       pendi: 'Top Dia 16 cm (6.3")'
     },
-    description: "Handcrafted sculptural metallic floor vase set featuring spiraling copper leaf necks, hammered brass mid-accents, and textured silver bases. Available in Big (65cm) and Small (50cm) sizes."
+    description: "Handcrafted sculptural metallic floor vase set featuring spiraling aluminium leaf necks, hammered aluminium mid-accents, and textured silver bases. Available in Big (65cm) and Small (50cm) sizes."
   },
   {
     id: "15",
@@ -458,13 +496,16 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/dual_metallic_leaf_sculpture_specs.png"
     ],
     category: "Giftware",
+    material: "Aluminium",
+    colors: ["#D4A017", "#53565A", "#9E7D62", "#2C2C2C"],
+    
     price: "₹1,800 / $22",
     dimensions: {
       height: '58 cm (22.8")',
       diameter: '32 cm (12.6")',
       pendi: 'Base 34 cm (13.4")'
     },
-    description: "Artisanal dual leaf tabletop sculpture featuring hand-carved copper and gold leaves mounted on a heavy textured silver pedestal base."
+    description: "Artisanal dual leaf tabletop sculpture featuring hand-carved aluminium and gold leaves mounted on a heavy textured silver pedestal base."
   },
   {
     id: "16",
@@ -475,13 +516,16 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/perforated_leaf_sculptures_specs.png"
     ],
     category: "Giftware",
+    material: "Aluminium",
+    colors: ["#D4A017", "#53565A", "#9E7D62", "#2C2C2C"],
+    
     price: "₹620 - ₹1,000 / $8 - $12",
     dimensions: {
       height: '47 cm - 58 cm (18.5" - 22.8")',
       diameter: '13 cm - 18 cm (5.1" - 7.1")',
       pendi: 'Square Silver Pedestal'
     },
-    description: "Artisanal cut-out metallic leaf sculpture set featuring hand-embossed two-tone copper and gold leaf silhouettes mounted on silver square pedestals. Available in Big (58cm) and Small (47cm) sizes."
+    description: "Artisanal cut-out metallic leaf sculpture set featuring hand-embossed two-tone aluminium and gold leaf silhouettes mounted on silver square pedestals. Available in Big (58cm) and Small (47cm) sizes."
   },
   {
     id: "17",
@@ -492,13 +536,16 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/geometric_metallic_sculpture_trio_specs.png"
     ],
     category: "Giftware",
+    material: "Aluminium",
+    colors: ["#D4A017", "#53565A", "#9E7D62", "#2C2C2C"],
+    
     price: "₹400 - ₹800 / $5 - $10",
     dimensions: {
       height: '30 cm - 50 cm (11.8" - 19.7")',
       diameter: '12 cm - 21 cm (4.7" - 8.3")',
       pendi: 'Base 9 cm - 12 cm (3.5" - 4.7")'
     },
-    description: "Abstract geometric faceted metallic sculpture set in copper, antique gold, and silver finishes. Available in Large (50cm), Medium (38cm), and Small (30cm) sizes."
+    description: "Abstract geometric faceted metallic sculpture set in aluminium, antique gold, and silver finishes. Available in Large (50cm), Medium (38cm), and Small (30cm) sizes."
   },
   {
     id: "18",
@@ -509,13 +556,16 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/metallic_lovebirds_tree_sculpture_specs.png"
     ],
     category: "Giftware",
+    material: "Aluminium",
+    colors: ["#D4A017", "#53565A", "#9E7D62", "#2C2C2C"],
+    
     price: "₹550 / $7",
     dimensions: {
       height: '33 cm (13")',
       diameter: '30 cm (11.8")',
       pendi: 'Antique Dome Base'
     },
-    description: "Artisanal circular tabletop sculpture featuring a pair of copper lovebirds perched on silver branches enclosed within a distressed gold circular ring."
+    description: "Artisanal circular tabletop sculpture featuring a pair of aluminium lovebirds perched on silver branches enclosed within a distressed gold circular ring."
   },
   {
     id: "19",
@@ -526,13 +576,16 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/abstract_circular_horizon_sculptures_specs.png"
     ],
     category: "Giftware",
+    material: "Aluminium",
+    colors: ["#D4A017", "#53565A", "#9E7D62", "#2C2C2C"],
+    
     price: "₹1,350 - ₹1,590 / $16 - $19",
     dimensions: {
       height: '57 cm - 68 cm (22.4" - 26.8")',
       diameter: '31 cm - 38 cm (12.2" - 15")',
       pendi: 'Base 19 cm (7.5")'
     },
-    description: "Sculptural metallic tabletop art set featuring copper circular frames with gold hand-textured horizon landscapes mounted on tiered silver conical pedestals. Available in Big (68cm) and Small (57cm) sizes."
+    description: "Sculptural metallic tabletop art set featuring aluminium circular frames with gold hand-textured horizon landscapes mounted on tiered silver conical pedestals. Available in Big (68cm) and Small (57cm) sizes."
   },
   {
     id: "20",
@@ -544,13 +597,16 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/sculptural_leaf_accent_vases_specs.png"
     ],
     category: "Home Décor",
+    material: "Aluminium",
+    colors: ["#53565A", "#D4A017", "#9E7D62", "#2C2C2C"],
+    
     price: "₹800 - ₹1,350 / $10 - $16",
     dimensions: {
       height: '29 cm - 37 cm (11.4" - 14.6")',
       diameter: '20 cm - 25 cm (7.9" - 9.8")',
       pendi: 'Top 4 cm - 5 cm (1.6" - 2")'
     },
-    description: "Artisanal leaf-silhouette vase pair featuring two-tone split finishes in antiqued copper and oxidized silver ribbed textures. Available in Big (37cm) and Small (29cm) sizes."
+    description: "Artisanal leaf-silhouette vase pair featuring two-tone split finishes in antiqued aluminium and oxidized silver ribbed textures. Available in Big (37cm) and Small (29cm) sizes."
   },
   {
     id: "21",
@@ -561,13 +617,16 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/spherical_etched_metallic_vases_specs.png"
     ],
     category: "Home Décor",
+    material: "Aluminium",
+    colors: ["#D4A017", "#C84E18", "#53565A", "#2C2C2C"],
+    
     price: "₹600 - ₹800 / $7 - $10",
     dimensions: {
       height: '23 cm - 28 cm (9.1" - 11.0")',
       diameter: '26 cm (10.2")',
       pendi: 'Etched Linear Finish'
     },
-    description: "Spherical metallic tabletop vase pair featuring fine vertical etched linear textures and a two-tone copper to antique gold ombre gradient finish. Available in Big (28cm) and Small (23cm) sizes."
+    description: "Spherical metallic tabletop vase pair featuring fine vertical etched linear textures and a two-tone aluminium to antique gold ombre gradient finish. Available in Big (28cm) and Small (23cm) sizes."
   },
   {
     id: "22",
@@ -578,13 +637,16 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/surrealist_metallic_head_sculpture_specs.png"
     ],
     category: "Home Décor",
+    material: "Aluminium",
+    colors: ["#D4A017", "#53565A", "#9E7D62", "#2C2C2C"],
+    
     price: "₹1,250 / $15",
     dimensions: {
       height: '54 cm (21.2")',
       diameter: '19 cm (7.5")',
-      pendi: 'Turned Copper Pedestal'
+      pendi: 'Turned Aluminium Pedestal'
     },
-    description: "Surrealist tabletop bust sculpture featuring a copper hand covering a textured gold face, mounted on an antiqued turned copper pedestal stand."
+    description: "Surrealist tabletop bust sculpture featuring a aluminium hand covering a textured gold face, mounted on an antiqued turned aluminium pedestal stand."
   },
   {
     id: "23",
@@ -596,6 +658,9 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/big_ben_clock_tower_sculpture_specs.png"
     ],
     category: "Home Décor",
+    material: "Aluminium",
+    colors: ["#53565A", "#D4A017", "#2C2C2C"],
+    
     price: "₹800 / $10",
     dimensions: {
       height: '36 cm (14.2")',
@@ -613,13 +678,16 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/spiral_flame_metallic_sculptures_specs.png"
     ],
     category: "Home Décor",
+    material: "Aluminium",
+    colors: ["#D4A017", "#C84E18", "#53565A", "#2C2C2C"],
+    
     price: "₹1,300 - ₹1,560 / $16 - $19",
     dimensions: {
       height: '65 cm - 74 cm (25.6" - 29.1")',
       diameter: '24 cm - 28 cm (9.4" - 11.0")',
-      pendi: 'Conical Brass Pedestal'
+      pendi: 'Conical Aluminium Pedestal'
     },
-    description: "Artisanal metallic tabletop sculpture set featuring spiral nautilus gold bases and textured copper flame crests mounted on conical brass pedestals. Available in Big (74cm) and Small (65cm) sizes."
+    description: "Artisanal metallic tabletop sculpture set featuring spiral nautilus gold bases and textured aluminium flame crests mounted on conical aluminium pedestals. Available in Big (74cm) and Small (65cm) sizes."
   },
   {
     id: "25",
@@ -630,13 +698,16 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/abstract_metallic_mask_sculpture_specs.png"
     ],
     category: "Home Décor",
+    material: "Aluminium",
+    colors: ["#D4A017", "#9E7D62", "#2C2C2C"],
+    
     price: "₹810 / $10",
     dimensions: {
       height: '51 cm (20.1")',
       diameter: '22 cm (8.7")',
-      pendi: 'Textured Brass Pedestal'
+      pendi: 'Textured Aluminium Pedestal'
     },
-    description: "Avant-garde tabletop mask sculpture crafted in textured gold brass with openwork features and crowned with a tri-color metallic leaf emblem."
+    description: "Avant-garde tabletop mask sculpture crafted in textured gold aluminium with openwork features and crowned with a tri-color metallic leaf emblem."
   },
   {
     id: "26",
@@ -647,13 +718,16 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/two_tone_metallic_feather_sculpture_specs.png"
     ],
     category: "Home Décor",
+    material: "Aluminium",
+    colors: ["#D4A017", "#53565A", "#9E7D62", "#2C2C2C"],
+    
     price: "₹850 / $10",
     dimensions: {
       height: '46 cm (18.1")',
       diameter: '13 cm (5.1")',
       pendi: 'Silver Pewter Pedestal'
     },
-    description: "Artisanal metallic feather tabletop sculpture featuring a split copper and antiqued gold textured quill mounted on a brushed silver pedestal base."
+    description: "Artisanal metallic feather tabletop sculpture featuring a split aluminium and antiqued gold textured quill mounted on a brushed silver pedestal base."
   },
   {
     id: "27",
@@ -664,6 +738,9 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/cobalt_gold_accent_floor_vase_specs.png"
     ],
     category: "Home Décor",
+    material: "Aluminium",
+    colors: ["#1E759A", "#D4A017", "#2C2C2C", "#53565A"],
+    
     price: "₹6,350 / $78",
     dimensions: {
       height: '70 cm (28")',
@@ -681,13 +758,16 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/abstract_flame_metallic_sculpture_specs.jpg"
     ],
     category: "Home Décor",
+    material: "Aluminium",
+    colors: ["#D4A017", "#C84E18", "#53565A", "#2C2C2C"],
+    
     price: "₹1,540 / $19",
     dimensions: {
       height: '56 cm (22.0")',
       diameter: '36 cm (14.2")',
       pendi: 'Gold Oval Pedestal'
     },
-    description: "Artisanal abstract metallic tabletop sculpture featuring sweeping copper flame tendrils cradled within a brushed gold crescent shell."
+    description: "Artisanal abstract metallic tabletop sculpture featuring sweeping aluminium flame tendrils cradled within a brushed gold crescent shell."
   },
   {
     id: "29",
@@ -699,6 +779,9 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/three_tier_metallic_serving_stand_specs.jpg"
     ],
     category: "Hospitality, Utility",
+    material: "Aluminium",
+    colors: ["#53565A", "#D4A017", "#2C2C2C"],
+    
     price: "₹6,500 / $80",
     dimensions: {
       height: '99 cm (39")',
@@ -717,18 +800,21 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/chevron_metallic_accent_platter_specs.png"
     ],
     category: "Hospitality, Utility",
+    material: "Aluminium",
+    colors: ["#53565A", "#D4A017", "#9E7D62", "#2C2C2C"],
+    
     price: "₹1,350 - ₹1,550 / $16 - $19",
     dimensions: {
       height: '6 cm - 7 cm (2.4" - 2.8")',
       diameter: '34 cm - 40 cm (13.4" - 15.7")',
       pendi: 'Square Contour Base'
     },
-    description: "Handcrafted square metallic serving platter featuring alternating dual-tone silver and brushed gold chevron textured bands. Displayed on a copper scrollwork stand, available in Big (40cm) and Small (34cm) sizes."
+    description: "Handcrafted square metallic serving platter featuring alternating dual-tone silver and brushed gold chevron textured bands. Displayed on a aluminium scrollwork stand, available in Big (40cm) and Small (34cm) sizes."
   },
 
   {
     id: "31",
-    title: "Handcrafted Chain-Link Border Brass Accent Tray",
+    title: "Handcrafted Chain-Link Border Aluminium Accent Tray",
     image: "/uploads/chain_link_border_brass_tray_aesthetic.jpg",
     localImage: "/uploads/chain_link_border_brass_tray_aesthetic.jpg",
     images: [
@@ -736,6 +822,9 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/chain_link_border_brass_tray_specs.png"
     ],
     category: "Hospitality",
+    material: "Aluminium",
+    colors: ["#D4A017", "#53565A", "#9E7D62", "#2C2C2C"],
+    
     price: "₹1,820 / $22",
     dimensions: {
       height: '5 cm (2.0")',
@@ -755,6 +844,9 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/corrugated_wave_metallic_platter_specs.png"
     ],
     category: "Hospitality, Utility",
+    material: "Aluminium",
+    colors: ["#D4A017", "#53565A", "#9E7D62", "#2C2C2C"],
+    
     price: "₹1,650 / $20",
     dimensions: {
       height: '7 cm (3")',
@@ -766,7 +858,7 @@ const DEFAULT_COLLECTIONS = [
 
   {
     id: "35",
-    title: "Handcrafted Ruffled Copper Wave Bowl",
+    title: "Handcrafted Ruffled Aluminium Wave Bowl",
     image: "/uploads/ruffled_copper_bowl_aesthetic.jpg",
     localImage: "/uploads/ruffled_copper_bowl_aesthetic.jpg",
     images: [
@@ -774,6 +866,9 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/ruffled_copper_bowl_specs.jpg"
     ],
     category: "Hospitality",
+    material: "Aluminium",
+    colors: ["#C0392B", "#D4A017", "#C2B280", "#2C2C2C"],
+    
     price: "₹1,100",
     colors: ["#C0392B", "#D4A017", "#C2B280", "#2C2C2C"],
     dimensions: {
@@ -781,7 +876,7 @@ const DEFAULT_COLLECTIONS = [
       diameter: '28 cm (11")',
       pendi: 'Length 32 cm (13")'
     },
-    description: "Artisanal hand-hammered ruffled wave bowl crafted in antique oxidized copper finish with undulating scalloped edges. A statement centrepiece ideal for luxury hotel buffets, catering displays, and fine dining tables. Available in Terracotta Red, Antique Gold, Beige, and Matte Black."
+    description: "Artisanal hand-hammered ruffled wave bowl crafted in antique oxidized aluminium finish with undulating scalloped edges. A statement centrepiece ideal for luxury hotel buffets, catering displays, and fine dining tables. Available in Terracotta Red, Antique Gold, Beige, and Matte Black."
   },
   {
     id: "36",
@@ -793,6 +888,9 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/pedestal_accent_table_specs.png"
     ],
     category: "Hospitality, Utility",
+    material: "Aluminium",
+    colors: ["#C0392B", "#D4A017", "#C2B280", "#2C2C2C"],
+    
     price: "₹3,500 / $42",
     colors: ["#C0392B", "#D4A017", "#C2B280", "#2C2C2C"],
     dimensions: {
@@ -800,7 +898,7 @@ const DEFAULT_COLLECTIONS = [
       diameter: 'Top: 41 cm (16")',
       pendi: 'Base: 23 cm (9")'
     },
-    description: "Handcrafted tri-tone metal pedestal accent side table featuring a round copper top, an intricately carved antique brass turned spindle central column, and a heavy textured silver tripod base with curved legs. Ideal for luxury hotel lounges, hospitality seating, and utility accent spaces."
+    description: "Handcrafted tri-tone metal pedestal accent side table featuring a round aluminium top, an intricately carved antique aluminium turned spindle central column, and a heavy textured silver tripod base with curved legs. Ideal for luxury hotel lounges, hospitality seating, and utility accent spaces."
   },
   {
     id: "37",
@@ -812,6 +910,9 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/ornate_oval_metallic_platter_set_specs.jpg"
     ],
     category: "Utility, Hospitality",
+    material: "Aluminium",
+    colors: ["#C0392B", "#D4A017", "#C2B280", "#2C2C2C"],
+    
     price: "₹2,250 - ₹2,450",
     colors: ["#C0392B", "#D4A017", "#C2B280", "#2C2C2C"],
     dimensions: {
@@ -819,7 +920,7 @@ const DEFAULT_COLLECTIONS = [
       diameter: '33 cm - 36 cm (13" - 14")',
       pendi: 'Length 63 cm - 69 cm (21")'
     },
-    description: "Handcrafted ornate oval serving platter set featuring filigree embossed basins, cast decorative handles, and sculpted claw-foot pedestal bases. Available in Big (69×36cm) and Small (63×33cm) sizes in copper and antique gold finishes."
+    description: "Handcrafted ornate oval serving platter set featuring filigree embossed basins, cast decorative handles, and sculpted claw-foot pedestal bases. Available in Big (69×36cm) and Small (63×33cm) sizes in aluminium and antique gold finishes."
   },
   {
     id: "38",
@@ -832,6 +933,9 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/multi_metallic_chevron_leaf_platter_specs.jpg"
     ],
     category: "Hospitality",
+    material: "Aluminium",
+    colors: ["#C0392B", "#D4A017", "#C2B280", "#2C2C2C"],
+    
     price: "₹500",
     colors: ["#C0392B", "#D4A017", "#C2B280", "#2C2C2C"],
     dimensions: {
@@ -839,7 +943,7 @@ const DEFAULT_COLLECTIONS = [
       diameter: '19 cm (8")',
       pendi: 'Length 48 cm (19")'
     },
-    description: "Handcrafted leaf-shaped serving platter featuring alternating tri-color chevron bands in brushed silver, antique gold, and copper. Displayed on a scrollwork stand, ideal for luxury hotel dining and catering accents."
+    description: "Handcrafted leaf-shaped serving platter featuring alternating tri-color chevron bands in brushed silver, antique gold, and aluminium. Displayed on a scrollwork stand, ideal for luxury hotel dining and catering accents."
   },
   {
     id: "39",
@@ -851,6 +955,9 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/teal_green_geometric_platter_set_specs.png"
     ],
     category: "Giftware",
+    material: "Aluminium",
+    colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
+    
     price: "₹850 - ₹1,050",
     colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
     dimensions: {
@@ -858,11 +965,11 @@ const DEFAULT_COLLECTIONS = [
       diameter: '15 cm - 19 cm (5.9" - 7.5")',
       pendi: 'Length 34 cm - 43 cm (13.4" - 16.9")'
     },
-    description: "Handcrafted organic dual-tone decorative platter set featuring embossed geometric starburst textures in vibrant ocean teal and emerald green finishes. Displayed on copper scrollwork stands, available in Big (43×19cm) and Small (34×15cm) sizes."
+    description: "Handcrafted organic dual-tone decorative platter set featuring embossed geometric starburst textures in vibrant ocean teal and emerald green finishes. Displayed on aluminium scrollwork stands, available in Big (43×19cm) and Small (34×15cm) sizes."
   },
   {
     id: "40",
-    title: "Handcrafted Chain-Link Border Brass Accent Tray",
+    title: "Handcrafted Chain-Link Border Aluminium Accent Tray",
     image: "/uploads/chain_link_border_brass_tray_aesthetic.jpg",
     localImage: "/uploads/chain_link_border_brass_tray_aesthetic.jpg",
     images: [
@@ -870,7 +977,9 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/chain_link_border_brass_tray_specs.png"
     ],
     category: "Utility",
+    material: "Aluminium",
     colors: ["#53565A", "#DFBFA1", "#9E7D62", "#C84E18"],
+        
     price: "₹1,820 / $22",
     dimensions: {
       height: '5 cm (2.0")',
@@ -889,7 +998,9 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/whitewashed_pedestal_table_specs.png"
     ],
     category: "Hospitality, Utility",
+    material: "Aluminium",
     colors: ["#C84E18", "#D4A017", "#9E7D62", "#2C2C2C"],
+        
     price: "₹2,350 / $28",
     dimensions: {
       height: '63 cm (25")',
@@ -900,7 +1011,7 @@ const DEFAULT_COLLECTIONS = [
   },
   {
     id: "42",
-    title: "Handcrafted Copper & Gold Pedestal Accent Table",
+    title: "Handcrafted Aluminium & Gold Pedestal Accent Table",
     image: "/uploads/copper_gold_pedestal_table_aesthetic.jpg",
     localImage: "/uploads/copper_gold_pedestal_table_aesthetic.jpg",
     images: [
@@ -908,14 +1019,16 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/copper_gold_pedestal_table_specs.png"
     ],
     category: "Hospitality, Utility",
+    material: "Aluminium",
     colors: ["#C84E18", "#E67E22", "#9E7D62", "#2C2C2C"],
+        
     price: "₹3,200 / $39",
     dimensions: {
       height: '65 cm (26")',
       diameter: 'Top: 40 cm (16")',
       pendi: 'Base: 24 cm (10")'
     },
-    description: "Handcrafted metal pedestal accent side table featuring a round textured copper top, an elegant gold baluster spindle column, and a heavy textured silver dome base."
+    description: "Handcrafted metal pedestal accent side table featuring a round textured aluminium top, an elegant gold baluster spindle column, and a heavy textured silver dome base."
   },
   {
     id: "43",
@@ -927,14 +1040,16 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/filigree_pedestal_table_specs.png"
     ],
     category: "Hospitality, Utility",
+    material: "Aluminium",
     colors: ["#C84E18", "#D4A017", "#9E7D62", "#2C2C2C"],
+        
     price: "₹3,590 / $44",
     dimensions: {
       height: '70 cm (28")',
       diameter: 'Top: 40 cm (16")',
       pendi: 'Heart Cutout Base'
     },
-    description: "Handcrafted metallic pedestal accent side table featuring a round copper top with intricate heart-shaped cutout filigree patterns, an antique brass spindle column, and a matching silver filigree base."
+    description: "Handcrafted metallic pedestal accent side table featuring a round aluminium top with intricate heart-shaped cutout filigree patterns, an antique aluminium spindle column, and a matching silver filigree base."
   },
   {
     id: "44",
@@ -947,14 +1062,16 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/mosaic_platter_specs.png"
     ],
     category: "Giftware",
-    colors: ["#5D9B43", "#2A7B9B", "#F39C12", "#2C2C2C"],
+    material: "Aluminium",
+    colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
+        
     price: "₹1,050 / $13",
     dimensions: {
       height: '7 cm (2.8")',
       diameter: '34 cm (13.4")',
       pendi: 'Length 34 cm (13.4")'
     },
-    description: "Handcrafted square metallic accent platter featuring a cellular mosaic-textured surface in a hand-painted antique turquoise-copper ombre finish, displayed on a scrollwork metal stand."
+    description: "Handcrafted square metallic accent platter featuring a cellular mosaic-textured surface in a hand-painted antique turquoise-aluminium ombre finish, displayed on a scrollwork metal stand."
   },
   {
     id: "45",
@@ -966,14 +1083,16 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/giant_cutlery_wall_decor_specs.png"
     ],
     category: "Hospitality, Utility",
-    colors: ["#A04000", "#D4A017", "#5D6D7E", "#2C2C2C"],
+    material: "Aluminium",
+    colors: ["#C84E18", "#D4A017", "#53565A", "#2C2C2C"],
+        
     price: "₹1,200 - ₹1,250 / $15 - $16",
     dimensions: {
       height: '120 cm (47.2")',
       diameter: 'Spoon & Fork Set',
       pendi: 'Wall Mounted'
     },
-    description: "Handcrafted giant decorative wall-mounted cutlery set featuring a textured copper spoon and an antique gold fork. A unique statement art piece ideal for luxury dining rooms, hotel restaurants, and hospitality spaces. Available as Spoon (₹1,200) and Fork (₹1,250)."
+    description: "Handcrafted giant decorative wall-mounted cutlery set featuring a textured aluminium spoon and an antique gold fork. A unique statement art piece ideal for luxury dining rooms, hotel restaurants, and hospitality spaces. Available as Spoon (₹1,200) and Fork (₹1,250)."
   },
   {
     id: "46",
@@ -985,7 +1104,9 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/leaf_platter_set_specs.png"
     ],
     category: "Giftware",
-    colors: ["#5D9B43", "#2A7B9B", "#F39C12", "#2C2C2C"],
+    material: "Aluminium",
+    colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
+        
     price: "₹350 - ₹450 / $4 - $6",
     dimensions: {
       height: '3 cm',
@@ -1005,7 +1126,9 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/ginkgo_leaf_platter_specs.png"
     ],
     category: "Giftware",
-    colors: ["#5D9B43", "#2A7B9B", "#F39C12", "#2C2C2C"],
+    material: "Aluminium",
+    colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
+        
     price: "₹1,100 / $14",
     dimensions: {
       height: '7 cm (2.8")',
@@ -1024,14 +1147,16 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/hexagonal_serving_stand_specs.jpg"
     ],
     category: "Hospitality, Utility",
-    colors: ["#A04000", "#D4A017", "#5D6D7E", "#2C2C2C"],
+    material: "Aluminium",
+    colors: ["#C84E18", "#D4A017", "#53565A", "#2C2C2C"],
+        
     price: "₹6,200 / $75",
     dimensions: {
       height: '93 cm (36.6")',
       diameter: 'Small: 32cm / Medium: 41cm / Big: 51cm',
       pendi: 'Base: 22 cm (8.7")'
     },
-    description: "Handcrafted three-tier metallic serving and display stand featuring detailed hexagonal plates in a distressed antique brass-gold texture finish. Ideal for premium buffet setups, catering hospitality, and retail utility displays."
+    description: "Handcrafted three-tier metallic serving and display stand featuring detailed hexagonal plates in a distressed antique aluminium-gold texture finish. Ideal for premium buffet setups, catering hospitality, and retail utility displays."
   },
   {
     id: "49",
@@ -1043,14 +1168,16 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/round_serving_stand_specs.jpg"
     ],
     category: "Utility",
-    colors: ["#A04000", "#D4A017", "#5D6D7E", "#2C2C2C"],
+    material: "Aluminium",
+    colors: ["#C84E18", "#D4A017", "#53565A", "#2C2C2C"],
+        
     price: "₹2,550 / $31",
     dimensions: {
       height: '43 cm (16.9")',
       diameter: 'Small: 27cm / Medium: 33cm / Big: 40cm',
       pendi: 'Base: 13 cm (5.1")'
     },
-    description: "Handcrafted three-tier metallic serving and display stand featuring circular plates in copper, gold, and silver finishes. A versatile piece for catering hospitality, buffet display, and home utility organization."
+    description: "Handcrafted three-tier metallic serving and display stand featuring circular plates in aluminium, gold, and silver finishes. A versatile piece for catering hospitality, buffet display, and home utility organization."
   },
   {
     id: "50",
@@ -1063,14 +1190,16 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/tri_tone_fan_platter_specs.jpg"
     ],
     category: "Giftware",
-    colors: ["#4E9F3D", "#196B7F", "#D4AC0D", "#1C2833"],
+    material: "Aluminium",
+    colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
+        
     price: "₹1,000 / $12",
     dimensions: {
       height: '12 cm (4.7")',
       diameter: '20 cm (7.9")',
       pendi: 'Length 55 cm (21.7")'
     },
-    description: "Handcrafted tri-tone metallic serving and display platter featuring an elegant fan-shaped design in silver, copper, and gold textured finishes. Set on an ornate metal display scrollwork stand."
+    description: "Handcrafted tri-tone metallic serving and display platter featuring an elegant fan-shaped design in silver, aluminium, and gold textured finishes. Set on an ornate metal display scrollwork stand."
   },
   {
     id: "51",
@@ -1083,7 +1212,9 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/rectangular_patina_tray_set_specs.png"
     ],
     category: "Utility",
+    material: "Aluminium",
     colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
+        
     price: "₹1,300 - ₹1,500 / $16 - $18",
     dimensions: {
       height: '5 cm (2")',
@@ -1102,14 +1233,16 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/antelope_skull_sculpture_specs.png"
     ],
     category: "Home Décor",
+    material: "Aluminium",
     colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
+        
     price: "₹2,450 / $30",
     dimensions: {
       height: '67 cm (26.4")',
       diameter: '28 cm (11")',
       pendi: 'Square Pedestal Base'
     },
-    description: "An exquisite handcrafted metallic antelope skull tabletop sculpture. Features an antiqued gold skull with textured copper/bronze horns mounted on a detailed silver-pewter square pedestal base. A unique statement art piece ideal for luxury home décor, sideboards, study tables, and upscale B2B hospitality interiors. Available in Emerald Green, Ocean Teal, Antique Gold, and Matte Black finishes."
+    description: "An exquisite handcrafted metallic antelope skull tabletop sculpture. Features an antiqued gold skull with textured aluminium/bronze horns mounted on a detailed silver-pewter square pedestal base. A unique statement art piece ideal for luxury home décor, sideboards, study tables, and upscale B2B hospitality interiors. Available in Emerald Green, Ocean Teal, Antique Gold, and Matte Black finishes."
   },
   {
     id: "53",
@@ -1121,14 +1254,16 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/moose_skull_wall_mount_specs.png"
     ],
     category: "Home Décor",
+    material: "Aluminium",
     colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
+        
     price: "₹2,700 / $33",
     dimensions: {
       height: '40 cm (15.7")',
       diameter: '45 cm (17.7")',
       pendi: 'Wall Mounted'
     },
-    description: "A striking handcrafted metallic moose skull wall mount sculpture. Features a gold-patinated hand-textured skull with detailed copper-finished antlers. A bold, rustic accent piece perfect for lodge-style interiors, living rooms, and modern B2B office hospitality decors. Available in Emerald Green, Ocean Teal, Antique Gold, and Matte Black finishes."
+    description: "A striking handcrafted metallic moose skull wall mount sculpture. Features a gold-patinated hand-textured skull with detailed aluminium-finished antlers. A bold, rustic accent piece perfect for lodge-style interiors, living rooms, and modern B2B office hospitality decors. Available in Emerald Green, Ocean Teal, Antique Gold, and Matte Black finishes."
   },
   {
     id: "54",
@@ -1140,14 +1275,16 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/bull_skull_wall_mount_specs.png"
     ],
     category: "Home Décor",
+    material: "Aluminium",
     colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
+        
     price: "₹3,400 / $41",
     dimensions: {
       height: '43 cm (16.9")',
       diameter: '55 cm (21.7")',
       pendi: 'Wall Mounted'
     },
-    description: "An impressive handcrafted metallic longhorn bull skull wall mount sculpture. Features a detailed hand-textured copper-bronze finish skull with swept-out textured steel horns. A powerful rustic statement piece perfect for western-style interiors, living rooms, and bold corporate B2B lounge spaces. Available in Emerald Green, Ocean Teal, Antique Gold, and Matte Black finishes."
+    description: "An impressive handcrafted metallic longhorn bull skull wall mount sculpture. Features a detailed hand-textured aluminium-bronze finish skull with swept-out textured steel horns. A powerful rustic statement piece perfect for western-style interiors, living rooms, and bold corporate B2B lounge spaces. Available in Emerald Green, Ocean Teal, Antique Gold, and Matte Black finishes."
   },
   {
     id: "55",
@@ -1160,14 +1297,16 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/ram_skull_wall_mount_specs.jpg"
     ],
     category: "Home Décor",
+    material: "Aluminium",
     colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
+        
     price: "₹4,100 / $49",
     dimensions: {
       height: '64 cm (25.2")',
       diameter: '58 cm (22.8")',
       pendi: 'Wall Mounted'
     },
-    description: "An extraordinary handcrafted metallic ram skull wall mount sculpture. Features a gold-finished hand-textured skull with majestic spiraling copper-patinated horns. A bold and theatrical statement art piece ideal for luxury home décor, living rooms, corridors, and upscale hospitality lounges. Available in Emerald Green, Ocean Teal, Antique Gold, and Matte Black finishes."
+    description: "An extraordinary handcrafted metallic ram skull wall mount sculpture. Features a gold-finished hand-textured skull with majestic spiraling aluminium-patinated horns. A bold and theatrical statement art piece ideal for luxury home décor, living rooms, corridors, and upscale hospitality lounges. Available in Emerald Green, Ocean Teal, Antique Gold, and Matte Black finishes."
   },
   {
     id: "56",
@@ -1180,7 +1319,9 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/deer_handle_patina_tray_set_specs.jpg"
     ],
     category: "Giftware",
+    material: "Aluminium",
     colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
+        
     price: "₹850 - ₹1,200 / $10 - $15",
     dimensions: {
       height: '4 cm (1.6")',
@@ -1199,14 +1340,16 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/circular_patina_portal_sculpture_specs.jpg"
     ],
     category: "Home Décor",
+    material: "Aluminium",
     colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
+        
     price: "₹1,150 / $14",
     dimensions: {
       height: '40 cm (15.7")',
       diameter: '38 cm (15.0")',
       pendi: 'Base 18 cm (7.1")'
     },
-    description: "An outstanding handcrafted circular patina portal tabletop sculpture. Features an antiqued gold, silver, and copper textured concentric ring design with a hollow center basin, mounted on a solid pewter square pedestal base. A gorgeous modern art piece ideal for luxury home décor, study tables, mantels, and hotel lobbies. Available in Emerald Green, Ocean Teal, Antique Gold, and Matte Black finishes."
+    description: "An outstanding handcrafted circular patina portal tabletop sculpture. Features an antiqued gold, silver, and aluminium textured concentric ring design with a hollow center basin, mounted on a solid pewter square pedestal base. A gorgeous modern art piece ideal for luxury home décor, study tables, mantels, and hotel lobbies. Available in Emerald Green, Ocean Teal, Antique Gold, and Matte Black finishes."
   },
   {
     id: "58",
@@ -1218,14 +1361,16 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/abstract_crescent_flame_sculpture_specs.jpg"
     ],
     category: "Home Décor",
+    material: "Aluminium",
     colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
+        
     price: "₹1,200 / $15",
     dimensions: {
       height: '41 cm (16.1")',
       diameter: '17 cm (6.7")',
       pendi: 'Base 12 cm (4.7")'
     },
-    description: "An striking handcrafted abstract crescent flame tabletop sculpture. Features a textured silver base, a crescent gold-textured flame-like body, and a central copper/red textured oval focal element. A bold and modern artistic accent piece perfect for living rooms, reception tables, mantels, and luxury hotel decors. Available in Emerald Green, Ocean Teal, Antique Gold, and Matte Black finishes."
+    description: "An striking handcrafted abstract crescent flame tabletop sculpture. Features a textured silver base, a crescent gold-textured flame-like body, and a central aluminium/red textured oval focal element. A bold and modern artistic accent piece perfect for living rooms, reception tables, mantels, and luxury hotel decors. Available in Emerald Green, Ocean Teal, Antique Gold, and Matte Black finishes."
   },
   {
     id: "59",
@@ -1237,7 +1382,9 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/circular_ripple_coral_sculpture_specs.jpg"
     ],
     category: "Home Décor",
+    material: "Aluminium",
     colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
+        
     price: "₹1,000 / $12",
     dimensions: {
       height: '29 cm (11.4")',
@@ -1256,14 +1403,16 @@ const DEFAULT_COLLECTIONS = [
       "/uploads/spindle_pedestal_accent_table_specs.png"
     ],
     category: "Hospitality, Utility",
+    material: "Aluminium",
     colors: ["#C84E18", "#E67E22", "#9E7D62", "#2C2C2C"],
+        
     price: "₹6,050 / $73",
     dimensions: {
       height: '91 cm (36")',
       diameter: 'Top: 48 cm (19")',
       pendi: 'Tripod Claw-Foot Base'
     },
-    description: "An elegant handcrafted tall metal pedestal side accent table. Features a round copper-finished wooden top, a turned antique gold/brass spindle central column, and a heavy textured silver tripod base with curved claw-foot legs. A versatile and premium furniture piece ideal for luxury hotel lounges, hospitality seating areas, and home utility accent spaces. Available in Orange/Rust, Orange, Brown/Bronze, and Matte Black finishes."
+    description: "An elegant handcrafted tall metal pedestal side accent table. Features a round aluminium-finished wooden top, a turned antique gold aluminium spindle central column, and a heavy textured silver tripod base with curved claw-foot legs. A versatile and premium furniture piece ideal for luxury hotel lounges, hospitality seating areas, and home utility accent spaces. Available in Orange/Rust, Orange, Brown/Bronze, and Matte Black finishes."
   }
 ];
 
@@ -1282,7 +1431,7 @@ const HERO_SLIDES = [
     name: "Geometric Faceted Sculpture Trio",
     subtitle: "HOME DÉCOR COLLECTION",
     title: "MODERN FACETED\nMETALLIC ART",
-    description: "Abstract geometric faceted metallic sculpture set in antique copper, gold, and silver finishes, bringing dynamic architectural energy to luxury interiors.",
+    description: "Abstract geometric faceted metallic sculpture set in antique aluminium, gold, and silver finishes, bringing dynamic architectural energy to luxury interiors.",
     mainLocalImage: "/uploads/hero_geometric_sculptures.png",
     bgColor: "#EFECE8",
     bgImage: "/uploads/bg_plaster_limewash.png",
@@ -1292,7 +1441,7 @@ const HERO_SLIDES = [
     name: "Longhorn Bull Skull Wall Mount",
     subtitle: "WALL DÉCOR COLLECTION",
     title: "BOLD RUSTIC\nSTATEMENT ART",
-    description: "An impressive handcrafted metallic longhorn bull skull wall mount sculpture with textured copper-bronze patina and swept-out textured steel horns.",
+    description: "An impressive handcrafted metallic longhorn bull skull wall mount sculpture with textured aluminium-bronze patina and swept-out textured steel horns.",
     mainLocalImage: "/uploads/hero_bull_skull.png",
     bgColor: "#EFEBE6",
     bgImage: "/uploads/bg_fluted_panel_studio.png",
@@ -1302,7 +1451,7 @@ const HERO_SLIDES = [
     name: "Crescent Metallic Pedestal Bowl",
     subtitle: "HOSPITALITY COLLECTION",
     title: "ARTISANAL FORM\n& TEXTURE",
-    description: "Artisanal crescent-shaped decorative serving bowl crafted in textured antiqued bronze copper with a slotted comb-tooth rim mounted on a heavy flared pedestal base.",
+    description: "Artisanal crescent-shaped decorative serving bowl crafted in textured antiqued bronze aluminium with a slotted comb-tooth rim mounted on a heavy flared pedestal base.",
     mainLocalImage: "/uploads/hero_crescent_bowl.png",
     bgColor: "#EAECE6",
     bgImage: "/uploads/bg_dark_chevron_wood.png",
@@ -1365,6 +1514,33 @@ const LEGAL_TEXTS = {
   }
 };
 
+const FAQ_DATA = [
+  {
+    q: "What materials do you specialize in for manufacturing?",
+    a: "Every product in our actual line is engineered from 100% premium export-grade aluminium. We specialize in artisanal cast aluminium finished in multi-tone antique patinas, brushed metallics, and textured finishes compliant with international luxury hospitality standards."
+  },
+  {
+    q: "What is your Minimum Order Quantity (MOQ) for B2B export?",
+    a: "Our standard minimum order quantity is typically 50 to 100 units per style for standard catalog items. For bespoke architectural installations, custom dies, or private-label projects, MOQs can be tailored during trade consultation."
+  },
+  {
+    q: "Do you offer custom finishes and bespoke manufacturing?",
+    a: "Yes. As an OEM/ODM manufacturer with in-house foundries and finishing facilities in Moradabad (India), we offer custom sizing, logo engravings, bespoke mold casting, and specialized finish options (Antique Gold, Matte Black, Emerald Green, Ocean Teal, etc.)."
+  },
+  {
+    q: "What international shipping and trade terms (Incoterms) do you support?",
+    a: "We regularly export to over 20+ countries including the USA, UK, Germany, UAE, and EU nations under FOB (Mundra / Nhava Sheva / ICD Moradabad), CIF, and DDP terms. We handle sea freight container loads (FCL/LCL) as well as expedited air freight."
+  },
+  {
+    q: "Are your products compliant with international export standards?",
+    a: "Yes. Giftmark Industries is an official EPCH (Export Promotion Council for Handicrafts) Registered Member Exporter with full RCMC accreditation, MSME certification, and FAIC awards. Our goods undergo strict multi-stage quality inspections before packing."
+  },
+  {
+    q: "How can I request a complete trade catalog or wholesale quote?",
+    a: "You can click 'Request a Catalogue' or 'Contact B2B Sales' in the footer, submit an inquiry with your company credentials, or connect with our export team directly via WhatsApp at +91 98975 83968."
+  }
+];
+
 
 const TESTIMONIALS = [
   {
@@ -1389,7 +1565,7 @@ const TESTIMONIALS = [
   },
   {
     id: 3,
-    quote: "The brass filigree trays and serving ware we ordered exceeded our expectations. The craftsmanship is extraordinary, and the bulk pricing for our hospitality business was very competitive. We've re-ordered three times already.",
+    quote: "The handcrafted aluminium filigree trays and serving ware we ordered exceeded our expectations. The craftsmanship is extraordinary, and the bulk pricing for our hospitality business was very competitive. We've re-ordered three times already.",
     author: "Priya Sharma",
     role: "F&B Procurement Manager",
     company: "The Heritage Banquet Co.",
@@ -1427,7 +1603,7 @@ const MOCK_REELS = [
     likes: "2.5K",
     comments: 142,
     image: "/uploads/brass_ganesha.png",
-    caption: "Behind the scenes casting our sacred solid brass Ganesha. Generations of devotion and details. 🕉️✨",
+    caption: "Behind the scenes casting our sacred solid aluminium Ganesha. Generations of devotion and details. 🕉️✨",
     tags: ["#artisan", "#metalcasting", "#heritage", "#giftmark"],
     link: "https://www.instagram.com/industriesgiftmark?igsh=aHdxdTBieTdnN28w"
   },
@@ -1439,7 +1615,7 @@ const MOCK_REELS = [
     comments: 98,
     image: "/uploads/brass_peacock_lamp.png",
     caption: "Polishing the intricate details of our satin gold Peacock Candelabra. ✨🦚",
-    tags: ["#brassdecor", "#luxuryinteriors", "#craftsmanship"],
+    tags: ["#aluminiumdecor", "#luxuryinteriors", "#craftsmanship"],
     link: "https://www.instagram.com/industriesgiftmark?igsh=aHdxdTBieTdnN28w"
   },
   {
@@ -1761,6 +1937,10 @@ function App() {
 
   // Legal Modal states
   const [activeLegal, setActiveLegal] = useState(null); // 'privacy', 'refund', 'terms', 'disclaimer' or null
+
+  // FAQ Modal states
+  const [isFaqOpen, setIsFaqOpen] = useState(false);
+  const [expandedFaqIndex, setExpandedFaqIndex] = useState(null);
 
   // Certifications Viewer Modal state
   const [activeCertModal, setActiveCertModal] = useState(null);
@@ -2453,6 +2633,26 @@ function App() {
                       <div className="best-seller-info">
                         <span className="best-seller-cat">{item.category}</span>
                         <h3 className="best-seller-name">{item.title}</h3>
+                        {item.colors && item.colors.length > 0 && (
+                          <div className="product-card-finishes" onClick={(e) => e.stopPropagation()}>
+                            <span className="card-finishes-label">Finishes ({item.colors.length}):</span>
+                            <div className="card-finishes-dots">
+                              {item.colors.map((c, idx) => (
+                                <span
+                                  key={idx}
+                                  className="card-finish-dot"
+                                  style={{ backgroundColor: c }}
+                                  title={getColorName(c)}
+                                  onClick={() => {
+                                    setActiveProductModal(item);
+                                    setModalActiveImageIndex(0);
+                                    setSelectedColor(c);
+                                  }}
+                                />
+                              ))}
+                            </div>
+                          </div>
+                        )}
                         <div className="product-card-footer">
                           <span className="best-seller-price">{item.price}</span>
                           <div className="product-card-actions">
@@ -2469,6 +2669,15 @@ function App() {
                             >
                               Buy Now
                             </button>
+                            {hasMultipleOptions(item) && (
+                              <button
+                                className="product-action-btn enquire-btn"
+                                title="Enquire about custom specifications & finishes"
+                                onClick={(e) => { e.stopPropagation(); handleProductInquiry(item.title); }}
+                              >
+                                Enquire Now
+                              </button>
+                            )}
                           </div>
                         </div>
                       </div>
@@ -2550,7 +2759,7 @@ function App() {
                         <span className="collection-card-subtitle">Collection</span>
                         <h3 className="collection-card-title">Giftware</h3>
                         <p className="collection-card-description">
-                          Ornate brass urns, gilded clocks, and curated premium corporate gifts.
+                          Ornate aluminium urns, gilded clocks, and curated premium corporate gifts.
                         </p>
                         <span className="collection-card-cta">Explore Collection</span>
                       </div>
@@ -2602,7 +2811,7 @@ function App() {
                 <div className="home-about-image-container">
                   <img
                     src={collections[3]?.image || collections[3]?.localImage || '/uploads/catering_essential.png'}
-                    alt="Brass Chafing Dish"
+                    alt="Aluminium Chafing Dish"
                     className="home-about-image"
                   />
                 </div>
@@ -2882,6 +3091,26 @@ function App() {
                   <span className="product-cat">{item.category}</span>
                   <h3 className="product-title">{item.title}</h3>
                   <p className="product-desc">{item.description}</p>
+                  {item.colors && item.colors.length > 0 && (
+                    <div className="product-card-finishes" onClick={(e) => e.stopPropagation()}>
+                      <span className="card-finishes-label">Available Finishes:</span>
+                      <div className="card-finishes-dots">
+                        {item.colors.map((c, idx) => (
+                          <span
+                            key={idx}
+                            className="card-finish-dot"
+                            style={{ backgroundColor: c }}
+                            title={getColorName(c)}
+                            onClick={() => {
+                              setActiveProductModal(item);
+                              setModalActiveImageIndex(item.id === "47" ? 1 : 0);
+                              setSelectedColor(c);
+                            }}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
                   <div className="product-footer">
                     <span className="product-price">{item.price}</span>
                     <div className="product-card-actions" onClick={(e) => e.stopPropagation()}>
@@ -2898,6 +3127,15 @@ function App() {
                       >
                         Buy Now
                       </button>
+                      {hasMultipleOptions(item) && (
+                        <button
+                          className="product-action-btn enquire-btn"
+                          title="Enquire about custom specifications & finishes"
+                          onClick={() => handleProductInquiry(item.title)}
+                        >
+                          Enquire Now
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -3148,7 +3386,7 @@ function App() {
                   <h2 className="section-heading">Exhibitions &amp; Industry Expos</h2>
                 </div>
                 <p className="section-description">
-                  Explore our past and upcoming global trade showcases, where we display our latest heritage metalware, hotel chafing gear, and architectural brass installations.
+                  Explore our past and upcoming global trade showcases, where we display our latest heritage metalware, hotel chafing gear, and architectural aluminium metalware installations.
                 </p>
               </div>
 
@@ -3265,6 +3503,7 @@ function App() {
               <ul className="footer-col-links">
                 <li><span className="footer-link" onClick={() => setCurrentPage('about')}>About Us</span></li>
                 <li><span className="footer-link" onClick={() => setCurrentPage('certifications')}>Certifications &amp; Exhibitions</span></li>
+                <li><span className="footer-link" onClick={() => { setIsFaqOpen(true); setExpandedFaqIndex(null); }}>Frequently Asked Questions (FAQ)</span></li>
                 <li><span className="footer-link" onClick={() => setActiveLegal('refund')}>Return &amp; Exchange Policy</span></li>
                 <li><span className="footer-link" onClick={() => setActiveLegal('terms')}>Terms &amp; Conditions</span></li>
                 <li><span className="footer-link" onClick={() => setActiveLegal('privacy')}>Privacy Policy</span></li>
@@ -3324,6 +3563,65 @@ function App() {
               <h2 className="legal-modal-title">{LEGAL_TEXTS[activeLegal].title}</h2>
               <div className="legal-modal-body">
                 {LEGAL_TEXTS[activeLegal].body}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* --- FAQ ACCORDION MODAL OVERLAY --- */}
+        {isFaqOpen && (
+          <div className="faq-modal-overlay" onClick={() => { setIsFaqOpen(false); setExpandedFaqIndex(null); }}>
+            <div className="faq-modal-content" onClick={(e) => e.stopPropagation()}>
+              <button className="faq-modal-close" onClick={() => { setIsFaqOpen(false); setExpandedFaqIndex(null); }} title="Close FAQ">
+                <X size={20} />
+              </button>
+
+              <div className="faq-modal-header">
+                <span className="faq-modal-badge">Help &amp; Trade Information</span>
+                <h2 className="faq-modal-title">Frequently Asked Questions</h2>
+                <p className="faq-modal-subtitle">
+                  Key answers regarding our handcrafted aluminium metalware, B2B wholesale orders, and global export processes.
+                </p>
+              </div>
+
+              <div className="faq-accordion-list">
+                {FAQ_DATA.map((item, idx) => {
+                  const isOpen = expandedFaqIndex === idx;
+                  return (
+                    <div key={idx} className={`faq-accordion-item ${isOpen ? 'active' : ''}`}>
+                      <button
+                        type="button"
+                        className="faq-accordion-header"
+                        onClick={() => setExpandedFaqIndex(isOpen ? null : idx)}
+                        aria-expanded={isOpen}
+                      >
+                        <span className="faq-accordion-question">{item.q}</span>
+                        <span className={`faq-accordion-icon ${isOpen ? 'rotated' : ''}`}>
+                          <ChevronDown size={18} />
+                        </span>
+                      </button>
+                      {isOpen && (
+                        <div className="faq-accordion-body">
+                          <p>{item.a}</p>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className="faq-modal-footer">
+                <p className="faq-footer-prompt">Have a custom hospitality or bulk project requirement?</p>
+                <button
+                  className="faq-contact-btn"
+                  onClick={() => {
+                    setIsFaqOpen(false);
+                    setExpandedFaqIndex(null);
+                    setCurrentPage('contact');
+                  }}
+                >
+                  Contact B2B Sales
+                </button>
               </div>
             </div>
           </div>
@@ -3438,28 +3736,21 @@ function App() {
 
                     <p className="product-modal-desc">{activeProductModal.description}</p>
 
-                    {/* Available Finishes Selector */}
+                    {/* Available Finishes (Informational Display Only) */}
                     {activeProductModal.colors && activeProductModal.colors.length > 0 && (
-                      <div className="product-modal-colors-section">
-                        <span className="colors-label">AVAILABLE FINISHES:</span>
-                        <div className="colors-list">
+                      <div className="product-modal-colors-section product-modal-finishes-static">
+                        <span className="colors-label">AVAILABLE FINISHES ({activeProductModal.colors.length}):</span>
+                        <div className="finishes-static-list">
                           {activeProductModal.colors.map((colorHex, idx) => (
-                            <div
-                              key={idx}
-                              className={`color-swatch-wrapper ${selectedColor === colorHex ? 'active' : ''}`}
-                              onClick={() => setSelectedColor(colorHex)}
-                              title={getColorName(colorHex)}
-                            >
+                            <div key={idx} className="finish-static-chip">
                               <span
-                                className="color-swatch-circle"
+                                className="finish-static-dot"
                                 style={{ backgroundColor: colorHex }}
                               />
+                              <span className="finish-static-name">{getColorName(colorHex)}</span>
                             </div>
                           ))}
                         </div>
-                        <span className="selected-color-name">
-                          Finish selected: <strong>{getColorName(selectedColor || '')}</strong>
-                        </span>
                       </div>
                     )}
 
@@ -3485,7 +3776,7 @@ function App() {
                           </div>
                           <div className="spec-item">
                             <span className="spec-label">Material</span>
-                            <span className="spec-value">Copper & Hand-Hammered Brass</span>
+                            <span className="spec-value">{activeProductModal.material || "Aluminium"}</span>
                           </div>
                         </div>
                       </div>
@@ -3515,6 +3806,18 @@ function App() {
                       >
                         Buy Now
                       </button>
+                      {hasMultipleOptions(activeProductModal) && (
+                        <button
+                          className="pm-btn pm-btn-outline"
+                          onClick={() => {
+                            handleProductInquiry(activeProductModal.title);
+                            setActiveProductModal(null);
+                            setSelectedColor(null);
+                          }}
+                        >
+                          Enquire Now
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -3660,7 +3963,7 @@ function App() {
                           <label className="form-label">Special Trade Notes / Quantity Requirements</label>
                           <textarea
                             className="form-input form-textarea"
-                            placeholder="E.g., request custom brass filigree engraving, customized gift packaging boxes, sea freight to Germany..."
+                            placeholder="E.g., request custom aluminium filigree engraving, customized gift packaging boxes, sea freight to Germany..."
                             value={checkoutForm.notes}
                             onChange={(e) => setCheckoutForm({ ...checkoutForm, notes: e.target.value })}
                           />
