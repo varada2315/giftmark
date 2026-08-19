@@ -2747,13 +2747,13 @@ function App() {
                   }}
                 >
                   <div className="collection-preview-image-container">
-                    <img src="/uploads/vintage_brass_urn.png" alt="Giftware" className="collection-preview-image" />
+                    <img src="/uploads/tri_tone_fan_platter_aesthetic.jpg" alt="Giftware" className="collection-preview-image" />
                     <div className="collection-preview-overlay">
                       <div className="collection-preview-content">
                         <span className="collection-card-subtitle">Collection</span>
                         <h3 className="collection-card-title">Giftware</h3>
                         <p className="collection-card-description">
-                          Ornate aluminium urns, gilded clocks, and curated premium corporate gifts.
+                          Artisanal metallic fan accent platters, ornate vessels, and curated premium corporate gifts.
                         </p>
                         <span className="collection-card-cta">Explore Collection</span>
                       </div>
