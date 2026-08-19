@@ -2706,89 +2706,6 @@ function App() {
               </div>
             </main>
 
-            {/* Best Sellers (Animated Showcase) */}
-            <section className="best-sellers-section" id="bestsellers-section">
-              <div className="best-sellers-header">
-                <div>
-                  <span className="best-sellers-subtitle">Featured Highlights</span>
-                  <h2 className="best-sellers-title">Our Best Sellers</h2>
-                </div>
-                <span className="best-sellers-subtitle hover-underline" onClick={() => setCurrentPage('collections')} style={{ cursor: 'pointer' }}>
-                  View All Collections →
-                </span>
-              </div>
-
-              <div className="best-sellers-grid">
-                {BESTSELLER_IDS.map(bid => {
-                  const item = collections.find(c => c.id === bid);
-                  if (!item) return null;
-                  return (
-                    <div
-                      className="best-seller-card clickable-product-card"
-                      key={item.id}
-                      id={`bestseller-card-${item.id}`}
-                      onClick={() => {
-                        setActiveProductModal(item);
-                        setModalActiveImageIndex(0);
-                        setSelectedColor(item.colors && item.colors.length > 0 ? item.colors[0] : null);
-                      }}
-                      style={{ cursor: 'pointer' }}
-                    >
-                      <span className="best-seller-badge">Best Seller</span>
-                      <div className="best-seller-image-container">
-                        <img src={getCardImage(item)} alt={item.title} className="best-seller-image" />
-                      </div>
-                      <div className="best-seller-info">
-                        <span className="best-seller-cat">{item.category}</span>
-                        <h3 className="best-seller-name">{item.title}</h3>
-                        {item.colors && item.colors.length > 0 && (
-                          <div className="product-card-finishes">
-                            <span className="card-finishes-label">Finishes ({item.colors.length}):</span>
-                            <div className="card-finishes-dots">
-                              {item.colors.map((c, idx) => (
-                                <span
-                                  key={idx}
-                                  className="card-finish-dot"
-                                  style={{ backgroundColor: c }}
-                                />
-                              ))}
-                            </div>
-                          </div>
-                        )}
-                        <div className="product-card-footer">
-                          <span className="best-seller-price">{item.price}</span>
-                          <div className="product-card-actions">
-                            <button
-                              className="product-action-btn cart-btn"
-                              title="Add to Cart"
-                              onClick={(e) => { e.stopPropagation(); addToCart(item); }}
-                            >
-                              <ShoppingBag size={14} />
-                            </button>
-                            <button
-                              className="product-action-btn buy-btn"
-                              onClick={(e) => { e.stopPropagation(); buyNow(item); }}
-                            >
-                              Buy Now
-                            </button>
-                            {hasMultipleOptions(item) && (
-                              <button
-                                className="product-action-btn enquire-btn"
-                                title="Enquire about custom specifications & finishes"
-                                onClick={(e) => { e.stopPropagation(); handleProductInquiry(item.title); }}
-                              >
-                                Enquire Now
-                              </button>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </section>
-
             {/* Collections Preview Section */}
             <section className="home-collections-preview" aria-label="Our Collections">
               <div className="collections-preview-header">
@@ -2892,6 +2809,89 @@ function App() {
                     </div>
                   </div>
                 </div>
+              </div>
+            </section>
+
+            {/* Best Sellers (Animated Showcase) */}
+            <section className="best-sellers-section" id="bestsellers-section">
+              <div className="best-sellers-header">
+                <div>
+                  <span className="best-sellers-subtitle">Featured Highlights</span>
+                  <h2 className="best-sellers-title">Our Best Sellers</h2>
+                </div>
+                <span className="best-sellers-subtitle hover-underline" onClick={() => setCurrentPage('collections')} style={{ cursor: 'pointer' }}>
+                  View All Collections →
+                </span>
+              </div>
+
+              <div className="best-sellers-grid">
+                {BESTSELLER_IDS.map(bid => {
+                  const item = collections.find(c => c.id === bid);
+                  if (!item) return null;
+                  return (
+                    <div
+                      className="best-seller-card clickable-product-card"
+                      key={item.id}
+                      id={`bestseller-card-${item.id}`}
+                      onClick={() => {
+                        setActiveProductModal(item);
+                        setModalActiveImageIndex(0);
+                        setSelectedColor(item.colors && item.colors.length > 0 ? item.colors[0] : null);
+                      }}
+                      style={{ cursor: 'pointer' }}
+                    >
+                      <span className="best-seller-badge">Best Seller</span>
+                      <div className="best-seller-image-container">
+                        <img src={getCardImage(item)} alt={item.title} className="best-seller-image" />
+                      </div>
+                      <div className="best-seller-info">
+                        <span className="best-seller-cat">{item.category}</span>
+                        <h3 className="best-seller-name">{item.title}</h3>
+                        {item.colors && item.colors.length > 0 && (
+                          <div className="product-card-finishes">
+                            <span className="card-finishes-label">Finishes ({item.colors.length}):</span>
+                            <div className="card-finishes-dots">
+                              {item.colors.map((c, idx) => (
+                                <span
+                                  key={idx}
+                                  className="card-finish-dot"
+                                  style={{ backgroundColor: c }}
+                                />
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                        <div className="product-card-footer">
+                          <span className="best-seller-price">{item.price}</span>
+                          <div className="product-card-actions">
+                            <button
+                              className="product-action-btn cart-btn"
+                              title="Add to Cart"
+                              onClick={(e) => { e.stopPropagation(); addToCart(item); }}
+                            >
+                              <ShoppingBag size={14} />
+                            </button>
+                            <button
+                              className="product-action-btn buy-btn"
+                              onClick={(e) => { e.stopPropagation(); buyNow(item); }}
+                            >
+                              Buy Now
+                            </button>
+                            {hasMultipleOptions(item) && (
+                              <button
+                                className="product-action-btn enquire-btn"
+                                title="Enquire about custom specifications & finishes"
+                                onClick={(e) => { e.stopPropagation(); handleProductInquiry(item.title); }}
+                              >
+                                Enquire Now
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </section>
 
