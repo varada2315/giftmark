@@ -2962,23 +2962,18 @@ textarea.form-input {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  pointer-events: none;
 }
 
 .card-finish-dot {
-  width: 13px;
-  height: 13px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
   display: inline-block;
-  border: 1.5px solid rgba(0, 0, 0, 0.15);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
-  cursor: pointer;
-  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s ease, border-color 0.18s ease;
-}
-
-.card-finish-dot:hover {
-  transform: scale(1.4);
-  box-shadow: 0 3px 8px rgba(184, 140, 72, 0.45);
-  border-color: #B88C48;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+  cursor: default;
+  pointer-events: none;
 }
 
 .product-card-actions {

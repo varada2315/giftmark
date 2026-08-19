@@ -2634,7 +2634,7 @@ function App() {
                         <span className="best-seller-cat">{item.category}</span>
                         <h3 className="best-seller-name">{item.title}</h3>
                         {item.colors && item.colors.length > 0 && (
-                          <div className="product-card-finishes" onClick={(e) => e.stopPropagation()}>
+                          <div className="product-card-finishes">
                             <span className="card-finishes-label">Finishes ({item.colors.length}):</span>
                             <div className="card-finishes-dots">
                               {item.colors.map((c, idx) => (
@@ -2642,12 +2642,6 @@ function App() {
                                   key={idx}
                                   className="card-finish-dot"
                                   style={{ backgroundColor: c }}
-                                  title={getColorName(c)}
-                                  onClick={() => {
-                                    setActiveProductModal(item);
-                                    setModalActiveImageIndex(0);
-                                    setSelectedColor(c);
-                                  }}
                                 />
                               ))}
                             </div>
@@ -3092,7 +3086,7 @@ function App() {
                   <h3 className="product-title">{item.title}</h3>
                   <p className="product-desc">{item.description}</p>
                   {item.colors && item.colors.length > 0 && (
-                    <div className="product-card-finishes" onClick={(e) => e.stopPropagation()}>
+                    <div className="product-card-finishes">
                       <span className="card-finishes-label">Available Finishes:</span>
                       <div className="card-finishes-dots">
                         {item.colors.map((c, idx) => (
@@ -3100,12 +3094,6 @@ function App() {
                             key={idx}
                             className="card-finish-dot"
                             style={{ backgroundColor: c }}
-                            title={getColorName(c)}
-                            onClick={() => {
-                              setActiveProductModal(item);
-                              setModalActiveImageIndex(item.id === "47" ? 1 : 0);
-                              setSelectedColor(c);
-                            }}
                           />
                         ))}
                       </div>
