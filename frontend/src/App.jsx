@@ -2270,6 +2270,23 @@ function App() {
       });
   };
 
+  const scrollToBestsellers = () => {
+    if (currentPage !== 'home') {
+      setCurrentPage('home');
+      setTimeout(() => {
+        const el = document.getElementById('bestsellers-section') || document.querySelector('.best-sellers-section');
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+    } else {
+      const el = document.getElementById('bestsellers-section') || document.querySelector('.best-sellers-section');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  };
+
   // Filter collections
   const filteredCollections = activeFilter === 'All'
     ? collections
@@ -2333,7 +2350,7 @@ function App() {
               <li>
                 <span
                   className={`nav-link hover-underline ${currentPage === 'home' ? 'active' : ''}`}
-                  onClick={() => { setCurrentPage('home'); setIsAutoplay(true); }}
+                  onClick={() => { setCurrentPage('home'); setIsAutoplay(true); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                 >
                   Home
                 </span>
@@ -2344,6 +2361,14 @@ function App() {
                   onClick={() => setCurrentPage('about')}
                 >
                   About Us
+                </span>
+              </li>
+              <li>
+                <span
+                  className="nav-link hover-underline"
+                  onClick={scrollToBestsellers}
+                >
+                  Bestsellers
                 </span>
               </li>
               <li
@@ -2434,7 +2459,7 @@ function App() {
                 <li>
                   <span
                     className={`mobile-nav-link ${currentPage === 'home' ? 'active' : ''}`}
-                    onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); setIsAutoplay(true); }}
+                    onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); setIsAutoplay(true); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                   >
                     Home
                   </span>
@@ -2445,6 +2470,17 @@ function App() {
                     onClick={() => { setCurrentPage('about'); setIsMobileMenuOpen(false); }}
                   >
                     About Us
+                  </span>
+                </li>
+                <li>
+                  <span
+                    className="mobile-nav-link"
+                    onClick={() => {
+                      setIsMobileMenuOpen(false);
+                      scrollToBestsellers();
+                    }}
+                  >
+                    Bestsellers
                   </span>
                 </li>
                 <li className="mobile-nav-section-title">Collections</li>
@@ -2671,7 +2707,7 @@ function App() {
             </main>
 
             {/* Best Sellers (Animated Showcase) */}
-            <section className="best-sellers-section">
+            <section className="best-sellers-section" id="bestsellers-section">
               <div className="best-sellers-header">
                 <div>
                   <span className="best-sellers-subtitle">Featured Highlights</span>
