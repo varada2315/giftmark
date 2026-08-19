@@ -2175,12 +2175,30 @@ function App() {
   };
 
   const handleProductInquiry = (productTitle) => {
-    setInquiryForm({
-      ...inquiryForm,
-      product: productTitle,
-      message: `Hi, we are interested in placing a bulk order for the "${productTitle}". Please send us FOB prices and packaging terms.`
-    });
+    if (activeProductModal) setActiveProductModal(null);
+    if (isFaqOpen) setIsFaqOpen(false);
+    if (activeCertModal) setActiveCertModal(null);
+    if (activeLegal) setActiveLegal(null);
+
+    setInquiryForm(prev => ({
+      ...prev,
+      product: productTitle || '',
+      quantity: prev.quantity || '100',
+      message: productTitle
+        ? `Hi, we are interested in placing a bulk order for the "${productTitle}". Please send us FOB prices and packaging terms.`
+        : (prev.message || 'Hi, we are interested in placing a bulk B2B order. Please send us your catalog and trade pricing.')
+    }));
+
     setCurrentPage('contact');
+
+    setTimeout(() => {
+      const enquirySection = document.getElementById('b2b-enquiry-section') || document.querySelector('.contact-page-section');
+      if (enquirySection) {
+        enquirySection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }, 60);
   };
 
   const handleFormSubmit = (e) => {
@@ -3145,7 +3163,7 @@ function App() {
 
         {/* --- CONTACT PAGE --- */}
         {currentPage === 'contact' && (
-          <div className="contact-page-section">
+          <div className="contact-page-section" id="b2b-enquiry-section">
             <div className="contact-grid">
               <div className="contact-info-panel">
                 <h1 className="contact-heading">Get in Touch</h1>
