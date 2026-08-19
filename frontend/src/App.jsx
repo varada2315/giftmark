@@ -4028,33 +4028,44 @@ function App() {
               {!placedOrder ? (
                 <>
                   <div className="checkout-modal-header">
-                    <span className="checkout-modal-badge">B2B Trade &amp; Export Checkout</span>
-                    <h2 className="checkout-modal-title">Finalize Wholesale Order Inquiry</h2>
+                    <div className="checkout-badge-row">
+                      <span className="checkout-modal-badge">
+                        <ShieldCheck size={13} style={{ display: 'inline-block', verticalAlign: '-2px', marginRight: '5px' }} />
+                        OFFICIAL B2B EXPORT PORTAL • MORADABAD FOUNDRY DIRECT
+                      </span>
+                    </div>
+                    <h2 className="checkout-modal-title">Wholesale Order &amp; Proforma Quotation</h2>
                     <p className="checkout-modal-subtitle">
-                      Review your items and enter your company credentials to receive immediate FOB/CIF proforma terms.
+                      Review your artisanal aluminium metalware manifest, specify global Incoterms, and receive an instant proforma invoice quotation.
                     </p>
                   </div>
 
                   <div className="checkout-modal-grid">
                     {/* Left Column: Order Items Summary Card */}
                     <div className="checkout-summary-card">
-                      <h3 className="checkout-card-heading">
-                        Order Items ({getCartCount()})
-                      </h3>
+                      <div className="checkout-card-header-bar">
+                        <h3 className="checkout-card-heading">
+                          Order Manifest ({getCartCount()} {getCartCount() === 1 ? 'Piece' : 'Pieces'})
+                        </h3>
+                        <span className="checkout-currency-tag">INR / USD B2B Pricing</span>
+                      </div>
 
                       <div className="checkout-items-scroll">
                         {cart.map((item) => (
                           <div className="checkout-item-row" key={`${item.product.id}-${item.color || ''}`}>
-                            <img src={getCardImage(item.product)} alt={item.product.title} className="checkout-item-thumb" />
+                            <div className="checkout-thumb-wrap">
+                              <img src={getCardImage(item.product)} alt={item.product.title} className="checkout-item-thumb" />
+                            </div>
                             <div className="checkout-item-details">
+                              <span className="checkout-item-cat">{item.product.category || 'Aluminium Metalware'}</span>
                               <h4 className="checkout-item-name">{item.product.title}</h4>
                               {item.color && (
-                                <div className="checkout-item-finish">
+                                <div className="checkout-item-finish-pill">
                                   <span
                                     className="checkout-finish-dot"
                                     style={{ backgroundColor: item.color }}
                                   />
-                                  <span>{getColorName(item.color)}</span>
+                                  <span>Finish: <strong>{getColorName(item.color)}</strong></span>
                                 </div>
                               )}
                               <div className="checkout-item-price-qty">
@@ -4064,6 +4075,7 @@ function App() {
                                     type="button"
                                     className="checkout-stepper-btn"
                                     onClick={() => updateQuantity(item.product.id, item.color, -1)}
+                                    title="Decrease Quantity"
                                   >
                                     <Minus size={11} />
                                   </button>
@@ -4072,6 +4084,7 @@ function App() {
                                     type="button"
                                     className="checkout-stepper-btn"
                                     onClick={() => updateQuantity(item.product.id, item.color, 1)}
+                                    title="Increase Quantity"
                                   >
                                     <Plus size={11} />
                                   </button>
@@ -4092,122 +4105,145 @@ function App() {
 
                       <div className="checkout-pricing-box">
                         <div className="checkout-price-row">
-                          <span>Estimated Subtotal:</span>
+                          <span className="price-row-label">Estimated Items Valuation:</span>
                           <strong className="checkout-total-val">₹{getCartTotal().toLocaleString()}</strong>
                         </div>
                         <div className="checkout-price-row muted">
-                          <span>Standard Export Packaging:</span>
-                          <span className="free-badge">Included (Free)</span>
+                          <span className="price-row-label">Export Packaging (EPCH Standard):</span>
+                          <span className="free-badge">COMPLIMENTARY</span>
                         </div>
                         <div className="checkout-price-row muted">
-                          <span>Freight &amp; Customs:</span>
-                          <span>Calculated on Quote</span>
+                          <span className="price-row-label">Selected Trade Terms:</span>
+                          <span className="trade-term-badge">{checkoutForm.tradeTerm ? checkoutForm.tradeTerm.split(' - ')[0] : 'FOB'}</span>
+                        </div>
+                        <div className="checkout-price-row muted">
+                          <span className="price-row-label">Freight &amp; Insurance:</span>
+                          <span>Quoted on Confirmation</span>
                         </div>
                       </div>
 
                       <div className="checkout-trade-assurance">
-                        <ShieldCheck size={16} className="assurance-icon" />
-                        <span>EPCH Registered Exporter • 100% Quality Inspected Aluminium Metalware</span>
+                        <Award size={20} className="assurance-icon" />
+                        <div className="assurance-text">
+                          <strong>EPCH Registered Manufacturer Exporter</strong>
+                          <p>Accredited RCMC #28272 • 100% Quality Inspected Aluminium Metalware</p>
+                        </div>
                       </div>
                     </div>
 
                     {/* Right Column: Checkout Form Card */}
                     <div className="checkout-form-card">
                       <form onSubmit={submitOrder} className="checkout-inner-form">
-                        <h3 className="checkout-card-heading">Buyer &amp; Delivery Details</h3>
-
-                        <div className="checkout-fields-grid">
-                          <div className="checkout-field-group">
-                            <label className="checkout-label">Full Name *</label>
-                            <input
-                              type="text"
-                              required
-                              className="checkout-input"
-                              placeholder="Your Full Name"
-                              value={checkoutForm.name}
-                              onChange={(e) => setCheckoutForm({ ...checkoutForm, name: e.target.value })}
-                            />
+                        <div className="form-section-block">
+                          <div className="form-section-title-row">
+                            <span className="form-section-step">1</span>
+                            <h4 className="form-section-title">Buyer &amp; Organization Credentials</h4>
                           </div>
 
-                          <div className="checkout-field-group">
-                            <label className="checkout-label">Company / Brand Name</label>
-                            <input
-                              type="text"
-                              className="checkout-input"
-                              placeholder="Company Name (Optional)"
-                              value={checkoutForm.company}
-                              onChange={(e) => setCheckoutForm({ ...checkoutForm, company: e.target.value })}
-                            />
+                          <div className="checkout-fields-grid">
+                            <div className="checkout-field-group">
+                              <label className="checkout-label">Full Name <span className="req">*</span></label>
+                              <input
+                                type="text"
+                                required
+                                className="checkout-input"
+                                placeholder="e.g. Mohammed Adil / Johnathan Smith"
+                                value={checkoutForm.name}
+                                onChange={(e) => setCheckoutForm({ ...checkoutForm, name: e.target.value })}
+                              />
+                            </div>
+
+                            <div className="checkout-field-group">
+                              <label className="checkout-label">Company / Brand Name</label>
+                              <input
+                                type="text"
+                                className="checkout-input"
+                                placeholder="e.g. Grand Heritage Hotels / ABC Retail"
+                                value={checkoutForm.company}
+                                onChange={(e) => setCheckoutForm({ ...checkoutForm, company: e.target.value })}
+                              />
+                            </div>
+
+                            <div className="checkout-field-group">
+                              <label className="checkout-label">WhatsApp / Phone Number <span className="req">*</span></label>
+                              <input
+                                type="tel"
+                                required
+                                className="checkout-input"
+                                placeholder="e.g. +91 98975 83968 / +971 50 123 4567"
+                                value={checkoutForm.phone}
+                                onChange={(e) => setCheckoutForm({ ...checkoutForm, phone: e.target.value })}
+                              />
+                            </div>
+
+                            <div className="checkout-field-group">
+                              <label className="checkout-label">Business Email Address <span className="req">*</span></label>
+                              <input
+                                type="email"
+                                required
+                                className="checkout-input"
+                                placeholder="e.g. procurement@company.com"
+                                value={checkoutForm.email}
+                                onChange={(e) => setCheckoutForm({ ...checkoutForm, email: e.target.value })}
+                              />
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="form-section-block" style={{ marginTop: '16px' }}>
+                          <div className="form-section-title-row">
+                            <span className="form-section-step">2</span>
+                            <h4 className="form-section-title">Consignment &amp; Logistics Preferences</h4>
                           </div>
 
-                          <div className="checkout-field-group">
-                            <label className="checkout-label">WhatsApp / Phone *</label>
-                            <input
-                              type="tel"
-                              required
-                              className="checkout-input"
-                              placeholder="+91 98975 83968"
-                              value={checkoutForm.phone}
-                              onChange={(e) => setCheckoutForm({ ...checkoutForm, phone: e.target.value })}
-                            />
-                          </div>
+                          <div className="checkout-fields-grid">
+                            <div className="checkout-field-group full-width">
+                              <label className="checkout-label">Delivery Address / Destination Port</label>
+                              <input
+                                type="text"
+                                className="checkout-input"
+                                placeholder="e.g. Port of Jebel Ali, Dubai / Hamburg Port / Warehouse Address"
+                                value={checkoutForm.address}
+                                onChange={(e) => setCheckoutForm({ ...checkoutForm, address: e.target.value })}
+                              />
+                            </div>
 
-                          <div className="checkout-field-group">
-                            <label className="checkout-label">Business Email *</label>
-                            <input
-                              type="email"
-                              required
-                              className="checkout-input"
-                              placeholder="buyer@company.com"
-                              value={checkoutForm.email}
-                              onChange={(e) => setCheckoutForm({ ...checkoutForm, email: e.target.value })}
-                            />
-                          </div>
+                            <div className="checkout-field-group">
+                              <label className="checkout-label">City, State / ZIP Code</label>
+                              <input
+                                type="text"
+                                className="checkout-input"
+                                placeholder="e.g. Dubai / London EC1A 1BB / Mumbai"
+                                value={checkoutForm.city}
+                                onChange={(e) => setCheckoutForm({ ...checkoutForm, city: e.target.value })}
+                              />
+                            </div>
 
-                          <div className="checkout-field-group full-width">
-                            <label className="checkout-label">Delivery Address / Destination Port</label>
-                            <input
-                              type="text"
-                              className="checkout-input"
-                              placeholder="Street Address or Port of Destination"
-                              value={checkoutForm.address}
-                              onChange={(e) => setCheckoutForm({ ...checkoutForm, address: e.target.value })}
-                            />
-                          </div>
+                            <div className="checkout-field-group">
+                              <label className="checkout-label">International Trade Terms (Incoterms)</label>
+                              <div className="checkout-select-wrap">
+                                <select
+                                  className="checkout-input checkout-select"
+                                  value={checkoutForm.tradeTerm}
+                                  onChange={(e) => setCheckoutForm({ ...checkoutForm, tradeTerm: e.target.value })}
+                                >
+                                  <option value="FOB - Port of Origin (Mundra/Nhava Sheva)">FOB - Port of Origin (Sea Cargo)</option>
+                                  <option value="CIF - Destination Port">CIF - Destination Port (Freight Paid)</option>
+                                  <option value="DDP - Doorstep Delivery">DDP - Doorstep Delivery (Duties Paid)</option>
+                                  <option value="Domestic Indian Freight (B2B GST)">Domestic Indian Delivery (GST Invoice)</option>
+                                </select>
+                              </div>
+                            </div>
 
-                          <div className="checkout-field-group">
-                            <label className="checkout-label">City &amp; Postal / Zip Code</label>
-                            <input
-                              type="text"
-                              className="checkout-input"
-                              placeholder="City, ZIP Code"
-                              value={checkoutForm.city}
-                              onChange={(e) => setCheckoutForm({ ...checkoutForm, city: e.target.value })}
-                            />
-                          </div>
-
-                          <div className="checkout-field-group">
-                            <label className="checkout-label">Trade / Shipping Terms</label>
-                            <select
-                              className="checkout-input checkout-select"
-                              value={checkoutForm.tradeTerm}
-                              onChange={(e) => setCheckoutForm({ ...checkoutForm, tradeTerm: e.target.value })}
-                            >
-                              <option value="FOB - Port of Origin (Mundra/Nhava Sheva)">FOB - Port of Origin (Sea Cargo)</option>
-                              <option value="CIF - Destination Port">CIF - Destination Port (Freight Paid)</option>
-                              <option value="DDP - Doorstep Delivery">DDP - Doorstep Delivery</option>
-                              <option value="Domestic Indian Freight (B2B GST)">Domestic Indian Delivery (GST Invoice)</option>
-                            </select>
-                          </div>
-
-                          <div className="checkout-field-group full-width">
-                            <label className="checkout-label">Special Notes / Custom Finishes Request</label>
-                            <textarea
-                              className="checkout-input checkout-textarea"
-                              placeholder="Specify custom finish preferences, custom laser branding, sample piece requirements, or target delivery timeline..."
-                              value={checkoutForm.notes}
-                              onChange={(e) => setCheckoutForm({ ...checkoutForm, notes: e.target.value })}
-                            />
+                            <div className="checkout-field-group full-width">
+                              <label className="checkout-label">Special Customization / Packaging Notes</label>
+                              <textarea
+                                className="checkout-input checkout-textarea"
+                                placeholder="Specify custom finish preferences, custom laser logo branding, sample piece requirements, or target delivery timeline..."
+                                value={checkoutForm.notes}
+                                onChange={(e) => setCheckoutForm({ ...checkoutForm, notes: e.target.value })}
+                              />
+                            </div>
                           </div>
                         </div>
 
@@ -4220,10 +4256,11 @@ function App() {
                               setIsCartOpen(true);
                             }}
                           >
-                            ← Back to Cart
+                            ← Return to Cart
                           </button>
                           <button type="submit" className="checkout-btn-submit">
-                            Confirm Order &amp; Proceed on WhatsApp →
+                            <span className="btn-main-label">Confirm Order &amp; Proceed on WhatsApp →</span>
+                            <span className="btn-sub-label">Direct Export Desk Connect (+91 98975 83968)</span>
                           </button>
                         </div>
                       </form>
@@ -4234,24 +4271,24 @@ function App() {
                 /* Order Success Confirmation Screen */
                 <div className="checkout-success-view">
                   <div className="checkout-success-icon-wrap">
-                    <CheckCircle size={56} className="checkout-success-icon" />
+                    <CheckCircle size={60} className="checkout-success-icon" />
                   </div>
-                  <span className="checkout-success-badge">ORDER INQUIRY SUBMITTED</span>
+                  <span className="checkout-success-badge">ORDER INQUIRY REGISTERED • EPCH CERTIFIED</span>
                   <h2 className="checkout-success-title">Thank You, {placedOrder.buyerName}!</h2>
                   <p className="checkout-success-desc">
-                    Your wholesale inquiry has been registered with reference ID: <strong>{placedOrder.id}</strong>. Our export desk is preparing your formal Proforma Invoice.
+                    Your wholesale trade inquiry has been registered with reference ID: <strong>{placedOrder.id}</strong>. Our Moradabad export desk is preparing your formal Proforma Invoice.
                   </p>
 
                   <div className="checkout-success-summary-box">
                     <div className="checkout-success-header">
-                      <span>Order Summary ({placedOrder.items.length} items)</span>
+                      <span>Order Manifest ({placedOrder.items.length} {placedOrder.items.length === 1 ? 'item' : 'items'})</span>
                       <strong>{placedOrder.total}</strong>
                     </div>
                     <div className="checkout-success-items-list">
                       {placedOrder.items.map((it, idx) => (
                         <div key={idx} className="checkout-success-item">
-                          <span>{idx + 1}. {it.title} {it.color ? `(${getColorName(it.color)})` : ''}</span>
-                          <strong>Qty: {it.quantity}</strong>
+                          <span className="success-item-name">{idx + 1}. {it.title} {it.color ? `(${getColorName(it.color)})` : ''}</span>
+                          <strong className="success-item-qty">Qty: {it.quantity}</strong>
                         </div>
                       ))}
                     </div>
@@ -4264,7 +4301,7 @@ function App() {
                       rel="noopener noreferrer"
                       className="checkout-wa-direct-btn"
                     >
-                      Open Order in WhatsApp (+91 98975 83968)
+                      Open Order in WhatsApp (+91 98975 83968) →
                     </a>
                     <button
                       type="button"
