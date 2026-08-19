@@ -4022,21 +4022,19 @@ function App() {
                 onClick={() => setIsCheckoutModalOpen(false)}
                 title="Close Checkout"
               >
-                <X size={20} />
+                <X size={18} />
               </button>
 
               {!placedOrder ? (
                 <>
                   <div className="checkout-modal-header">
-                    <div className="checkout-badge-row">
-                      <span className="checkout-modal-badge">
-                        <ShieldCheck size={13} style={{ display: 'inline-block', verticalAlign: '-2px', marginRight: '5px' }} />
-                        OFFICIAL B2B EXPORT PORTAL • MORADABAD FOUNDRY DIRECT
-                      </span>
+                    <div className="checkout-header-badge">
+                      <ShieldCheck size={13} />
+                      <span>B2B EXPORT TRADE PORTAL • FOUNDRY DIRECT</span>
                     </div>
                     <h2 className="checkout-modal-title">Wholesale Order &amp; Proforma Quotation</h2>
                     <p className="checkout-modal-subtitle">
-                      Review your artisanal aluminium metalware manifest, specify global Incoterms, and receive an instant proforma invoice quotation.
+                      Review your metalware manifest, specify international Incoterms, and receive an instant proforma invoice.
                     </p>
                   </div>
 
@@ -4044,20 +4042,17 @@ function App() {
                     {/* Left Column: Order Items Summary Card */}
                     <div className="checkout-summary-card">
                       <div className="checkout-card-header-bar">
-                        <h3 className="checkout-card-heading">
-                          Order Manifest ({getCartCount()} {getCartCount() === 1 ? 'Piece' : 'Pieces'})
-                        </h3>
-                        <span className="checkout-currency-tag">INR / USD B2B Pricing</span>
+                        <h3 className="checkout-card-heading">Order Manifest</h3>
+                        <span className="checkout-item-count-badge">
+                          {getCartCount()} {getCartCount() === 1 ? 'Item' : 'Items'}
+                        </span>
                       </div>
 
                       <div className="checkout-items-scroll">
                         {cart.map((item) => (
                           <div className="checkout-item-row" key={`${item.product.id}-${item.color || ''}`}>
-                            <div className="checkout-thumb-wrap">
-                              <img src={getCardImage(item.product)} alt={item.product.title} className="checkout-item-thumb" />
-                            </div>
+                            <img src={getCardImage(item.product)} alt={item.product.title} className="checkout-item-thumb" />
                             <div className="checkout-item-details">
-                              <span className="checkout-item-cat">{item.product.category || 'Aluminium Metalware'}</span>
                               <h4 className="checkout-item-name">{item.product.title}</h4>
                               {item.color && (
                                 <div className="checkout-item-finish-pill">
@@ -4065,7 +4060,7 @@ function App() {
                                     className="checkout-finish-dot"
                                     style={{ backgroundColor: item.color }}
                                   />
-                                  <span>Finish: <strong>{getColorName(item.color)}</strong></span>
+                                  <span>{getColorName(item.color)}</span>
                                 </div>
                               )}
                               <div className="checkout-item-price-qty">
@@ -4075,18 +4070,18 @@ function App() {
                                     type="button"
                                     className="checkout-stepper-btn"
                                     onClick={() => updateQuantity(item.product.id, item.color, -1)}
-                                    title="Decrease Quantity"
+                                    title="Decrease"
                                   >
-                                    <Minus size={11} />
+                                    <Minus size={10} />
                                   </button>
                                   <span className="checkout-stepper-val">{item.quantity}</span>
                                   <button
                                     type="button"
                                     className="checkout-stepper-btn"
                                     onClick={() => updateQuantity(item.product.id, item.color, 1)}
-                                    title="Increase Quantity"
+                                    title="Increase"
                                   >
-                                    <Plus size={11} />
+                                    <Plus size={10} />
                                   </button>
                                 </div>
                               </div>
@@ -4097,7 +4092,7 @@ function App() {
                               onClick={() => removeFromCart(item.product.id, item.color)}
                               title="Remove Item"
                             >
-                              <Trash2 size={15} />
+                              <Trash2 size={14} />
                             </button>
                           </div>
                         ))}
@@ -4105,28 +4100,28 @@ function App() {
 
                       <div className="checkout-pricing-box">
                         <div className="checkout-price-row">
-                          <span className="price-row-label">Estimated Items Valuation:</span>
+                          <span className="price-row-label">Estimated Subtotal:</span>
                           <strong className="checkout-total-val">₹{getCartTotal().toLocaleString()}</strong>
                         </div>
                         <div className="checkout-price-row muted">
-                          <span className="price-row-label">Export Packaging (EPCH Standard):</span>
+                          <span className="price-row-label">Export Packaging:</span>
                           <span className="free-badge">COMPLIMENTARY</span>
                         </div>
                         <div className="checkout-price-row muted">
-                          <span className="price-row-label">Selected Trade Terms:</span>
+                          <span className="price-row-label">Incoterms:</span>
                           <span className="trade-term-badge">{checkoutForm.tradeTerm ? checkoutForm.tradeTerm.split(' - ')[0] : 'FOB'}</span>
                         </div>
                         <div className="checkout-price-row muted">
                           <span className="price-row-label">Freight &amp; Insurance:</span>
-                          <span>Quoted on Confirmation</span>
+                          <span>Calculated on Quote</span>
                         </div>
                       </div>
 
                       <div className="checkout-trade-assurance">
-                        <Award size={20} className="assurance-icon" />
+                        <Award size={18} className="assurance-icon" />
                         <div className="assurance-text">
                           <strong>EPCH Registered Manufacturer Exporter</strong>
-                          <p>Accredited RCMC #28272 • 100% Quality Inspected Aluminium Metalware</p>
+                          <p>RCMC #28272 • 100% Quality Inspected Aluminium</p>
                         </div>
                       </div>
                     </div>
@@ -4134,10 +4129,11 @@ function App() {
                     {/* Right Column: Checkout Form Card */}
                     <div className="checkout-form-card">
                       <form onSubmit={submitOrder} className="checkout-inner-form">
-                        <div className="form-section-block">
-                          <div className="form-section-title-row">
-                            <span className="form-section-step">1</span>
-                            <h4 className="form-section-title">Buyer &amp; Organization Credentials</h4>
+                        {/* Step 1 */}
+                        <div className="form-step-block">
+                          <div className="form-step-header">
+                            <span className="form-step-badge">1</span>
+                            <h4 className="form-step-title">Buyer &amp; Organization Credentials</h4>
                           </div>
 
                           <div className="checkout-fields-grid">
@@ -4147,42 +4143,42 @@ function App() {
                                 type="text"
                                 required
                                 className="checkout-input"
-                                placeholder="e.g. Mohammed Adil / Johnathan Smith"
+                                placeholder="Your full name"
                                 value={checkoutForm.name}
                                 onChange={(e) => setCheckoutForm({ ...checkoutForm, name: e.target.value })}
                               />
                             </div>
 
                             <div className="checkout-field-group">
-                              <label className="checkout-label">Company / Brand Name</label>
+                              <label className="checkout-label">Company / Brand</label>
                               <input
                                 type="text"
                                 className="checkout-input"
-                                placeholder="e.g. Grand Heritage Hotels / ABC Retail"
+                                placeholder="Company or brand name"
                                 value={checkoutForm.company}
                                 onChange={(e) => setCheckoutForm({ ...checkoutForm, company: e.target.value })}
                               />
                             </div>
 
                             <div className="checkout-field-group">
-                              <label className="checkout-label">WhatsApp / Phone Number <span className="req">*</span></label>
+                              <label className="checkout-label">WhatsApp / Phone <span className="req">*</span></label>
                               <input
                                 type="tel"
                                 required
                                 className="checkout-input"
-                                placeholder="e.g. +91 98975 83968 / +971 50 123 4567"
+                                placeholder="+91 / Country code &amp; number"
                                 value={checkoutForm.phone}
                                 onChange={(e) => setCheckoutForm({ ...checkoutForm, phone: e.target.value })}
                               />
                             </div>
 
                             <div className="checkout-field-group">
-                              <label className="checkout-label">Business Email Address <span className="req">*</span></label>
+                              <label className="checkout-label">Business Email <span className="req">*</span></label>
                               <input
                                 type="email"
                                 required
                                 className="checkout-input"
-                                placeholder="e.g. procurement@company.com"
+                                placeholder="name@company.com"
                                 value={checkoutForm.email}
                                 onChange={(e) => setCheckoutForm({ ...checkoutForm, email: e.target.value })}
                               />
@@ -4190,19 +4186,20 @@ function App() {
                           </div>
                         </div>
 
-                        <div className="form-section-block" style={{ marginTop: '16px' }}>
-                          <div className="form-section-title-row">
-                            <span className="form-section-step">2</span>
-                            <h4 className="form-section-title">Consignment &amp; Logistics Preferences</h4>
+                        {/* Step 2 */}
+                        <div className="form-step-block">
+                          <div className="form-step-header">
+                            <span className="form-step-badge">2</span>
+                            <h4 className="form-step-title">Consignment &amp; Logistics</h4>
                           </div>
 
                           <div className="checkout-fields-grid">
                             <div className="checkout-field-group full-width">
-                              <label className="checkout-label">Delivery Address / Destination Port</label>
+                              <label className="checkout-label">Destination Address / Port</label>
                               <input
                                 type="text"
                                 className="checkout-input"
-                                placeholder="e.g. Port of Jebel Ali, Dubai / Hamburg Port / Warehouse Address"
+                                placeholder="Destination port or delivery warehouse address"
                                 value={checkoutForm.address}
                                 onChange={(e) => setCheckoutForm({ ...checkoutForm, address: e.target.value })}
                               />
@@ -4213,14 +4210,14 @@ function App() {
                               <input
                                 type="text"
                                 className="checkout-input"
-                                placeholder="e.g. Dubai / London EC1A 1BB / Mumbai"
+                                placeholder="City, Country / ZIP"
                                 value={checkoutForm.city}
                                 onChange={(e) => setCheckoutForm({ ...checkoutForm, city: e.target.value })}
                               />
                             </div>
 
                             <div className="checkout-field-group">
-                              <label className="checkout-label">International Trade Terms (Incoterms)</label>
+                              <label className="checkout-label">International Trade Terms</label>
                               <div className="checkout-select-wrap">
                                 <select
                                   className="checkout-input checkout-select"
@@ -4229,8 +4226,8 @@ function App() {
                                 >
                                   <option value="FOB - Port of Origin (Mundra/Nhava Sheva)">FOB - Port of Origin (Sea Cargo)</option>
                                   <option value="CIF - Destination Port">CIF - Destination Port (Freight Paid)</option>
-                                  <option value="DDP - Doorstep Delivery">DDP - Doorstep Delivery (Duties Paid)</option>
-                                  <option value="Domestic Indian Freight (B2B GST)">Domestic Indian Delivery (GST Invoice)</option>
+                                  <option value="DDP - Doorstep Delivery">DDP - Doorstep Delivery</option>
+                                  <option value="Domestic Indian Freight (B2B GST)">Domestic Indian Delivery (GST)</option>
                                 </select>
                               </div>
                             </div>
@@ -4239,7 +4236,7 @@ function App() {
                               <label className="checkout-label">Special Customization / Packaging Notes</label>
                               <textarea
                                 className="checkout-input checkout-textarea"
-                                placeholder="Specify custom finish preferences, custom laser logo branding, sample piece requirements, or target delivery timeline..."
+                                placeholder="Custom finish requirements, logo branding, sample orders, target timeline..."
                                 value={checkoutForm.notes}
                                 onChange={(e) => setCheckoutForm({ ...checkoutForm, notes: e.target.value })}
                               />
@@ -4259,8 +4256,7 @@ function App() {
                             ← Return to Cart
                           </button>
                           <button type="submit" className="checkout-btn-submit">
-                            <span className="btn-main-label">Confirm Order &amp; Proceed on WhatsApp →</span>
-                            <span className="btn-sub-label">Direct Export Desk Connect (+91 98975 83968)</span>
+                            Confirm Order on WhatsApp →
                           </button>
                         </div>
                       </form>
@@ -4271,12 +4267,12 @@ function App() {
                 /* Order Success Confirmation Screen */
                 <div className="checkout-success-view">
                   <div className="checkout-success-icon-wrap">
-                    <CheckCircle size={60} className="checkout-success-icon" />
+                    <CheckCircle size={56} className="checkout-success-icon" />
                   </div>
-                  <span className="checkout-success-badge">ORDER INQUIRY REGISTERED • EPCH CERTIFIED</span>
+                  <span className="checkout-success-badge">ORDER INQUIRY REGISTERED</span>
                   <h2 className="checkout-success-title">Thank You, {placedOrder.buyerName}!</h2>
                   <p className="checkout-success-desc">
-                    Your wholesale trade inquiry has been registered with reference ID: <strong>{placedOrder.id}</strong>. Our Moradabad export desk is preparing your formal Proforma Invoice.
+                    Your trade order has been registered under Reference ID: <strong>{placedOrder.id}</strong>. Our export desk is preparing your formal Proforma Invoice.
                   </p>
 
                   <div className="checkout-success-summary-box">
@@ -4301,7 +4297,7 @@ function App() {
                       rel="noopener noreferrer"
                       className="checkout-wa-direct-btn"
                     >
-                      Open Order in WhatsApp (+91 98975 83968) →
+                      Open Order on WhatsApp (+91 98975 83968) →
                     </a>
                     <button
                       type="button"
