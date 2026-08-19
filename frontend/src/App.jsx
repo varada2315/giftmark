@@ -1931,9 +1931,13 @@ function App() {
     phone: '',
     product: '',
     quantity: '100',
+    finish: '',
     message: ''
   });
   const [formSuccess, setFormSuccess] = useState(null);
+  const [inquiryModalProduct, setInquiryModalProduct] = useState(null);
+  const [isInquiryModalOpen, setIsInquiryModalOpen] = useState(false);
+  const [inquirySubmitted, setInquirySubmitted] = useState(false);
 
   // Legal Modal states
   const [activeLegal, setActiveLegal] = useState(null); // 'privacy', 'refund', 'terms', 'disclaimer' or null
@@ -2188,31 +2192,67 @@ function App() {
     return item.image || item.localImage || (item.images && item.images[0]) || '/uploads/brass_vessels.png';
   };
 
-  const handleProductInquiry = (productTitle) => {
+  const handleProductInquiry = (productOrTitle, finishName = '') => {
+    let prod = null;
+    if (productOrTitle && typeof productOrTitle === 'object') {
+      prod = productOrTitle;
+    } else if (typeof productOrTitle === 'string') {
+      prod = collections.find(c => c.title === productOrTitle) || collections[0];
+    } else if (activeProductModal) {
+      prod = activeProductModal;
+    }
+
     if (activeProductModal) setActiveProductModal(null);
     if (isFaqOpen) setIsFaqOpen(false);
     if (activeCertModal) setActiveCertModal(null);
     if (activeLegal) setActiveLegal(null);
 
+    const title = prod ? prod.title : (typeof productOrTitle === 'string' ? productOrTitle : '');
+    const finish = finishName || (selectedColor ? getColorName(selectedColor) : '');
+
     setInquiryForm(prev => ({
       ...prev,
-      product: productTitle || '',
+      product: title,
       quantity: prev.quantity || '100',
-      message: productTitle
-        ? `Hi, we are interested in placing a bulk order for the "${productTitle}". Please send us FOB prices and packaging terms.`
-        : (prev.message || 'Hi, we are interested in placing a bulk B2B order. Please send us your catalog and trade pricing.')
+      finish: finish || prev.finish || '',
+      message: title
+        ? `Hi, we are interested in placing a wholesale order for "${title}"${finish ? ` in ${finish} finish` : ''}. Please share FOB prices, lead time, and export packaging specifications.`
+        : 'Hi, we are interested in placing a bulk B2B order. Please send us your catalog and trade pricing.'
     }));
 
-    setCurrentPage('contact');
+    setInquiryModalProduct(prod || collections[0]);
+    setInquirySubmitted(false);
+    setIsInquiryModalOpen(true);
+  };
 
-    setTimeout(() => {
-      const enquirySection = document.getElementById('b2b-enquiry-section') || document.querySelector('.contact-page-section');
-      if (enquirySection) {
-        enquirySection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-    }, 60);
+  const handleInquiryWhatsAppDirect = () => {
+    const title = inquiryModalProduct ? inquiryModalProduct.title : (inquiryForm.product || 'Aluminium Metalware');
+    let text = `*B2B Product Inquiry - Giftmark Industries*\n`;
+    text += `--------------------------------------\n`;
+    text += `*Product:* ${title}\n`;
+    if (inquiryForm.finish) text += `*Preferred Finish:* ${inquiryForm.finish}\n`;
+    if (inquiryForm.quantity) text += `*Estimated Quantity:* ${inquiryForm.quantity} pcs\n`;
+    if (inquiryForm.name) text += `*Buyer Name:* ${inquiryForm.name}\n`;
+    if (inquiryForm.company) text += `*Company:* ${inquiryForm.company}\n`;
+    if (inquiryForm.phone) text += `*Contact:* ${inquiryForm.phone}\n`;
+    if (inquiryForm.email) text += `*Email:* ${inquiryForm.email}\n`;
+    if (inquiryForm.message) text += `*Requirement Details:* ${inquiryForm.message}\n`;
+    text += `--------------------------------------\n`;
+    text += `Please send us trade pricing and formal proforma quote.`;
+
+    const waUrl = `https://wa.me/919897583968?text=${encodeURIComponent(text)}`;
+    window.open(waUrl, '_blank', 'noopener,noreferrer');
+  };
+
+  const handleInquiryModalSubmit = (e) => {
+    e.preventDefault();
+    axios.post('/api/inquiry', inquiryForm)
+      .then(() => {
+        setInquirySubmitted(true);
+      })
+      .catch(() => {
+        setInquirySubmitted(true);
+      });
   };
 
   const handleFormSubmit = (e) => {
@@ -2220,13 +2260,13 @@ function App() {
     axios.post('/api/inquiry', inquiryForm)
       .then(res => {
         setFormSuccess(res.data.message);
-        setInquiryForm({ name: '', email: '', phone: '', product: '', quantity: '100', message: '' });
+        setInquiryForm({ name: '', email: '', phone: '', product: '', quantity: '100', finish: '', message: '' });
       })
       .catch(err => {
         // Fallback mock submission
         console.log("Connecting directly through simulated form submission.");
         setFormSuccess("Thank you for your enquiry! We will get in touch with you shortly. (Simulated Submission)");
-        setInquiryForm({ name: '', email: '', phone: '', product: '', quantity: '100', message: '' });
+        setInquiryForm({ name: '', email: '', phone: '', product: '', quantity: '100', finish: '', message: '' });
       });
   };
 
@@ -4309,6 +4349,180 @@ function App() {
                       }}
                     >
                       Continue Browsing Collections
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* --- DEDICATED PRODUCT ENQUIRY MODAL OVERLAY --- */}
+        {isInquiryModalOpen && inquiryModalProduct && (
+          <div className="inquiry-modal-overlay" onClick={() => setIsInquiryModalOpen(false)}>
+            <div className="inquiry-modal-container" onClick={(e) => e.stopPropagation()}>
+              <button
+                className="inquiry-modal-close"
+                onClick={() => setIsInquiryModalOpen(false)}
+                title="Close Inquiry"
+              >
+                <X size={18} />
+              </button>
+
+              {!inquirySubmitted ? (
+                <>
+                  <div className="inquiry-modal-header">
+                    <div className="checkout-header-badge">
+                      <ShieldCheck size={13} />
+                      <span>B2B EXPORT INQUIRY • MORADABAD FOUNDRY</span>
+                    </div>
+                    <h2 className="inquiry-modal-title">Product Inquiry &amp; Custom Quote</h2>
+                    <p className="inquiry-modal-subtitle">
+                      Inquire about bulk wholesale pricing, custom finishes, logo branding, and export packaging for this piece.
+                    </p>
+                  </div>
+
+                  {/* Product Mini Preview Card */}
+                  <div className="inquiry-product-preview-card">
+                    <img
+                      src={getCardImage(inquiryModalProduct)}
+                      alt={inquiryModalProduct.title}
+                      className="inquiry-product-thumb"
+                    />
+                    <div className="inquiry-product-info">
+                      <span className="inquiry-product-cat">{inquiryModalProduct.category || 'Aluminium Metalware'}</span>
+                      <h4 className="inquiry-product-name">{inquiryModalProduct.title}</h4>
+                      <div className="inquiry-product-meta">
+                        <span className="inquiry-product-price">{inquiryModalProduct.price}</span>
+                        {inquiryModalProduct.colors && inquiryModalProduct.colors.length > 0 && (
+                          <span className="inquiry-finishes-count">
+                            {inquiryModalProduct.colors.length} Available Finishes
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  <form onSubmit={handleInquiryModalSubmit} className="inquiry-modal-form">
+                    <div className="inquiry-fields-grid">
+                      <div className="inquiry-field-group">
+                        <label className="inquiry-label">Full Name <span className="req">*</span></label>
+                        <input
+                          type="text"
+                          required
+                          className="inquiry-input"
+                          placeholder="Your full name"
+                          value={inquiryForm.name}
+                          onChange={(e) => setInquiryForm({ ...inquiryForm, name: e.target.value })}
+                        />
+                      </div>
+
+                      <div className="inquiry-field-group">
+                        <label className="inquiry-label">Company / Brand</label>
+                        <input
+                          type="text"
+                          className="inquiry-input"
+                          placeholder="Company or brand name"
+                          value={inquiryForm.company || ''}
+                          onChange={(e) => setInquiryForm({ ...inquiryForm, company: e.target.value })}
+                        />
+                      </div>
+
+                      <div className="inquiry-field-group">
+                        <label className="inquiry-label">WhatsApp / Phone <span className="req">*</span></label>
+                        <input
+                          type="tel"
+                          required
+                          className="inquiry-input"
+                          placeholder="+91 / Country code &amp; number"
+                          value={inquiryForm.phone}
+                          onChange={(e) => setInquiryForm({ ...inquiryForm, phone: e.target.value })}
+                        />
+                      </div>
+
+                      <div className="inquiry-field-group">
+                        <label className="inquiry-label">Business Email <span className="req">*</span></label>
+                        <input
+                          type="email"
+                          required
+                          className="inquiry-input"
+                          placeholder="name@company.com"
+                          value={inquiryForm.email}
+                          onChange={(e) => setInquiryForm({ ...inquiryForm, email: e.target.value })}
+                        />
+                      </div>
+
+                      <div className="inquiry-field-group">
+                        <label className="inquiry-label">Estimated Quantity (Units)</label>
+                        <input
+                          type="text"
+                          className="inquiry-input"
+                          placeholder="e.g. 50, 100, 250, 500+"
+                          value={inquiryForm.quantity}
+                          onChange={(e) => setInquiryForm({ ...inquiryForm, quantity: e.target.value })}
+                        />
+                      </div>
+
+                      <div className="inquiry-field-group">
+                        <label className="inquiry-label">Preferred Finish / Specification</label>
+                        <input
+                          type="text"
+                          className="inquiry-input"
+                          placeholder="e.g. Antique Gold, Matte Black, Custom"
+                          value={inquiryForm.finish || ''}
+                          onChange={(e) => setInquiryForm({ ...inquiryForm, finish: e.target.value })}
+                        />
+                      </div>
+
+                      <div className="inquiry-field-group full-width">
+                        <label className="inquiry-label">Requirement Details / Message</label>
+                        <textarea
+                          className="inquiry-input inquiry-textarea"
+                          placeholder="Please provide details about custom finishes, branding, target port, delivery timeline..."
+                          value={inquiryForm.message}
+                          onChange={(e) => setInquiryForm({ ...inquiryForm, message: e.target.value })}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="inquiry-actions-row">
+                      <button
+                        type="button"
+                        className="inquiry-btn-wa"
+                        onClick={handleInquiryWhatsAppDirect}
+                      >
+                        Inquire on WhatsApp (+91 98975 83968) →
+                      </button>
+                      <button type="submit" className="inquiry-btn-submit">
+                        Submit Inquiry
+                      </button>
+                    </div>
+                  </form>
+                </>
+              ) : (
+                <div className="inquiry-success-view">
+                  <CheckCircle size={52} className="inquiry-success-icon" />
+                  <h3 className="inquiry-success-title">Inquiry Submitted Successfully!</h3>
+                  <p className="inquiry-success-desc">
+                    Thank you for your interest in <strong>{inquiryModalProduct.title}</strong>. Our Moradabad export desk will contact you within 24 business hours with FOB/CIF trade pricing.
+                  </p>
+                  <div className="inquiry-success-actions">
+                    <button
+                      type="button"
+                      className="inquiry-btn-wa"
+                      onClick={handleInquiryWhatsAppDirect}
+                    >
+                      Connect on WhatsApp Now (+91 98975 83968) →
+                    </button>
+                    <button
+                      type="button"
+                      className="inquiry-btn-close"
+                      onClick={() => {
+                        setIsInquiryModalOpen(false);
+                        setInquirySubmitted(false);
+                      }}
+                    >
+                      Continue Browsing
                     </button>
                   </div>
                 </div>
