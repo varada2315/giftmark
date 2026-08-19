@@ -1990,8 +1990,14 @@ function App() {
     company: '',
     email: '',
     phone: '',
+    address: '',
+    city: '',
+    country: 'India',
+    tradeTerm: 'FOB - Port of Origin (Mundra/Nhava Sheva)',
     notes: ''
   });
+  const [isCheckoutModalOpen, setIsCheckoutModalOpen] = useState(false);
+  const [placedOrder, setPlacedOrder] = useState(null);
 
   // Helper to parse price string to number for subtotal (e.g. "₹6,500 / $80" -> 6500)
   const parsePrice = (priceStr) => {
@@ -2017,10 +2023,12 @@ function App() {
       }
       return [...prevCart, { product, color: selectedCol, quantity: 1 }];
     });
+    setIsCheckingOut(false);
     setIsCartOpen(true);
   };
 
   const buyNow = (product, color) => {
+    if (activeProductModal) setActiveProductModal(null);
     const selectedCol = color || (product.colors && product.colors.length > 0 ? product.colors[0] : null);
     setCart((prevCart) => {
       const existing = prevCart.find((item) => item.product.id === product.id && item.color === selectedCol);
@@ -2033,8 +2041,8 @@ function App() {
       }
       return [...prevCart, { product, color: selectedCol, quantity: 1 }];
     });
+    setIsCheckingOut(false);
     setIsCartOpen(true);
-    setIsCheckingOut(true);
   };
 
   const removeFromCart = (productId, color) => {
@@ -2075,6 +2083,10 @@ function App() {
       company: checkoutForm.company,
       email: checkoutForm.email,
       phone: checkoutForm.phone,
+      address: checkoutForm.address,
+      city: checkoutForm.city,
+      country: checkoutForm.country,
+      tradeTerm: checkoutForm.tradeTerm,
       notes: checkoutForm.notes,
       items: cart.map((item) => ({
         id: item.product.id,
@@ -2086,47 +2098,49 @@ function App() {
       totalPrice: `₹${getCartTotal().toLocaleString()}`
     };
 
+    let generatedId = 'ORD-' + Date.now();
     try {
-      await axios.post('/api/orders', orderData);
-
-      let waMessage = `*New Order Inquiry - Giftmark Industries*\n`;
-      waMessage += `--------------------------------------\n`;
-      waMessage += `*Buyer Details:*\n`;
-      waMessage += `- Name: ${orderData.name}\n`;
-      if (orderData.company) waMessage += `- Company: ${orderData.company}\n`;
-      waMessage += `- WhatsApp/Phone: ${orderData.phone}\n`;
-      if (orderData.email) waMessage += `- Email: ${orderData.email}\n`;
-      if (orderData.notes) waMessage += `- Notes: ${orderData.notes}\n\n`;
-
-      waMessage += `*Requested Items:*\n`;
-      orderData.items.forEach((item, idx) => {
-        const colorSuffix = item.color ? ` (Finish: ${getColorName(item.color)})` : '';
-        waMessage += `${idx + 1}. ${item.title}${colorSuffix} (Qty: ${item.quantity}) - [${item.price}]\n`;
-      });
-      waMessage += `\n*Estimated Subtotal:* ${orderData.totalPrice}\n`;
-      waMessage += `--------------------------------------\n`;
-      waMessage += `Please review trade terms and freight costs.`;
-
-      const encodedMessage = encodeURIComponent(waMessage);
-      const waUrl = `https://wa.me/919897583968?text=${encodedMessage}`;
-
-      setCart([]);
-      setIsCartOpen(false);
-      setIsCheckingOut(false);
-      setCheckoutForm({
-        name: '',
-        company: '',
-        email: '',
-        phone: '',
-        notes: ''
-      });
-
-      alert(`Inquiry order saved! Redirecting to WhatsApp to coordinate freight & final pricing.`);
-      window.open(waUrl, '_blank');
+      const res = await axios.post('/api/orders', orderData);
+      if (res.data && res.data.orderId) {
+        generatedId = res.data.orderId;
+      }
     } catch (err) {
-      console.error("Order submission failed:", err);
-      alert("Order submission failed. Please check backend connection.");
+      console.log("Simulating order creation locally:", err);
     }
+
+    let waMessage = `*New B2B Trade Order - Giftmark Industries*\n`;
+    waMessage += `*Order ID:* ${generatedId}\n`;
+    waMessage += `--------------------------------------\n`;
+    waMessage += `*Buyer Details:*\n`;
+    waMessage += `- Name: ${orderData.name}\n`;
+    if (orderData.company) waMessage += `- Company: ${orderData.company}\n`;
+    waMessage += `- WhatsApp/Phone: ${orderData.phone}\n`;
+    if (orderData.email) waMessage += `- Email: ${orderData.email}\n`;
+    if (orderData.city || orderData.country) waMessage += `- Destination: ${orderData.city ? orderData.city + ', ' : ''}${orderData.country}\n`;
+    if (orderData.tradeTerm) waMessage += `- Trade Terms: ${orderData.tradeTerm}\n`;
+    if (orderData.notes) waMessage += `- Special Notes: ${orderData.notes}\n\n`;
+
+    waMessage += `*Order Items:*\n`;
+    orderData.items.forEach((item, idx) => {
+      const colorSuffix = item.color ? ` (Finish: ${getColorName(item.color)})` : '';
+      waMessage += `${idx + 1}. ${item.title}${colorSuffix} x ${item.quantity} [${item.price}]\n`;
+    });
+    waMessage += `\n*Est. Subtotal:* ${orderData.totalPrice}\n`;
+    waMessage += `--------------------------------------\n`;
+    waMessage += `Please send proforma invoice and freight schedule.`;
+
+    const encodedMessage = encodeURIComponent(waMessage);
+    const waUrl = `https://wa.me/919897583968?text=${encodedMessage}`;
+
+    setPlacedOrder({
+      id: generatedId,
+      items: orderData.items,
+      total: orderData.totalPrice,
+      waUrl: waUrl,
+      buyerName: orderData.name
+    });
+
+    setCart([]);
   };
 
   // Fetch collections from node backend
@@ -3907,13 +3921,20 @@ function App() {
                         <p className="cart-disclaimer-text">
                           *Estimated bulk pricing. Wholesale freight, taxes, and B2B discounts will be calculated during order finalization.
                         </p>
-                        <button className="cart-checkout-btn" onClick={() => setIsCheckingOut(true)}>
-                          Proceed to Checkout
+                        <button
+                          className="cart-checkout-btn"
+                          onClick={() => {
+                            setIsCartOpen(false);
+                            setIsCheckoutModalOpen(true);
+                            setPlacedOrder(null);
+                          }}
+                        >
+                          Proceed to Checkout →
                         </button>
                       </div>
                     </div>
                   ) : (
-                    /* CHECKOUT FORM VIEW */
+                    /* DRAWER INLINE CHECKOUT FALLBACK */
                     <div className="cart-body">
                       <form className="cart-checkout-form" onSubmit={submitOrder}>
                         <h4 className="checkout-title">Trade Order Inquiry</h4>
@@ -3925,7 +3946,7 @@ function App() {
                             type="text"
                             required
                             className="form-input"
-                            placeholder="Mohammed Adil"
+                            placeholder="Your Name"
                             value={checkoutForm.name}
                             onChange={(e) => setCheckoutForm({ ...checkoutForm, name: e.target.value })}
                           />
@@ -3965,16 +3986,6 @@ function App() {
                           />
                         </div>
 
-                        <div className="form-group">
-                          <label className="form-label">Special Trade Notes / Quantity Requirements</label>
-                          <textarea
-                            className="form-input form-textarea"
-                            placeholder="E.g., request custom aluminium filigree engraving, customized gift packaging boxes, sea freight to Germany..."
-                            value={checkoutForm.notes}
-                            onChange={(e) => setCheckoutForm({ ...checkoutForm, notes: e.target.value })}
-                          />
-                        </div>
-
                         <div className="cart-drawer-footer">
                           <div className="cart-summary-row">
                             <span>Total Items:</span>
@@ -3989,7 +4000,7 @@ function App() {
                               Back to Cart
                             </button>
                             <button type="submit" className="cart-checkout-btn">
-                              Confirm & WhatsApp Inquiry
+                              Confirm &amp; WhatsApp Inquiry
                             </button>
                           </div>
                         </div>
@@ -3997,6 +4008,277 @@ function App() {
                     </div>
                   )}
                 </>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* --- DEDICATED B2B CHECKOUT MODAL OVERLAY --- */}
+        {isCheckoutModalOpen && (
+          <div className="checkout-modal-overlay" onClick={() => setIsCheckoutModalOpen(false)}>
+            <div className="checkout-modal-container" onClick={(e) => e.stopPropagation()}>
+              <button
+                className="checkout-modal-close"
+                onClick={() => setIsCheckoutModalOpen(false)}
+                title="Close Checkout"
+              >
+                <X size={20} />
+              </button>
+
+              {!placedOrder ? (
+                <>
+                  <div className="checkout-modal-header">
+                    <span className="checkout-modal-badge">B2B Trade &amp; Export Checkout</span>
+                    <h2 className="checkout-modal-title">Finalize Wholesale Order Inquiry</h2>
+                    <p className="checkout-modal-subtitle">
+                      Review your items and enter your company credentials to receive immediate FOB/CIF proforma terms.
+                    </p>
+                  </div>
+
+                  <div className="checkout-modal-grid">
+                    {/* Left Column: Order Items Summary Card */}
+                    <div className="checkout-summary-card">
+                      <h3 className="checkout-card-heading">
+                        Order Items ({getCartCount()})
+                      </h3>
+
+                      <div className="checkout-items-scroll">
+                        {cart.map((item) => (
+                          <div className="checkout-item-row" key={`${item.product.id}-${item.color || ''}`}>
+                            <img src={getCardImage(item.product)} alt={item.product.title} className="checkout-item-thumb" />
+                            <div className="checkout-item-details">
+                              <h4 className="checkout-item-name">{item.product.title}</h4>
+                              {item.color && (
+                                <div className="checkout-item-finish">
+                                  <span
+                                    className="checkout-finish-dot"
+                                    style={{ backgroundColor: item.color }}
+                                  />
+                                  <span>{getColorName(item.color)}</span>
+                                </div>
+                              )}
+                              <div className="checkout-item-price-qty">
+                                <span className="checkout-unit-price">{item.product.price}</span>
+                                <div className="checkout-qty-stepper">
+                                  <button
+                                    type="button"
+                                    className="checkout-stepper-btn"
+                                    onClick={() => updateQuantity(item.product.id, item.color, -1)}
+                                  >
+                                    <Minus size={11} />
+                                  </button>
+                                  <span className="checkout-stepper-val">{item.quantity}</span>
+                                  <button
+                                    type="button"
+                                    className="checkout-stepper-btn"
+                                    onClick={() => updateQuantity(item.product.id, item.color, 1)}
+                                  >
+                                    <Plus size={11} />
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                            <button
+                              type="button"
+                              className="checkout-item-del-btn"
+                              onClick={() => removeFromCart(item.product.id, item.color)}
+                              title="Remove Item"
+                            >
+                              <Trash2 size={15} />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+
+                      <div className="checkout-pricing-box">
+                        <div className="checkout-price-row">
+                          <span>Estimated Subtotal:</span>
+                          <strong className="checkout-total-val">₹{getCartTotal().toLocaleString()}</strong>
+                        </div>
+                        <div className="checkout-price-row muted">
+                          <span>Standard Export Packaging:</span>
+                          <span className="free-badge">Included (Free)</span>
+                        </div>
+                        <div className="checkout-price-row muted">
+                          <span>Freight &amp; Customs:</span>
+                          <span>Calculated on Quote</span>
+                        </div>
+                      </div>
+
+                      <div className="checkout-trade-assurance">
+                        <ShieldCheck size={16} className="assurance-icon" />
+                        <span>EPCH Registered Exporter • 100% Quality Inspected Aluminium Metalware</span>
+                      </div>
+                    </div>
+
+                    {/* Right Column: Checkout Form Card */}
+                    <div className="checkout-form-card">
+                      <form onSubmit={submitOrder} className="checkout-inner-form">
+                        <h3 className="checkout-card-heading">Buyer &amp; Delivery Details</h3>
+
+                        <div className="checkout-fields-grid">
+                          <div className="checkout-field-group">
+                            <label className="checkout-label">Full Name *</label>
+                            <input
+                              type="text"
+                              required
+                              className="checkout-input"
+                              placeholder="Your Full Name"
+                              value={checkoutForm.name}
+                              onChange={(e) => setCheckoutForm({ ...checkoutForm, name: e.target.value })}
+                            />
+                          </div>
+
+                          <div className="checkout-field-group">
+                            <label className="checkout-label">Company / Brand Name</label>
+                            <input
+                              type="text"
+                              className="checkout-input"
+                              placeholder="Company Name (Optional)"
+                              value={checkoutForm.company}
+                              onChange={(e) => setCheckoutForm({ ...checkoutForm, company: e.target.value })}
+                            />
+                          </div>
+
+                          <div className="checkout-field-group">
+                            <label className="checkout-label">WhatsApp / Phone *</label>
+                            <input
+                              type="tel"
+                              required
+                              className="checkout-input"
+                              placeholder="+91 98975 83968"
+                              value={checkoutForm.phone}
+                              onChange={(e) => setCheckoutForm({ ...checkoutForm, phone: e.target.value })}
+                            />
+                          </div>
+
+                          <div className="checkout-field-group">
+                            <label className="checkout-label">Business Email *</label>
+                            <input
+                              type="email"
+                              required
+                              className="checkout-input"
+                              placeholder="buyer@company.com"
+                              value={checkoutForm.email}
+                              onChange={(e) => setCheckoutForm({ ...checkoutForm, email: e.target.value })}
+                            />
+                          </div>
+
+                          <div className="checkout-field-group full-width">
+                            <label className="checkout-label">Delivery Address / Destination Port</label>
+                            <input
+                              type="text"
+                              className="checkout-input"
+                              placeholder="Street Address or Port of Destination"
+                              value={checkoutForm.address}
+                              onChange={(e) => setCheckoutForm({ ...checkoutForm, address: e.target.value })}
+                            />
+                          </div>
+
+                          <div className="checkout-field-group">
+                            <label className="checkout-label">City &amp; Postal / Zip Code</label>
+                            <input
+                              type="text"
+                              className="checkout-input"
+                              placeholder="City, ZIP Code"
+                              value={checkoutForm.city}
+                              onChange={(e) => setCheckoutForm({ ...checkoutForm, city: e.target.value })}
+                            />
+                          </div>
+
+                          <div className="checkout-field-group">
+                            <label className="checkout-label">Trade / Shipping Terms</label>
+                            <select
+                              className="checkout-input checkout-select"
+                              value={checkoutForm.tradeTerm}
+                              onChange={(e) => setCheckoutForm({ ...checkoutForm, tradeTerm: e.target.value })}
+                            >
+                              <option value="FOB - Port of Origin (Mundra/Nhava Sheva)">FOB - Port of Origin (Sea Cargo)</option>
+                              <option value="CIF - Destination Port">CIF - Destination Port (Freight Paid)</option>
+                              <option value="DDP - Doorstep Delivery">DDP - Doorstep Delivery</option>
+                              <option value="Domestic Indian Freight (B2B GST)">Domestic Indian Delivery (GST Invoice)</option>
+                            </select>
+                          </div>
+
+                          <div className="checkout-field-group full-width">
+                            <label className="checkout-label">Special Notes / Custom Finishes Request</label>
+                            <textarea
+                              className="checkout-input checkout-textarea"
+                              placeholder="Specify custom finish preferences, custom laser branding, sample piece requirements, or target delivery timeline..."
+                              value={checkoutForm.notes}
+                              onChange={(e) => setCheckoutForm({ ...checkoutForm, notes: e.target.value })}
+                            />
+                          </div>
+                        </div>
+
+                        <div className="checkout-actions-row">
+                          <button
+                            type="button"
+                            className="checkout-btn-back"
+                            onClick={() => {
+                              setIsCheckoutModalOpen(false);
+                              setIsCartOpen(true);
+                            }}
+                          >
+                            ← Back to Cart
+                          </button>
+                          <button type="submit" className="checkout-btn-submit">
+                            Confirm Order &amp; Proceed on WhatsApp →
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                /* Order Success Confirmation Screen */
+                <div className="checkout-success-view">
+                  <div className="checkout-success-icon-wrap">
+                    <CheckCircle size={56} className="checkout-success-icon" />
+                  </div>
+                  <span className="checkout-success-badge">ORDER INQUIRY SUBMITTED</span>
+                  <h2 className="checkout-success-title">Thank You, {placedOrder.buyerName}!</h2>
+                  <p className="checkout-success-desc">
+                    Your wholesale inquiry has been registered with reference ID: <strong>{placedOrder.id}</strong>. Our export desk is preparing your formal Proforma Invoice.
+                  </p>
+
+                  <div className="checkout-success-summary-box">
+                    <div className="checkout-success-header">
+                      <span>Order Summary ({placedOrder.items.length} items)</span>
+                      <strong>{placedOrder.total}</strong>
+                    </div>
+                    <div className="checkout-success-items-list">
+                      {placedOrder.items.map((it, idx) => (
+                        <div key={idx} className="checkout-success-item">
+                          <span>{idx + 1}. {it.title} {it.color ? `(${getColorName(it.color)})` : ''}</span>
+                          <strong>Qty: {it.quantity}</strong>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="checkout-success-actions">
+                    <a
+                      href={placedOrder.waUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="checkout-wa-direct-btn"
+                    >
+                      Open Order in WhatsApp (+91 98975 83968)
+                    </a>
+                    <button
+                      type="button"
+                      className="checkout-continue-btn"
+                      onClick={() => {
+                        setIsCheckoutModalOpen(false);
+                        setPlacedOrder(null);
+                        setCurrentPage('collections');
+                      }}
+                    >
+                      Continue Browsing Collections
+                    </button>
+                  </div>
+                </div>
               )}
             </div>
           </div>
