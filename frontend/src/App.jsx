@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { ShoppingBag, Plus, Minus, Trash2, X, ChevronDown, Award, Globe, ShieldCheck, Calendar, Star, Quote, FileText, MapPin, CheckCircle, Download, Eye, Menu } from 'lucide-react';
+import { ShoppingBag, Plus, Minus, Trash2, X, ChevronDown, ChevronLeft, ChevronRight, Award, Globe, ShieldCheck, Calendar, Star, Quote, FileText, MapPin, CheckCircle, Download, Eye, Menu } from 'lucide-react';
 import './App.css';
 
 const getColorName = (hex) => {
@@ -39,6 +39,17 @@ const hasMultipleOptions = (product) => {
   if (typeof product.description === 'string' && /(available in (big|large|medium|small|various)|available as |sizes\.)/i.test(product.description)) return true;
   return false;
 };
+
+const TRUST_BANNER_ITEMS = [
+  "32+ Years of Experience",
+  "Global Export Presence",
+  "International Exhibitions",
+  "Award-Winning Leadership",
+  "Trusted B2B Partnerships",
+  "Direct Factory Manufacturer",
+  "Custom Metal Fabrication",
+  "ISO & CE Certified Quality"
+];
 
 // Certifications Data
 const CERTIFICATIONS_DATA = [
@@ -374,7 +385,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Hospitality",
     material: "Aluminium",
     colors: ["#1E759A", "#4E9F3D", "#D4A017", "#2C2C2C"],
-    
+
     price: "₹620 - ₹850 / $8 - $10",
     dimensions: {
       height: '3 cm (1.2")',
@@ -395,7 +406,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Hospitality",
     material: "Aluminium",
     colors: ["#9E7D62", "#D4A017", "#53565A", "#2C2C2C"],
-    
+
     price: "₹1,220 / $15",
     dimensions: {
       height: '10 cm (3.9")',
@@ -416,7 +427,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Giftware",
     material: "Aluminium",
     colors: ["#D4A017", "#9E7D62", "#53565A", "#2C2C2C"],
-    
+
     price: "₹18,500 / $225",
     dimensions: {
       height: '90 cm (35.4")',
@@ -437,7 +448,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Giftware",
     material: "Aluminium",
     colors: ["#D4A017", "#53565A", "#9E7D62", "#2C2C2C"],
-    
+
     price: "₹8,500 / $105",
     dimensions: {
       height: '8 cm (3.1")',
@@ -458,7 +469,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Giftware",
     material: "Aluminium",
     colors: ["#D4A017", "#9E7D62", "#53565A", "#2C2C2C"],
-    
+
     price: "₹6,800 / $85",
     dimensions: {
       height: '4 cm (1.6")',
@@ -478,7 +489,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Giftware",
     material: "Aluminium",
     colors: ["#D4A017", "#53565A", "#9E7D62", "#2C2C2C"],
-    
+
     price: "₹1,350 - ₹2,350 / $16 - $28",
     dimensions: {
       height: '50 cm - 65 cm (19.7" - 25.6")',
@@ -498,7 +509,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Giftware",
     material: "Aluminium",
     colors: ["#D4A017", "#53565A", "#9E7D62", "#2C2C2C"],
-    
+
     price: "₹1,800 / $22",
     dimensions: {
       height: '58 cm (22.8")',
@@ -518,7 +529,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Giftware",
     material: "Aluminium",
     colors: ["#D4A017", "#53565A", "#9E7D62", "#2C2C2C"],
-    
+
     price: "₹620 - ₹1,000 / $8 - $12",
     dimensions: {
       height: '47 cm - 58 cm (18.5" - 22.8")',
@@ -538,7 +549,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Giftware",
     material: "Aluminium",
     colors: ["#D4A017", "#53565A", "#9E7D62", "#2C2C2C"],
-    
+
     price: "₹400 - ₹800 / $5 - $10",
     dimensions: {
       height: '30 cm - 50 cm (11.8" - 19.7")',
@@ -558,7 +569,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Giftware",
     material: "Aluminium",
     colors: ["#D4A017", "#53565A", "#9E7D62", "#2C2C2C"],
-    
+
     price: "₹550 / $7",
     dimensions: {
       height: '33 cm (13")',
@@ -578,7 +589,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Giftware",
     material: "Aluminium",
     colors: ["#D4A017", "#53565A", "#9E7D62", "#2C2C2C"],
-    
+
     price: "₹1,350 - ₹1,590 / $16 - $19",
     dimensions: {
       height: '57 cm - 68 cm (22.4" - 26.8")',
@@ -599,7 +610,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Home Décor",
     material: "Aluminium",
     colors: ["#53565A", "#D4A017", "#9E7D62", "#2C2C2C"],
-    
+
     price: "₹800 - ₹1,350 / $10 - $16",
     dimensions: {
       height: '29 cm - 37 cm (11.4" - 14.6")',
@@ -619,7 +630,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Home Décor",
     material: "Aluminium",
     colors: ["#D4A017", "#C84E18", "#53565A", "#2C2C2C"],
-    
+
     price: "₹600 - ₹800 / $7 - $10",
     dimensions: {
       height: '23 cm - 28 cm (9.1" - 11.0")',
@@ -639,7 +650,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Home Décor",
     material: "Aluminium",
     colors: ["#D4A017", "#53565A", "#9E7D62", "#2C2C2C"],
-    
+
     price: "₹1,250 / $15",
     dimensions: {
       height: '54 cm (21.2")',
@@ -660,7 +671,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Home Décor",
     material: "Aluminium",
     colors: ["#53565A", "#D4A017", "#2C2C2C"],
-    
+
     price: "₹800 / $10",
     dimensions: {
       height: '36 cm (14.2")',
@@ -680,7 +691,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Home Décor",
     material: "Aluminium",
     colors: ["#D4A017", "#C84E18", "#53565A", "#2C2C2C"],
-    
+
     price: "₹1,300 - ₹1,560 / $16 - $19",
     dimensions: {
       height: '65 cm - 74 cm (25.6" - 29.1")',
@@ -700,7 +711,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Home Décor",
     material: "Aluminium",
     colors: ["#D4A017", "#9E7D62", "#2C2C2C"],
-    
+
     price: "₹810 / $10",
     dimensions: {
       height: '51 cm (20.1")',
@@ -720,7 +731,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Home Décor",
     material: "Aluminium",
     colors: ["#D4A017", "#53565A", "#9E7D62", "#2C2C2C"],
-    
+
     price: "₹850 / $10",
     dimensions: {
       height: '46 cm (18.1")',
@@ -740,7 +751,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Home Décor",
     material: "Aluminium",
     colors: ["#1E759A", "#D4A017", "#2C2C2C", "#53565A"],
-    
+
     price: "₹6,350 / $78",
     dimensions: {
       height: '70 cm (28")',
@@ -760,7 +771,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Home Décor",
     material: "Aluminium",
     colors: ["#D4A017", "#C84E18", "#53565A", "#2C2C2C"],
-    
+
     price: "₹1,540 / $19",
     dimensions: {
       height: '56 cm (22.0")',
@@ -781,7 +792,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Hospitality, Utility",
     material: "Aluminium",
     colors: ["#53565A", "#D4A017", "#2C2C2C"],
-    
+
     price: "₹6,500 / $80",
     dimensions: {
       height: '99 cm (39")',
@@ -802,7 +813,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Hospitality, Utility",
     material: "Aluminium",
     colors: ["#53565A", "#D4A017", "#9E7D62", "#2C2C2C"],
-    
+
     price: "₹1,350 - ₹1,550 / $16 - $19",
     dimensions: {
       height: '6 cm - 7 cm (2.4" - 2.8")',
@@ -824,7 +835,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Hospitality",
     material: "Aluminium",
     colors: ["#D4A017", "#53565A", "#9E7D62", "#2C2C2C"],
-    
+
     price: "₹1,820 / $22",
     dimensions: {
       height: '5 cm (2.0")',
@@ -846,7 +857,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Hospitality, Utility",
     material: "Aluminium",
     colors: ["#D4A017", "#53565A", "#9E7D62", "#2C2C2C"],
-    
+
     price: "₹1,650 / $20",
     dimensions: {
       height: '7 cm (3")',
@@ -868,7 +879,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Hospitality",
     material: "Aluminium",
     colors: ["#C0392B", "#D4A017", "#C2B280", "#2C2C2C"],
-    
+
     price: "₹1,100",
     colors: ["#C0392B", "#D4A017", "#C2B280", "#2C2C2C"],
     dimensions: {
@@ -890,7 +901,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Hospitality, Utility",
     material: "Aluminium",
     colors: ["#C0392B", "#D4A017", "#C2B280", "#2C2C2C"],
-    
+
     price: "₹3,500 / $42",
     colors: ["#C0392B", "#D4A017", "#C2B280", "#2C2C2C"],
     dimensions: {
@@ -912,7 +923,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Utility, Hospitality",
     material: "Aluminium",
     colors: ["#C0392B", "#D4A017", "#C2B280", "#2C2C2C"],
-    
+
     price: "₹2,250 - ₹2,450",
     colors: ["#C0392B", "#D4A017", "#C2B280", "#2C2C2C"],
     dimensions: {
@@ -935,7 +946,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Hospitality",
     material: "Aluminium",
     colors: ["#C0392B", "#D4A017", "#C2B280", "#2C2C2C"],
-    
+
     price: "₹500",
     colors: ["#C0392B", "#D4A017", "#C2B280", "#2C2C2C"],
     dimensions: {
@@ -957,7 +968,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Giftware",
     material: "Aluminium",
     colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
-    
+
     price: "₹850 - ₹1,050",
     colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
     dimensions: {
@@ -979,7 +990,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Utility",
     material: "Aluminium",
     colors: ["#53565A", "#DFBFA1", "#9E7D62", "#C84E18"],
-        
+
     price: "₹1,820 / $22",
     dimensions: {
       height: '5 cm (2.0")',
@@ -1000,7 +1011,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Hospitality, Utility",
     material: "Aluminium",
     colors: ["#C84E18", "#D4A017", "#9E7D62", "#2C2C2C"],
-        
+
     price: "₹2,350 / $28",
     dimensions: {
       height: '63 cm (25")',
@@ -1021,7 +1032,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Hospitality, Utility",
     material: "Aluminium",
     colors: ["#C84E18", "#E67E22", "#9E7D62", "#2C2C2C"],
-        
+
     price: "₹3,200 / $39",
     dimensions: {
       height: '65 cm (26")',
@@ -1042,7 +1053,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Hospitality, Utility",
     material: "Aluminium",
     colors: ["#C84E18", "#D4A017", "#9E7D62", "#2C2C2C"],
-        
+
     price: "₹3,590 / $44",
     dimensions: {
       height: '70 cm (28")',
@@ -1064,7 +1075,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Giftware",
     material: "Aluminium",
     colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
-        
+
     price: "₹1,050 / $13",
     dimensions: {
       height: '7 cm (2.8")',
@@ -1085,7 +1096,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Hospitality, Utility",
     material: "Aluminium",
     colors: ["#C84E18", "#D4A017", "#53565A", "#2C2C2C"],
-        
+
     price: "₹1,200 - ₹1,250 / $15 - $16",
     dimensions: {
       height: '120 cm (47.2")',
@@ -1106,7 +1117,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Giftware",
     material: "Aluminium",
     colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
-        
+
     price: "₹350 - ₹450 / $4 - $6",
     dimensions: {
       height: '3 cm',
@@ -1128,7 +1139,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Giftware",
     material: "Aluminium",
     colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
-        
+
     price: "₹1,100 / $14",
     dimensions: {
       height: '7 cm (2.8")',
@@ -1149,7 +1160,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Hospitality, Utility",
     material: "Aluminium",
     colors: ["#C84E18", "#D4A017", "#53565A", "#2C2C2C"],
-        
+
     price: "₹6,200 / $75",
     dimensions: {
       height: '93 cm (36.6")',
@@ -1170,7 +1181,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Utility",
     material: "Aluminium",
     colors: ["#C84E18", "#D4A017", "#53565A", "#2C2C2C"],
-        
+
     price: "₹2,550 / $31",
     dimensions: {
       height: '43 cm (16.9")',
@@ -1192,7 +1203,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Giftware",
     material: "Aluminium",
     colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
-        
+
     price: "₹1,000 / $12",
     dimensions: {
       height: '12 cm (4.7")',
@@ -1214,7 +1225,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Utility",
     material: "Aluminium",
     colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
-        
+
     price: "₹1,300 - ₹1,500 / $16 - $18",
     dimensions: {
       height: '5 cm (2")',
@@ -1235,7 +1246,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Home Décor",
     material: "Aluminium",
     colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
-        
+
     price: "₹2,450 / $30",
     dimensions: {
       height: '67 cm (26.4")',
@@ -1256,7 +1267,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Home Décor",
     material: "Aluminium",
     colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
-        
+
     price: "₹2,700 / $33",
     dimensions: {
       height: '40 cm (15.7")',
@@ -1277,7 +1288,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Home Décor",
     material: "Aluminium",
     colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
-        
+
     price: "₹3,400 / $41",
     dimensions: {
       height: '43 cm (16.9")',
@@ -1299,7 +1310,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Home Décor",
     material: "Aluminium",
     colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
-        
+
     price: "₹4,100 / $49",
     dimensions: {
       height: '64 cm (25.2")',
@@ -1321,7 +1332,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Giftware",
     material: "Aluminium",
     colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
-        
+
     price: "₹850 - ₹1,200 / $10 - $15",
     dimensions: {
       height: '4 cm (1.6")',
@@ -1342,7 +1353,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Home Décor",
     material: "Aluminium",
     colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
-        
+
     price: "₹1,150 / $14",
     dimensions: {
       height: '40 cm (15.7")',
@@ -1363,7 +1374,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Home Décor",
     material: "Aluminium",
     colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
-        
+
     price: "₹1,200 / $15",
     dimensions: {
       height: '41 cm (16.1")',
@@ -1384,7 +1395,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Home Décor",
     material: "Aluminium",
     colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
-        
+
     price: "₹1,000 / $12",
     dimensions: {
       height: '29 cm (11.4")',
@@ -1405,7 +1416,7 @@ const DEFAULT_COLLECTIONS = [
     category: "Hospitality, Utility",
     material: "Aluminium",
     colors: ["#C84E18", "#E67E22", "#9E7D62", "#2C2C2C"],
-        
+
     price: "₹6,050 / $73",
     dimensions: {
       height: '91 cm (36")',
@@ -1597,54 +1608,86 @@ const TESTIMONIALS = [
 
 const MOCK_REELS = [
   {
-    id: "reel-01",
-    title: "Handcrafting Ganesha Deity",
-    views: "18.4K",
-    likes: "2.5K",
-    comments: 142,
-    image: "/uploads/brass_ganesha.png",
-    caption: "Behind the scenes casting our sacred solid aluminium Ganesha. Generations of devotion and details. 🕉️✨",
-    tags: ["#artisan", "#metalcasting", "#heritage", "#giftmark"],
-    link: "https://www.instagram.com/industriesgiftmark?igsh=aHdxdTBieTdnN28w"
+    id: "reel-yt-01",
+    title: "Traffic Was Crazy… But These Decor Pieces Were Worth It 😍",
+    category: "Artisanal Crafting",
+    views: "58.4K",
+    likes: "8.2K",
+    comments: 394,
+    image: "https://i.ytimg.com/vi/S1_fVAJqggc/maxresdefault.jpg",
+    youtubeId: "S1_fVAJqggc",
+    caption: "Traffic was crazy… but these luxury handcrafted decor pieces were totally worth it. Master artisans crafting export-grade masterpieces.",
+    tags: ["#luxury", "#homedecor", "#handcrafted", "#giftmark", "#moradabad"],
+    link: "https://youtube.com/shorts/S1_fVAJqggc?si=UKegoxrVWQvLjqs-"
   },
   {
-    id: "reel-02",
-    title: "Polishing Peacock Lamp",
-    views: "12.2K",
-    likes: "1.8K",
-    comments: 98,
-    image: "/uploads/brass_peacock_lamp.png",
-    caption: "Polishing the intricate details of our satin gold Peacock Candelabra. ✨🦚",
-    tags: ["#aluminiumdecor", "#luxuryinteriors", "#craftsmanship"],
-    link: "https://www.instagram.com/industriesgiftmark?igsh=aHdxdTBieTdnN28w"
+    id: "reel-yt-02",
+    title: "Luxury Aluminium Home Decor ✨ | Tables, Sculptures & Vases",
+    category: "Sculptures & Tables",
+    views: "34.1K",
+    likes: "5.8K",
+    comments: 340,
+    image: "https://i.ytimg.com/vi/ctQLUlt8EsA/maxresdefault.jpg",
+    youtubeId: "ctQLUlt8EsA",
+    caption: "Explore luxury aluminium home decor collections — statement tables, elegant sculptures & artisanal vases by Giftmark.",
+    tags: ["#luxurydecor", "#aluminiumart", "#aesthetic", "#giftmark"],
+    link: "https://youtube.com/shorts/ctQLUlt8EsA?si=DOisLEJHRibz8zon"
   },
   {
-    id: "reel-03",
-    title: "Vibe of Astrolabe Sphere",
-    views: "24.5K",
-    likes: "3.9K",
-    comments: 310,
-    image: "/uploads/brass_astrolabe.png",
-    caption: "A glance into the historical details of our Astrolabe Armillary Sphere. Crafting precision since 1993. 🧭",
-    tags: ["#astronomy", "#vintagedecor", "#maritime", "#giftware"],
-    link: "https://www.instagram.com/industriesgiftmark?igsh=aHdxdTBieTdnN28w"
+    id: "reel-yt-03",
+    title: "Black & Gold Luxury Vases ✨ | Elegant Table Decor",
+    category: "Luxury Vases",
+    views: "38.2K",
+    likes: "5.4K",
+    comments: 260,
+    image: "https://i.ytimg.com/vi/l_C2EDeXo4s/maxresdefault.jpg",
+    youtubeId: "l_C2EDeXo4s",
+    caption: "Black & Gold luxury vases — statement table decor handcrafted with premium metals and exquisite finishes.",
+    tags: ["#luxurylifestyle", "#vases", "#tabledecor", "#giftmark"],
+    link: "https://youtube.com/shorts/l_C2EDeXo4s?si=phhXoGkXyN3AUAYT"
   },
   {
-    id: "reel-04",
-    title: "Bronze Nataraja Sculpting",
-    views: "15.1K",
-    likes: "2.1K",
-    comments: 175,
-    image: "/uploads/bronze_nataraja.png",
-    caption: "Unveiling the award-winning weathered bronze Nataraja sculpture. A masterpiece of movement and power. 🔱",
-    tags: ["#bronzeart", "#indianhandicrafts", "#handmade"],
-    link: "https://www.instagram.com/industriesgiftmark?igsh=aHdxdTBieTdnN28w"
+    id: "reel-yt-04",
+    title: "This Luxury Table Decor Will Elevate Your Home ✨ | Sculptural Decor",
+    category: "Sculptures & Tables",
+    views: "28.6K",
+    likes: "4.2K",
+    comments: 215,
+    image: "https://i.ytimg.com/vi/yQwGhanUFZg/maxresdefault.jpg",
+    youtubeId: "yQwGhanUFZg",
+    caption: "This luxury sculptural table decor will elevate your home aesthetic. Handcrafted metal artistry crafted to perfection.",
+    tags: ["#luxury", "#homedecor", "#sculpture", "#giftmark"],
+    link: "https://youtube.com/shorts/yQwGhanUFZg?si=oqDQSQFeHmW1Y5zV"
+  },
+  {
+    id: "reel-yt-05",
+    title: "Artisanal Crafting & Metal Finishing Behind The Scenes ✨",
+    category: "Behind The Scenes",
+    views: "47.8K",
+    likes: "6.5K",
+    comments: 289,
+    image: "https://i.ytimg.com/vi/zcWeul7SZqo/maxresdefault.jpg",
+    youtubeId: "zcWeul7SZqo",
+    caption: "Step inside our Moradabad workshops to witness precision metal finishing, handcrafted detailing, and artisanal excellence.",
+    tags: ["#behindthescenes", "#metalcraft", "#artisan", "#giftmark", "#exportquality"],
+    link: "https://youtube.com/shorts/zcWeul7SZqo?si=xdZfsnhclC2MhHjX"
   }
 ];
+
+const REEL_CATEGORIES = ["All Reels", "Sculptures & Tables", "Luxury Vases", "Artisanal Crafting", "Behind The Scenes"];
 
 function InstagramReels() {
   const [selectedReel, setSelectedReel] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [activeCategory, setActiveCategory] = useState("All Reels");
+  const [viewAll, setViewAll] = useState(false);
+  const scrollContainerRef = useRef(null);
+
+  const filteredReels = activeCategory === "All Reels"
+    ? MOCK_REELS
+    : MOCK_REELS.filter((r) => r.category === activeCategory);
+
+  const displayedReels = viewAll ? filteredReels : filteredReels.slice(0, 4);
 
   useEffect(() => {
     if (selectedReel) {
@@ -1654,58 +1697,206 @@ function InstagramReels() {
     }
   }, [selectedReel]);
 
+  // Keyboard navigation for modal
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (!selectedReel) return;
+      if (e.key === 'Escape') {
+        setSelectedReel(null);
+      } else if (e.key === 'ArrowRight') {
+        handleNextReel();
+      } else if (e.key === 'ArrowLeft') {
+        handlePrevReel();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedReel, filteredReels]);
+
+  const currentModalIndex = selectedReel
+    ? filteredReels.findIndex((r) => r.id === selectedReel.id)
+    : -1;
+
+  const handlePrevReel = () => {
+    if (currentModalIndex > 0) {
+      setSelectedReel(filteredReels[currentModalIndex - 1]);
+    } else {
+      setSelectedReel(filteredReels[filteredReels.length - 1]);
+    }
+  };
+
+  const handleNextReel = () => {
+    if (currentModalIndex >= 0 && currentModalIndex < filteredReels.length - 1) {
+      setSelectedReel(filteredReels[currentModalIndex + 1]);
+    } else {
+      setSelectedReel(filteredReels[0]);
+    }
+  };
+
+  const scrollLeft = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: -320, behavior: 'smooth' });
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: 320, behavior: 'smooth' });
+    }
+  };
+
   return (
-    <section className="reels-section" aria-label="Instagram Reels Showcase">
+    <section className="reels-section" aria-label="Instagram & YouTube Reels Showcase">
       <div className="reels-header">
         <span className="reels-eyebrow">Craft in Motion</span>
-        <h2 className="reels-title">Explore Our Reels</h2>
+        <h2 className="reels-title">Explore Our Reels & Video Showcase</h2>
         <p className="reels-subtitle">
-          Get a behind-the-scenes look at our workshop, artisanal processes, and latest product releases.
+          Get a behind-the-scenes look at our Moradabad workshops, artisanal casting techniques, hand-polishing craft, and luxury product launches.
         </p>
-        <a
-          href="https://www.instagram.com/industriesgiftmark?igsh=aHdxdTBieTdnN28w"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="reels-handle-link"
-        >
-          @industriesgiftmark
-        </a>
+
+        <div className="reels-social-links">
+          <a
+            href="https://www.youtube.com/@GiftmarkIndustries"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="reels-channel-badge youtube"
+          >
+            <span className="channel-icon">▶</span>
+            <span>@GiftmarkIndustries on YouTube</span>
+          </a>
+          <a
+            href="https://www.instagram.com/industriesgiftmark?igsh=aHdxdTBieTdnN28w"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="reels-channel-badge instagram"
+          >
+            <span className="channel-icon">📸</span>
+            <span>@industriesgiftmark on Instagram</span>
+          </a>
+        </div>
+
+        {/* Category Filters */}
+        <div className="reels-filter-bar">
+          {REEL_CATEGORIES.map((cat) => {
+            const count = cat === "All Reels"
+              ? MOCK_REELS.length
+              : MOCK_REELS.filter(r => r.category === cat).length;
+            return (
+              <button
+                key={cat}
+                className={`reel-filter-chip ${activeCategory === cat ? 'active' : ''}`}
+                onClick={() => setActiveCategory(cat)}
+              >
+                {cat} <span className="chip-count">({count})</span>
+              </button>
+            );
+          })}
+        </div>
       </div>
 
-      <div className="reels-grid">
-        {MOCK_REELS.map((reel) => (
-          <div
-            key={reel.id}
-            className="reel-card"
-            onClick={() => setSelectedReel(reel)}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => e.key === 'Enter' && setSelectedReel(reel)}
-          >
-            <div className="reel-cover-wrapper">
-              <img src={reel.image} alt={reel.title} className="reel-cover-img" />
-              <div className="reel-overlay">
-                <div className="reel-play-btn">
-                  <svg viewBox="0 0 24 24" fill="currentColor" className="play-icon">
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
+      {/* Carousel Container */}
+      <div className="reels-carousel-wrapper">
+        <button
+          className="reels-nav-btn prev"
+          onClick={scrollLeft}
+          aria-label="Scroll reels left"
+        >
+          <ChevronLeft size={22} />
+        </button>
+
+        <div
+          className={`reels-grid ${viewAll ? 'grid-expanded' : 'carousel-mode'}`}
+          ref={scrollContainerRef}
+        >
+          {(viewAll ? filteredReels : displayedReels).map((reel, idx) => (
+            <div
+              key={reel.id}
+              className="reel-card"
+              onClick={() => setSelectedReel(reel)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => e.key === 'Enter' && setSelectedReel(reel)}
+            >
+              <div className="reel-cover-wrapper">
+                <img
+                  src={reel.image}
+                  alt={reel.title}
+                  className="reel-cover-img"
+                  loading="lazy"
+                  onError={(e) => {
+                    if (!e.currentTarget.dataset.step) {
+                      e.currentTarget.dataset.step = "sd";
+                      e.currentTarget.src = `https://i.ytimg.com/vi/${reel.youtubeId}/sddefault.jpg`;
+                    } else if (e.currentTarget.dataset.step === "sd") {
+                      e.currentTarget.dataset.step = "hq";
+                      e.currentTarget.src = `https://i.ytimg.com/vi/${reel.youtubeId}/hqdefault.jpg`;
+                    }
+                  }}
+                />
+                <div className="reel-overlay">
+                  <div className="reel-top-row">
+                    <span className="reel-badge-category">{reel.category}</span>
+                    <span className="reel-badge-hd">HD SHORT</span>
+                  </div>
+
+                  <div className="reel-play-btn" aria-label="Play reel">
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="play-icon">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </div>
+
+                  <div className="reel-meta-pill">
+                    <span className="reel-meta-item">
+                      <span className="meta-icon">👁️</span> {reel.views}
+                    </span>
+                    <span className="reel-meta-divider">•</span>
+                    <span className="reel-meta-item">
+                      <span className="meta-icon">❤️</span> {reel.likes}
+                    </span>
+                  </div>
                 </div>
-                <div className="reel-meta">
-                  <span className="reel-meta-item">
-                    <span className="meta-icon">👁️</span> {reel.views}
-                  </span>
-                  <span className="reel-meta-item">
-                    <span className="meta-icon">❤️</span> {reel.likes}
+              </div>
+
+              <div className="reel-info">
+                <h4 className="reel-card-title">{reel.title}</h4>
+                <p className="reel-caption">{reel.caption}</p>
+                <div className="reel-card-footer">
+                  <span className="reel-watch-cta">
+                    <span>Watch Video</span>
+                    <svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14">
+                      <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                    </svg>
                   </span>
                 </div>
               </div>
             </div>
-            <div className="reel-info">
-              <p className="reel-caption">{reel.caption.slice(0, 70)}...</p>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
+
+        <button
+          className="reels-nav-btn next"
+          onClick={scrollRight}
+          aria-label="Scroll reels right"
+        >
+          <ChevronRight size={22} />
+        </button>
       </div>
+
+      {/* View All / Load More Action Bar */}
+      {filteredReels.length > 4 && (
+        <div className="reels-action-footer">
+          <button
+            className="reels-view-toggle-btn"
+            onClick={() => setViewAll(!viewAll)}
+          >
+            {viewAll ? (
+              <>Show Less (4 Featured)</>
+            ) : (
+              <>View All {filteredReels.length} Videos & Reels</>
+            )}
+          </button>
+        </div>
+      )}
 
       {/* Lightbox / Video Player Modal */}
       {selectedReel && (
@@ -1718,42 +1909,76 @@ function InstagramReels() {
             >
               <X size={20} />
             </button>
+
+            {/* Modal Navigation Arrows */}
+            {filteredReels.length > 1 && (
+              <>
+                <button
+                  className="reel-modal-nav-btn prev"
+                  onClick={handlePrevReel}
+                  aria-label="Previous reel"
+                >
+                  <ChevronLeft size={24} />
+                </button>
+                <button
+                  className="reel-modal-nav-btn next"
+                  onClick={handleNextReel}
+                  aria-label="Next reel"
+                >
+                  <ChevronRight size={24} />
+                </button>
+              </>
+            )}
+
             <div className="reel-modal-body">
-              {/* Left Column: Simulated Video Player */}
+              {/* Left Column: Video Player */}
               <div className="reel-video-container">
-                <img src={selectedReel.image} alt="Simulated video" className={`reel-video-mockup ${isPlaying ? 'playing' : ''}`} />
-                <div className="video-glow-blob"></div>
-                {/* Simulated play animation / overlay */}
-                <div className="reel-video-controls">
-                  <button className="video-play-pause-btn" onClick={() => setIsPlaying(!isPlaying)}>
-                    {isPlaying ? (
-                      <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
-                      </svg>
-                    ) : (
-                      <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                        <path d="M8 5v14l11-7z" />
-                      </svg>
-                    )}
-                  </button>
-                  <div className="video-progress-bar">
-                    <div className="video-progress-filled" style={{ width: isPlaying ? '100%' : '0%', transition: isPlaying ? 'width 10s linear' : 'none' }}></div>
-                  </div>
-                </div>
-                <div className="video-live-tag">REEL</div>
+                {selectedReel.youtubeId ? (
+                  <iframe
+                    className="reel-video-iframe"
+                    src={`https://www.youtube.com/embed/${selectedReel.youtubeId}?autoplay=1&rel=0&modestbranding=1&loop=1&playlist=${selectedReel.youtubeId}&playsinline=1&enablejsapi=1`}
+                    title={selectedReel.title}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                  />
+                ) : (
+                  <>
+                    <img src={selectedReel.image} alt="Simulated video" className={`reel-video-mockup ${isPlaying ? 'playing' : ''}`} />
+                    <div className="video-glow-blob"></div>
+                    <div className="reel-video-controls">
+                      <button className="video-play-pause-btn" onClick={() => setIsPlaying(!isPlaying)}>
+                        {isPlaying ? (
+                          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+                          </svg>
+                        ) : (
+                          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                            <path d="M8 5v14l11-7z" />
+                          </svg>
+                        )}
+                      </button>
+                      <div className="video-progress-bar">
+                        <div className="video-progress-filled" style={{ width: isPlaying ? '100%' : '0%', transition: isPlaying ? 'width 10s linear' : 'none' }}></div>
+                      </div>
+                    </div>
+                    <div className="video-live-tag">REEL</div>
+                  </>
+                )}
               </div>
 
               {/* Right Column: Profile & Comments */}
               <div className="reel-details-panel">
                 <div className="reel-details-header">
                   <div className="reel-profile-avatar">G</div>
-                  <div>
+                  <div className="reel-profile-info">
                     <span className="reel-profile-name">giftmark_industries</span>
-                    <span className="reel-profile-sub">Moradabad, India</span>
+                    <span className="reel-profile-sub">Moradabad, India • {currentModalIndex + 1} of {filteredReels.length}</span>
                   </div>
+                  <span className="reel-category-pill">{selectedReel.category}</span>
                 </div>
 
                 <div className="reel-details-caption">
+                  <h4 className="reel-modal-title">{selectedReel.title}</h4>
                   <p>{selectedReel.caption}</p>
                   <div className="reel-details-tags">
                     {selectedReel.tags.map((tag, i) => (
@@ -1785,7 +2010,7 @@ function InstagramReels() {
                     rel="noopener noreferrer"
                     className="reel-instagram-cta"
                   >
-                    View on Instagram
+                    {selectedReel.youtubeId ? 'Watch on YouTube Shorts' : 'View on Instagram'}
                   </a>
                 </div>
               </div>
@@ -2003,10 +2228,17 @@ function App() {
   const [isCheckoutModalOpen, setIsCheckoutModalOpen] = useState(false);
   const [placedOrder, setPlacedOrder] = useState(null);
 
-  // Helper to parse price string to number for subtotal (e.g. "₹6,500 / $80" -> 6500)
+  // Helper to parse price string to number for subtotal (e.g. "₹6,500 / $80" -> 6500, or multi-item sets "₹800 - ₹1,350 / $10 - $16" -> 800 + 1350 = 2150)
   const parsePrice = (priceStr) => {
     try {
+      if (!priceStr) return 0;
       const rupeePart = priceStr.split('/')[0];
+      if (rupeePart.includes('-')) {
+        return rupeePart
+          .split('-')
+          .map((part) => parseInt(part.replace(/[^0-9]/g, ''), 10) || 0)
+          .reduce((sum, val) => sum + val, 0);
+      }
       const numeric = rupeePart.replace(/[^0-9]/g, '');
       return parseInt(numeric, 10) || 0;
     } catch (e) {
@@ -2526,30 +2758,23 @@ function App() {
         )}
 
         {/* --- TRUST LINE BANNER (MARQUEE) --- */}
-        <section className="trust-banner">
+        <section className="trust-banner" aria-label="Brand Trust Highlights">
           <div className="marquee-track">
             <div className="marquee-content">
-              <span>32+ Years of Experience</span>
-              <div className="trust-dot"></div>
-              <span>Global Export Presence</span>
-              <div className="trust-dot"></div>
-              <span>International Exhibitions</span>
-              <div className="trust-dot"></div>
-              <span>Award-Winning Leadership</span>
-              <div className="trust-dot"></div>
-              <span>Trusted B2B Partnerships</span>
+              {TRUST_BANNER_ITEMS.map((text, i) => (
+                <div key={`track1-${i}`} className="marquee-item">
+                  <span className="marquee-text">{text}</span>
+                  <span className="trust-dot" aria-hidden="true">•</span>
+                </div>
+              ))}
             </div>
             <div className="marquee-content" aria-hidden="true">
-              <div className="trust-dot"></div>
-              <span>32+ Years of Experience</span>
-              <div className="trust-dot"></div>
-              <span>Global Export Presence</span>
-              <div className="trust-dot"></div>
-              <span>International Exhibitions</span>
-              <div className="trust-dot"></div>
-              <span>Award-Winning Leadership</span>
-              <div className="trust-dot"></div>
-              <span>Trusted B2B Partnerships</span>
+              {TRUST_BANNER_ITEMS.map((text, i) => (
+                <div key={`track2-${i}`} className="marquee-item">
+                  <span className="marquee-text">{text}</span>
+                  <span className="trust-dot" aria-hidden="true">•</span>
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -3971,7 +4196,14 @@ function App() {
                                   </span>
                                 </div>
                               )}
-                              <span className="cart-item-price">{item.product.price}</span>
+                              <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', marginBottom: '4px' }}>
+                                <span className="cart-item-price">{item.product.price}</span>
+                                {item.product.price && item.product.price.includes('-') && (
+                                  <span style={{ fontSize: '11px', color: '#c59d5f', fontWeight: 600 }}>
+                                    (Pair Total: ₹{parsePrice(item.product.price).toLocaleString()})
+                                  </span>
+                                )}
+                              </div>
                               <div className="cart-item-qty-actions">
                                 <button className="qty-btn" onClick={() => updateQuantity(item.product.id, item.color, -1)}>
                                   <Minus size={12} />
@@ -4140,7 +4372,14 @@ function App() {
                                 </div>
                               )}
                               <div className="checkout-item-price-qty">
-                                <span className="checkout-unit-price">{item.product.price}</span>
+                                <div>
+                                  <span className="checkout-unit-price">{item.product.price}</span>
+                                  {item.product.price && item.product.price.includes('-') && (
+                                    <span style={{ fontSize: '11px', color: '#c59d5f', fontWeight: 600, display: 'block' }}>
+                                      (Pair Total: ₹{parsePrice(item.product.price).toLocaleString()})
+                                    </span>
+                                  )}
+                                </div>
                                 <div className="checkout-qty-stepper">
                                   <button
                                     type="button"
