@@ -1,7 +1,21 @@
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { ShoppingBag, Plus, Minus, Trash2, X, ChevronDown, ChevronLeft, ChevronRight, Award, Globe, ShieldCheck, Calendar, Star, Quote, FileText, MapPin, CheckCircle, Download, Eye, Menu } from 'lucide-react';
+import { ShoppingBag, Plus, Minus, Trash2, X, ChevronDown, ChevronLeft, ChevronRight, Award, Globe, ShieldCheck, Calendar, Star, Quote, FileText, MapPin, CheckCircle, Download, Eye, Menu, ArrowUpRight } from 'lucide-react';
 import './App.css';
+
+const YouTubeIcon = ({ size = 18 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+  </svg>
+);
+
+const InstagramIcon = ({ size = 18 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+  </svg>
+);
 
 const getColorName = (hex) => {
   if (!hex) return '';
@@ -1621,19 +1635,6 @@ const MOCK_REELS = [
     link: "https://youtube.com/shorts/S1_fVAJqggc?si=UKegoxrVWQvLjqs-"
   },
   {
-    id: "reel-yt-02",
-    title: "Luxury Aluminium Home Decor ✨ | Tables, Sculptures & Vases",
-    category: "Sculptures & Tables",
-    views: "34.1K",
-    likes: "5.8K",
-    comments: 340,
-    image: "https://i.ytimg.com/vi/ctQLUlt8EsA/maxresdefault.jpg",
-    youtubeId: "ctQLUlt8EsA",
-    caption: "Explore luxury aluminium home decor collections — statement tables, elegant sculptures & artisanal vases by Giftmark.",
-    tags: ["#luxurydecor", "#aluminiumart", "#aesthetic", "#giftmark"],
-    link: "https://youtube.com/shorts/ctQLUlt8EsA?si=DOisLEJHRibz8zon"
-  },
-  {
     id: "reel-yt-03",
     title: "Black & Gold Luxury Vases ✨ | Elegant Table Decor",
     category: "Luxury Vases",
@@ -1671,6 +1672,19 @@ const MOCK_REELS = [
     caption: "Step inside our Moradabad workshops to witness precision metal finishing, handcrafted detailing, and artisanal excellence.",
     tags: ["#behindthescenes", "#metalcraft", "#artisan", "#giftmark", "#exportquality"],
     link: "https://youtube.com/shorts/zcWeul7SZqo?si=xdZfsnhclC2MhHjX"
+  },
+  {
+    id: "reel-yt-02",
+    title: "Luxury Aluminium Home Decor ✨ | Tables, Sculptures & Vases",
+    category: "Sculptures & Tables",
+    views: "34.1K",
+    likes: "5.8K",
+    comments: 340,
+    image: "https://i.ytimg.com/vi/ctQLUlt8EsA/maxresdefault.jpg",
+    youtubeId: "ctQLUlt8EsA",
+    caption: "Explore luxury aluminium home decor collections — statement tables, elegant sculptures & artisanal vases by Giftmark.",
+    tags: ["#luxurydecor", "#aluminiumart", "#aesthetic", "#giftmark"],
+    link: "https://youtube.com/shorts/ctQLUlt8EsA?si=DOisLEJHRibz8zon"
   }
 ];
 
@@ -1761,8 +1775,14 @@ function InstagramReels() {
             rel="noopener noreferrer"
             className="reels-channel-badge youtube"
           >
-            <span className="channel-icon">▶</span>
-            <span>@GiftmarkIndustries on YouTube</span>
+            <span className="channel-icon youtube-icon">
+              <YouTubeIcon size={17} />
+            </span>
+            <span className="channel-badge-text">
+              <span className="channel-handle">@GiftmarkIndustries</span>
+              <span className="channel-platform">YouTube</span>
+            </span>
+            <ArrowUpRight size={14} className="channel-arrow" />
           </a>
           <a
             href="https://www.instagram.com/industriesgiftmark?igsh=aHdxdTBieTdnN28w"
@@ -1770,8 +1790,14 @@ function InstagramReels() {
             rel="noopener noreferrer"
             className="reels-channel-badge instagram"
           >
-            <span className="channel-icon">📸</span>
-            <span>@industriesgiftmark on Instagram</span>
+            <span className="channel-icon instagram-icon">
+              <InstagramIcon size={17} />
+            </span>
+            <span className="channel-badge-text">
+              <span className="channel-handle">@industriesgiftmark</span>
+              <span className="channel-platform">Instagram</span>
+            </span>
+            <ArrowUpRight size={14} className="channel-arrow" />
           </a>
         </div>
 
