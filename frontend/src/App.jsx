@@ -54,6 +54,17 @@ const hasMultipleOptions = (product) => {
   return false;
 };
 
+const COMBO_PRODUCT_IDS = new Set(["14", "16", "17", "19", "20", "21", "24", "31", "32", "37", "39", "45", "46", "51", "56"]);
+
+const isComboProduct = (product) => {
+  if (!product) return false;
+  if (product.isCombo) return true;
+  if (COMBO_PRODUCT_IDS.has(String(product.id))) return true;
+  if (typeof product.title === 'string' && /\b(set|pair|duo|combo)\b/i.test(product.title)) return true;
+  if (typeof product.description === 'string' && /\b(pair of|set of|duo|combo|pair featuring|vase pair|tray set|sculpture set|platter set|stand featuring|available in big.*and small)\b/i.test(product.description)) return true;
+  return false;
+};
+
 const TRUST_BANNER_ITEMS = [
   "32+ Years of Experience",
   "Global Export Presence",
@@ -400,7 +411,8 @@ const DEFAULT_COLLECTIONS = [
     material: "Aluminium",
     colors: ["#1E759A", "#4E9F3D", "#D4A017", "#2C2C2C"],
 
-    price: "₹620 - ₹850 / $8 - $10",
+    isCombo: true,
+    price: "₹1,470 / $18",
     dimensions: {
       height: '3 cm (1.2")',
       diameter: '18 cm - 20 cm (7.1" - 7.9")',
@@ -504,7 +516,8 @@ const DEFAULT_COLLECTIONS = [
     material: "Aluminium",
     colors: ["#D4A017", "#53565A", "#9E7D62", "#2C2C2C"],
 
-    price: "₹1,350 - ₹2,350 / $16 - $28",
+    isCombo: true,
+    price: "₹3,700 / $44",
     dimensions: {
       height: '50 cm - 65 cm (19.7" - 25.6")',
       diameter: '21 cm - 23 cm (8.3" - 9.1")',
@@ -544,7 +557,8 @@ const DEFAULT_COLLECTIONS = [
     material: "Aluminium",
     colors: ["#D4A017", "#53565A", "#9E7D62", "#2C2C2C"],
 
-    price: "₹620 - ₹1,000 / $8 - $12",
+    isCombo: true,
+    price: "₹1,620 / $20",
     dimensions: {
       height: '47 cm - 58 cm (18.5" - 22.8")',
       diameter: '13 cm - 18 cm (5.1" - 7.1")',
@@ -564,7 +578,8 @@ const DEFAULT_COLLECTIONS = [
     material: "Aluminium",
     colors: ["#D4A017", "#53565A", "#9E7D62", "#2C2C2C"],
 
-    price: "₹400 - ₹800 / $5 - $10",
+    isCombo: true,
+    price: "₹1,200 / $15",
     dimensions: {
       height: '30 cm - 50 cm (11.8" - 19.7")',
       diameter: '12 cm - 21 cm (4.7" - 8.3")',
@@ -604,7 +619,8 @@ const DEFAULT_COLLECTIONS = [
     material: "Aluminium",
     colors: ["#D4A017", "#53565A", "#9E7D62", "#2C2C2C"],
 
-    price: "₹1,350 - ₹1,590 / $16 - $19",
+    isCombo: true,
+    price: "₹2,940 / $35",
     dimensions: {
       height: '57 cm - 68 cm (22.4" - 26.8")',
       diameter: '31 cm - 38 cm (12.2" - 15")',
@@ -625,7 +641,8 @@ const DEFAULT_COLLECTIONS = [
     material: "Aluminium",
     colors: ["#53565A", "#D4A017", "#9E7D62", "#2C2C2C"],
 
-    price: "₹800 - ₹1,350 / $10 - $16",
+    isCombo: true,
+    price: "₹2,150 / $26",
     dimensions: {
       height: '29 cm - 37 cm (11.4" - 14.6")',
       diameter: '20 cm - 25 cm (7.9" - 9.8")',
@@ -645,7 +662,8 @@ const DEFAULT_COLLECTIONS = [
     material: "Aluminium",
     colors: ["#D4A017", "#C84E18", "#53565A", "#2C2C2C"],
 
-    price: "₹600 - ₹800 / $7 - $10",
+    isCombo: true,
+    price: "₹1,400 / $17",
     dimensions: {
       height: '23 cm - 28 cm (9.1" - 11.0")',
       diameter: '26 cm (10.2")',
@@ -706,7 +724,8 @@ const DEFAULT_COLLECTIONS = [
     material: "Aluminium",
     colors: ["#D4A017", "#C84E18", "#53565A", "#2C2C2C"],
 
-    price: "₹1,300 - ₹1,560 / $16 - $19",
+    isCombo: true,
+    price: "₹2,860 / $35",
     dimensions: {
       height: '65 cm - 74 cm (25.6" - 29.1")',
       diameter: '24 cm - 28 cm (9.4" - 11.0")',
@@ -828,7 +847,8 @@ const DEFAULT_COLLECTIONS = [
     material: "Aluminium",
     colors: ["#53565A", "#D4A017", "#9E7D62", "#2C2C2C"],
 
-    price: "₹1,350 - ₹1,550 / $16 - $19",
+    isCombo: true,
+    price: "₹2,900 / $35",
     dimensions: {
       height: '6 cm - 7 cm (2.4" - 2.8")',
       diameter: '34 cm - 40 cm (13.4" - 15.7")',
@@ -938,7 +958,8 @@ const DEFAULT_COLLECTIONS = [
     material: "Aluminium",
     colors: ["#C0392B", "#D4A017", "#C2B280", "#2C2C2C"],
 
-    price: "₹2,250 - ₹2,450",
+    isCombo: true,
+    price: "₹4,700 / $57",
     colors: ["#C0392B", "#D4A017", "#C2B280", "#2C2C2C"],
     dimensions: {
       height: '10 cm - 13 cm (4" - 5")',
@@ -983,7 +1004,8 @@ const DEFAULT_COLLECTIONS = [
     material: "Aluminium",
     colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
 
-    price: "₹850 - ₹1,050",
+    isCombo: true,
+    price: "₹1,900 / $23",
     colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
     dimensions: {
       height: '6 cm (2.4")',
@@ -1111,7 +1133,8 @@ const DEFAULT_COLLECTIONS = [
     material: "Aluminium",
     colors: ["#C84E18", "#D4A017", "#53565A", "#2C2C2C"],
 
-    price: "₹1,200 - ₹1,250 / $15 - $16",
+    isCombo: true,
+    price: "₹2,450 / $31",
     dimensions: {
       height: '120 cm (47.2")',
       diameter: 'Spoon & Fork Set',
@@ -1132,7 +1155,8 @@ const DEFAULT_COLLECTIONS = [
     material: "Aluminium",
     colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
 
-    price: "₹350 - ₹450 / $4 - $6",
+    isCombo: true,
+    price: "₹800 / $10",
     dimensions: {
       height: '3 cm',
       diameter: 'Small: 13 cm (5.1") / Big: 17 cm (6.7")',
@@ -1240,7 +1264,8 @@ const DEFAULT_COLLECTIONS = [
     material: "Aluminium",
     colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
 
-    price: "₹1,300 - ₹1,500 / $16 - $18",
+    isCombo: true,
+    price: "₹2,800 / $34",
     dimensions: {
       height: '5 cm (2")',
       diameter: '30 cm - 32 cm (11.8" - 12.6")',
@@ -1347,7 +1372,8 @@ const DEFAULT_COLLECTIONS = [
     material: "Aluminium",
     colors: ["#4E9F3D", "#1E759A", "#D4A017", "#2C2C2C"],
 
-    price: "₹850 - ₹1,200 / $10 - $15",
+    isCombo: true,
+    price: "₹2,050 / $25",
     dimensions: {
       height: '4 cm (1.6")',
       diameter: '17 cm - 20 cm (6.7" - 7.9")',
@@ -3440,8 +3466,16 @@ function App() {
                 >
                   <div className="product-img-container">
                     <img src={getCardImage(item)} alt={item.title} className="product-img" />
+                    {isComboProduct(item) && (
+                      <span className="product-combo-badge">
+                        <span className="product-combo-badge-dot" /> Combo Set
+                      </span>
+                    )}
                   </div>
-                  <span className="product-cat">{item.category}</span>
+                  <span className="product-cat">
+                    {item.category}
+                    {isComboProduct(item) && <span className="product-cat-combo"> • Combo</span>}
+                  </span>
                   <h3 className="product-title">{item.title}</h3>
                   <p className="product-desc">{item.description}</p>
                   {item.colors && item.colors.length > 0 && (
@@ -3459,7 +3493,10 @@ function App() {
                     </div>
                   )}
                   <div className="product-footer">
-                    <span className="product-price">{item.price}</span>
+                    <div className="product-price-wrapper">
+                      <span className="product-price">{item.price}</span>
+                      {isComboProduct(item) && <span className="product-price-combo-tag">(Combo Set)</span>}
+                    </div>
                     <div className="product-card-actions" onClick={(e) => e.stopPropagation()}>
                       <button
                         className="product-action-btn cart-btn"
@@ -4077,7 +4114,12 @@ function App() {
                     <h2 className="product-modal-title">{activeProductModal.title}</h2>
 
                     <div className="product-modal-price-row">
-                      <span className="product-modal-price">{activeProductModal.price}</span>
+                      <div className="product-modal-price-group">
+                        <span className="product-modal-price">{activeProductModal.price}</span>
+                        {isComboProduct(activeProductModal) && (
+                          <span className="product-modal-combo-badge">Combo Set</span>
+                        )}
+                      </div>
                       <span className="product-modal-sku">Item ID: GM-{activeProductModal.id || '11'}</span>
                     </div>
 
