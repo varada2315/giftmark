@@ -776,9 +776,9 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "27",
     title: "Handcrafted Cobalt & Gold Textured Floor Vase",
-    image: "/uploads/cobalt_gold_accent_floor_vase.png",
+    image: "/uploads/cobalt_gold_floor_vase_living.jpg",
     images: [
-      "/uploads/cobalt_gold_accent_floor_vase.png",
+      "/uploads/cobalt_gold_floor_vase_living.jpg",
       "/uploads/cobalt_gold_accent_floor_vase_specs.png"
     ],
     category: "Home Décor",
@@ -3001,7 +3001,7 @@ function App() {
                   }}
                 >
                   <div className="collection-preview-image-container">
-                    <img src="/uploads/cobalt_gold_accent_floor_vase.png" alt="Home Décor" className="collection-preview-image" />
+                    <img src="/uploads/cobalt_gold_floor_vase_living.jpg" alt="Home Décor" className="collection-preview-image" />
                     <div className="collection-preview-overlay">
                       <div className="collection-preview-content">
                         <span className="collection-card-subtitle">Collection</span>

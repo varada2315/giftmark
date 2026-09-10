@@ -386,9 +386,9 @@ const collections = [
   {
     id: "27",
     title: "Handcrafted Cobalt & Gold Textured Floor Vase",
-    image: "/uploads/cobalt_gold_accent_floor_vase.png",
+    image: "/uploads/cobalt_gold_floor_vase_living.jpg",
     images: [
-      "/uploads/cobalt_gold_accent_floor_vase.png",
+      "/uploads/cobalt_gold_floor_vase_living.jpg",
       "/uploads/cobalt_gold_accent_floor_vase_specs.png"
     ],
     category: "Home Décor",
