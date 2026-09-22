@@ -14,6 +14,7 @@ const collections = [
   {
     id: "32",
     title: "Handcrafted Teal & Aluminium Octagonal Serving Tray Set",
+    weight: 3,
     image: "/uploads/teal_copper_octagonal_tray_set.png",
     images: [
       "/uploads/teal_copper_octagonal_tray_set.png",
@@ -35,6 +36,7 @@ const collections = [
   {
     id: "33",
     title: "Handcrafted Crescent Metallic Pedestal Bowl",
+    weight: 2,
     image: "/uploads/crescent_metallic_pedestal_bowl.png",
     images: [
       "/uploads/crescent_metallic_pedestal_bowl.png",
@@ -56,6 +58,7 @@ const collections = [
   {
     id: "11",
     title: "Ornate Vintage Aluminium Urn",
+    weight: 3,
     image: "/uploads/vintage_brass_urn.png",
     images: [
       "/uploads/vintage_brass_urn.png",
@@ -76,6 +79,7 @@ const collections = [
   {
     id: "12",
     title: "Handcrafted Perforated Aluminium Platter",
+    weight: 2,
     image: "/uploads/perforated_metal_platter_aesthetic.jpg",
     localImage: "/uploads/perforated_metal_platter_aesthetic.jpg",
     images: [
@@ -118,6 +122,7 @@ const collections = [
   {
     id: "14",
     title: "Sculptural Multi-Tone Metallic Leaf Vase Set",
+    weight: 6,
     image: "/uploads/sculptural_leaf_vases.png",
     images: [
       "/uploads/sculptural_leaf_vases.png",
@@ -139,6 +144,7 @@ const collections = [
   {
     id: "15",
     title: "Handcrafted Dual Metallic Leaf Tabletop Sculpture",
+    weight: 3,
     image: "/uploads/dual_metallic_leaf_sculpture.png",
     images: [
       "/uploads/dual_metallic_leaf_sculpture.png",
@@ -159,6 +165,7 @@ const collections = [
   {
     id: "16",
     title: "Handcrafted Perforated Metallic Leaf Sculpture Set",
+    weight: 3,
     image: "/uploads/perforated_leaf_sculptures.png",
     images: [
       "/uploads/perforated_leaf_sculptures.png",
@@ -180,6 +187,7 @@ const collections = [
   {
     id: "17",
     title: "Geometric Faceted Metallic Sculpture Trio",
+    weight: 4,
     image: "/uploads/geometric_metallic_sculpture_trio.png",
     images: [
       "/uploads/geometric_metallic_sculpture_trio.png",
@@ -201,6 +209,7 @@ const collections = [
   {
     id: "18",
     title: "Handcrafted Circular Lovebirds Tree Sculpture",
+    weight: 1,
     image: "/uploads/metallic_lovebirds_tree_sculpture.png",
     images: [
       "/uploads/metallic_lovebirds_tree_sculpture.png",
@@ -221,6 +230,7 @@ const collections = [
   {
     id: "19",
     title: "Handcrafted Circular Horizon Metallic Sculpture Set",
+    weight: 5,
     image: "/uploads/abstract_circular_horizon_sculptures.png",
     images: [
       "/uploads/abstract_circular_horizon_sculptures.png",
@@ -242,6 +252,7 @@ const collections = [
   {
     id: "20",
     title: "Sculptural Two-Tone Metallic Leaf Accent Vases",
+    weight: 4,
     image: "/uploads/sculptural_leaf_accent_vases.png",
     images: [
       "/uploads/sculptural_leaf_accent_vases.png",
@@ -263,6 +274,7 @@ const collections = [
   {
     id: "21",
     title: "Handcrafted Spherical Etched Metallic Vase Set",
+    weight: 2,
     image: "/uploads/spherical_etched_metallic_vases_aesthetic.jpg",
     images: [
       "/uploads/spherical_etched_metallic_vases_aesthetic.jpg",
@@ -284,6 +296,8 @@ const collections = [
   {
     id: "22",
     title: "Handcrafted Surrealist Metallic Head Sculpture",
+    itemNo: "16002",
+    weight: 2,
     image: "/uploads/surrealist_metallic_head_sculpture_aesthetic.jpg",
     images: [
       "/uploads/surrealist_metallic_head_sculpture_aesthetic.jpg",
@@ -304,6 +318,8 @@ const collections = [
   {
     id: "23",
     title: "Handcrafted Metallic Big Ben Clock Tower Replica",
+    itemNo: "16000",
+    weight: 1,
     image: "/uploads/big_ben_clock_tower_sculpture.jpg",
     localImage: "/uploads/big_ben_clock_tower_sculpture.jpg",
     images: [
@@ -325,6 +341,8 @@ const collections = [
   {
     id: "24",
     title: "Handcrafted Spiral Flame Metallic Sculpture Set",
+    itemNo: "16005 A / 16005 B",
+    weight: 5,
     image: "/uploads/spiral_flame_metallic_sculptures_aesthetic.jpg",
     images: [
       "/uploads/spiral_flame_metallic_sculptures_aesthetic.jpg",
@@ -346,6 +364,7 @@ const collections = [
   {
     id: "25",
     title: "Handcrafted Avant-Garde Metallic Mask Sculpture",
+    weight: 2,
     image: "/uploads/abstract_metallic_mask_sculpture.jpg",
     images: [
       "/uploads/abstract_metallic_mask_sculpture.jpg",
@@ -366,6 +385,7 @@ const collections = [
   {
     id: "26",
     title: "Handcrafted Two-Tone Metallic Feather Sculpture",
+    weight: 1,
     image: "/uploads/two_tone_metallic_feather_sculpture.png",
     images: [
       "/uploads/two_tone_metallic_feather_sculpture.png",
@@ -386,6 +406,7 @@ const collections = [
   {
     id: "27",
     title: "Handcrafted Cobalt & Gold Textured Floor Vase",
+    weight: 10,
     image: "/uploads/cobalt_gold_floor_vase_living.jpg",
     images: [
       "/uploads/cobalt_gold_floor_vase_living.jpg",
@@ -406,6 +427,7 @@ const collections = [
   {
     id: "28",
     title: "Handcrafted Dynamic Flame Metallic Sculpture",
+    weight: 3,
     image: "/uploads/abstract_flame_metallic_sculpture.jpg",
     images: [
       "/uploads/abstract_flame_metallic_sculpture.jpg",
@@ -426,6 +448,7 @@ const collections = [
   {
     id: "29",
     title: "Handcrafted 3-Tier Multi-Metallic Serving Stand",
+    weight: 9,
     image: "/uploads/three_tier_metallic_serving_stand.jpg",
     images: [
       "/uploads/three_tier_metallic_serving_stand.jpg",
@@ -446,6 +469,7 @@ const collections = [
   {
     id: "30",
     title: "Handcrafted Chevron Metallic Accent Platter",
+    weight: 5,
     image: "/uploads/chevron_metallic_accent_platter_aesthetic.jpg",
     images: [
       "/uploads/chevron_metallic_accent_platter_aesthetic.jpg",
@@ -468,6 +492,7 @@ const collections = [
   {
     id: "31",
     title: "Handcrafted Chain-Link Border Aluminium Accent Tray",
+    weight: 3,
     image: "/uploads/chain_link_border_brass_tray_aesthetic.jpg",
     localImage: "/uploads/chain_link_border_brass_tray_aesthetic.jpg",
     images: [
@@ -489,6 +514,7 @@ const collections = [
   {
     id: "34",
     title: "Handcrafted Corrugated Wave Metallic Platter",
+    weight: 3,
     image: "/uploads/corrugated_wave_metallic_platter.jpg",
     images: [
       "/uploads/corrugated_wave_metallic_platter.jpg",
@@ -511,6 +537,7 @@ const collections = [
   {
     id: "35",
     title: "Handcrafted Ruffled Aluminium Wave Bowl",
+    weight: 2,
     image: "/uploads/ruffled_copper_bowl_aesthetic.jpg",
     images: [
       "/uploads/ruffled_copper_bowl_aesthetic.jpg",
@@ -532,6 +559,7 @@ const collections = [
   {
     id: "36",
     title: "Handcrafted Tri-Tone Metal Pedestal Accent Table",
+    weight: 5,
     image: "/uploads/pedestal_accent_table_aesthetic.jpg",
     images: [
       "/uploads/pedestal_accent_table_aesthetic.jpg",
@@ -553,6 +581,7 @@ const collections = [
   {
     id: "37",
     title: "Handcrafted Ornate Oval Metallic Footed Platter Set",
+    weight: 8,
     image: "/uploads/ornate_oval_metallic_platter_set.jpg",
     images: [
       "/uploads/ornate_oval_metallic_platter_set.jpg",
@@ -575,6 +604,7 @@ const collections = [
   {
     id: "38",
     title: "Handcrafted Multi-Metallic Chevron Leaf Platter",
+    weight: 1,
     image: "/uploads/multi_metallic_chevron_leaf_platter_aesthetic.jpg",
     images: [
       "/uploads/multi_metallic_chevron_leaf_platter_aesthetic.jpg",
@@ -596,6 +626,7 @@ const collections = [
   {
     id: "39",
     title: "Handcrafted Dual-Tone Teal & Green Geometric Platter Set",
+    weight: 3,
     image: "/uploads/teal_green_geometric_platter_set.jpg",
     images: [
       "/uploads/teal_green_geometric_platter_set.jpg",
@@ -617,6 +648,7 @@ const collections = [
   {
     id: "40",
     title: "Handcrafted Chain-Link Border Aluminium Accent Tray",
+    weight: 3,
     image: "/uploads/chain_link_border_brass_tray_aesthetic.jpg",
     localImage: "/uploads/chain_link_border_brass_tray_aesthetic.jpg",
     images: [
@@ -638,6 +670,7 @@ const collections = [
   {
     id: "41",
     title: "Handcrafted Whitewashed & Gold Pedestal Accent Table",
+    weight: 4,
     image: "/uploads/whitewashed_pedestal_table_aesthetic.jpg",
     images: [
       "/uploads/whitewashed_pedestal_table_aesthetic.jpg",
@@ -658,6 +691,7 @@ const collections = [
   {
     id: "42",
     title: "Handcrafted Aluminium & Gold Pedestal Accent Table",
+    weight: 5,
     image: "/uploads/copper_gold_pedestal_table_aesthetic.jpg",
     images: [
       "/uploads/copper_gold_pedestal_table_aesthetic.jpg",
@@ -678,6 +712,7 @@ const collections = [
   {
     id: "43",
     title: "Handcrafted Heart Cutout Filigree Pedestal Accent Table",
+    weight: 6,
     image: "/uploads/filigree_pedestal_table_aesthetic.jpg",
     images: [
       "/uploads/filigree_pedestal_table_aesthetic.jpg",
@@ -698,6 +733,7 @@ const collections = [
   {
     id: "44",
     title: "Handcrafted Cellular Mosaic Textured Platter",
+    weight: 2,
     image: "/uploads/mosaic_platter_aesthetic.jpg",
     images: [
       "/uploads/mosaic_platter_aesthetic.jpg",
@@ -719,6 +755,7 @@ const collections = [
   {
     id: "45",
     title: "Handcrafted Giant Spoon & Fork Wall Decor",
+    weight: 4,
     image: "/uploads/giant_cutlery_wall_decor_aesthetic.jpg",
     images: [
       "/uploads/giant_cutlery_wall_decor_aesthetic.jpg",
@@ -740,6 +777,7 @@ const collections = [
   {
     id: "46",
     title: "Handcrafted Leaf-Shaped Metallic Platter",
+    weight: 2,
     image: "/uploads/leaf_platter_set_aesthetic.jpg",
     images: [
       "/uploads/leaf_platter_set_aesthetic.jpg",
@@ -761,6 +799,7 @@ const collections = [
   {
     id: "47",
     title: "Handcrafted Ginkgo Leaf Accent Platter",
+    weight: 2,
     image: "/uploads/ginkgo_leaf_platter_aesthetic.jpg",
     images: [
       "/uploads/ginkgo_leaf_platter_aesthetic.jpg",
@@ -781,6 +820,7 @@ const collections = [
   {
     id: "48",
     title: "Handcrafted Hexagonal Three-Tier Serving Stand",
+    weight: 9,
     image: "/uploads/hexagonal_serving_stand_aesthetic.jpg",
     images: [
       "/uploads/hexagonal_serving_stand_aesthetic.jpg",
@@ -801,6 +841,7 @@ const collections = [
   {
     id: "49",
     title: "Handcrafted Round Three-Tier Serving Stand",
+    weight: 4,
     image: "/uploads/round_serving_stand_aesthetic.jpg",
     images: [
       "/uploads/round_serving_stand_aesthetic.jpg",
@@ -821,6 +862,7 @@ const collections = [
   {
     id: "50",
     title: "Handcrafted Tri-Tone Fan Accent Platter",
+    weight: 2,
     image: "/uploads/tri_tone_fan_platter_aesthetic.jpg",
     images: [
       "/uploads/tri_tone_fan_platter_aesthetic.jpg",
@@ -842,6 +884,7 @@ const collections = [
   {
     id: "51",
     title: "Handcrafted Rectangular Patina Tray Set with Handles",
+    weight: 4,
     image: "/uploads/rectangular_patina_tray_set.jpg",
     images: [
       "/uploads/rectangular_patina_tray_set.jpg",
@@ -864,6 +907,7 @@ const collections = [
   {
     id: "52",
     title: "Handcrafted Antelope Skull Tabletop Sculpture",
+    weight: 4,
     image: "/uploads/antelope_skull_sculpture.jpg",
     images: [
       "/uploads/antelope_skull_sculpture.jpg",
@@ -884,6 +928,7 @@ const collections = [
   {
     id: "53",
     title: "Handcrafted Antlered Moose Skull Wall Mount",
+    weight: 4,
     image: "/uploads/moose_skull_wall_mount.jpg",
     images: [
       "/uploads/moose_skull_wall_mount.jpg",
@@ -904,6 +949,7 @@ const collections = [
   {
     id: "54",
     title: "Handcrafted Longhorn Bull Skull Wall Mount",
+    weight: 5,
     image: "/uploads/bull_skull_wall_mount.jpg",
     images: [
       "/uploads/bull_skull_wall_mount.jpg",
@@ -924,6 +970,7 @@ const collections = [
   {
     id: "55",
     title: "Handcrafted Spiraled Ram Skull Wall Mount",
+    weight: 6,
     image: "/uploads/ram_skull_wall_mount.jpg",
     images: [
       "/uploads/ram_skull_wall_mount.jpg",
@@ -945,6 +992,7 @@ const collections = [
   {
     id: "56",
     title: "Handcrafted Patina Tray Set with Deer Handles",
+    weight: 4,
     image: "/uploads/deer_handle_patina_tray_set.jpg",
     images: [
       "/uploads/deer_handle_patina_tray_set.jpg",
@@ -966,6 +1014,7 @@ const collections = [
   {
     id: "57",
     title: "Handcrafted Circular Patina Portal Sculpture",
+    weight: 2,
     image: "/uploads/circular_patina_portal_sculpture.jpg",
     images: [
       "/uploads/circular_patina_portal_sculpture.jpg",
@@ -986,6 +1035,7 @@ const collections = [
   {
     id: "58",
     title: "Handcrafted Abstract Crescent Flame Sculpture",
+    weight: 2,
     image: "/uploads/abstract_crescent_flame_sculpture.jpg",
     images: [
       "/uploads/abstract_crescent_flame_sculpture.jpg",
@@ -1006,6 +1056,7 @@ const collections = [
   {
     id: "59",
     title: "Handcrafted Circular Ripple Coral Sculpture",
+    weight: 2,
     image: "/uploads/circular_ripple_coral_sculpture.jpg",
     images: [
       "/uploads/circular_ripple_coral_sculpture.jpg",
@@ -1026,6 +1077,7 @@ const collections = [
   {
     id: "60",
     title: "Handcrafted Tall Spindle Pedestal Accent Table",
+    weight: 9,
     image: "/uploads/spindle_pedestal_accent_table.jpg",
     images: [
       "/uploads/spindle_pedestal_accent_table.jpg",

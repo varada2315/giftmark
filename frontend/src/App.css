@@ -2993,6 +2993,27 @@ textarea.form-input {
   background-color: #FAF8F5;
 }
 
+.cart-summary-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.cart-summary-subrow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13.5px;
+  color: var(--color-secondary);
+  font-family: var(--font-sans);
+}
+
+.cart-summary-subrow .val {
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
 .cart-summary-row {
   display: flex;
   align-items: center;
@@ -3014,6 +3035,25 @@ textarea.form-input {
   color: var(--color-secondary);
   line-height: 1.4;
   margin: 12px 0 18px 0;
+}
+
+.cart-item-shipping-notice {
+  font-size: 9px;
+  font-weight: 700;
+  color: #b88c48;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-top: 3px;
+  display: block;
+  line-height: 1.3;
+}
+
+.cart-summary-shipping-note {
+  font-size: 11px;
+  font-weight: 500;
+  color: #b88c48;
+  margin: 3px 0 8px 0;
+  line-height: 1.35;
 }
 
 .cart-checkout-btn {

@@ -5,15 +5,15 @@ import './App.css';
 
 const YouTubeIcon = ({ size = 18 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
   </svg>
 );
 
 const InstagramIcon = ({ size = 18 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
   </svg>
 );
 
@@ -54,14 +54,14 @@ const hasMultipleOptions = (product) => {
   return false;
 };
 
-const COMBO_PRODUCT_IDS = new Set(["14", "16", "17", "19", "20", "21", "24", "31", "32", "37", "39", "45", "46", "51", "56"]);
+const COMBO_PRODUCT_IDS = new Set(["14", "16", "17", "19", "20", "21", "24", "30", "32", "37", "39", "45", "46", "51", "56"]);
 
 const isComboProduct = (product) => {
   if (!product) return false;
   if (product.isCombo) return true;
   if (COMBO_PRODUCT_IDS.has(String(product.id))) return true;
   if (typeof product.title === 'string' && /\b(set|pair|duo|combo)\b/i.test(product.title)) return true;
-  if (typeof product.description === 'string' && /\b(pair of|set of|duo|combo|pair featuring|vase pair|tray set|sculpture set|platter set|stand featuring|available in big.*and small)\b/i.test(product.description)) return true;
+  if (typeof product.description === 'string' && /\b(set of \d+|vase pair|tray set|sculpture set|platter set|platter pair|platter duo|serving set|candle holder pair|candle stand set)\b/i.test(product.description)) return true;
   return false;
 };
 
@@ -401,6 +401,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "32",
     title: "Handcrafted Teal & Aluminium Octagonal Serving Tray Set",
+    weight: 3,
     image: "/uploads/teal_copper_octagonal_tray_set.png",
     localImage: "/uploads/teal_copper_octagonal_tray_set.png",
     images: [
@@ -423,6 +424,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "33",
     title: "Handcrafted Crescent Metallic Pedestal Bowl",
+    weight: 2,
     image: "/uploads/crescent_metallic_pedestal_bowl.png",
     localImage: "/uploads/crescent_metallic_pedestal_bowl.png",
     images: [
@@ -445,6 +447,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "11",
     title: "Ornate Vintage Aluminium Urn",
+    weight: 3,
     image: "/uploads/vintage_brass_urn.png",
     images: [
       "/uploads/vintage_brass_urn.png",
@@ -465,6 +468,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "12",
     title: "Handcrafted Perforated Aluminium Platter",
+    weight: 2,
     image: "/uploads/perforated_metal_platter_aesthetic.jpg",
     localImage: "/uploads/perforated_metal_platter_aesthetic.jpg",
     images: [
@@ -507,6 +511,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "14",
     title: "Sculptural Multi-Tone Metallic Leaf Vase Set",
+    weight: 6,
     image: "/uploads/sculptural_leaf_vases.png",
     images: [
       "/uploads/sculptural_leaf_vases.png",
@@ -528,6 +533,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "15",
     title: "Handcrafted Dual Metallic Leaf Tabletop Sculpture",
+    weight: 3,
     image: "/uploads/dual_metallic_leaf_sculpture.png",
     images: [
       "/uploads/dual_metallic_leaf_sculpture.png",
@@ -548,6 +554,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "16",
     title: "Handcrafted Perforated Metallic Leaf Sculpture Set",
+    weight: 3,
     image: "/uploads/perforated_leaf_sculptures.png",
     images: [
       "/uploads/perforated_leaf_sculptures.png",
@@ -569,6 +576,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "17",
     title: "Geometric Faceted Metallic Sculpture Trio",
+    weight: 4,
     image: "/uploads/geometric_metallic_sculpture_trio.png",
     images: [
       "/uploads/geometric_metallic_sculpture_trio.png",
@@ -590,6 +598,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "18",
     title: "Handcrafted Circular Lovebirds Tree Sculpture",
+    weight: 1,
     image: "/uploads/metallic_lovebirds_tree_sculpture.png",
     images: [
       "/uploads/metallic_lovebirds_tree_sculpture.png",
@@ -610,6 +619,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "19",
     title: "Handcrafted Circular Horizon Metallic Sculpture Set",
+    weight: 5,
     image: "/uploads/abstract_circular_horizon_sculptures.png",
     images: [
       "/uploads/abstract_circular_horizon_sculptures.png",
@@ -631,6 +641,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "20",
     title: "Sculptural Two-Tone Metallic Leaf Accent Vases",
+    weight: 4,
     image: "/uploads/sculptural_leaf_accent_vases.png",
     localImage: "/uploads/sculptural_leaf_accent_vases.png",
     images: [
@@ -653,6 +664,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "21",
     title: "Handcrafted Spherical Etched Metallic Vase Set",
+    weight: 2,
     image: "/uploads/spherical_etched_metallic_vases_aesthetic.jpg",
     images: [
       "/uploads/spherical_etched_metallic_vases_aesthetic.jpg",
@@ -674,6 +686,8 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "22",
     title: "Handcrafted Surrealist Metallic Head Sculpture",
+    itemNo: "16002",
+    weight: 2,
     image: "/uploads/surrealist_metallic_head_sculpture_aesthetic.jpg",
     images: [
       "/uploads/surrealist_metallic_head_sculpture_aesthetic.jpg",
@@ -694,6 +708,8 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "23",
     title: "Handcrafted Metallic Big Ben Clock Tower Replica",
+    itemNo: "16000",
+    weight: 1,
     image: "/uploads/big_ben_clock_tower_sculpture.jpg",
     localImage: "/uploads/big_ben_clock_tower_sculpture.jpg",
     images: [
@@ -715,6 +731,8 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "24",
     title: "Handcrafted Spiral Flame Metallic Sculpture Set",
+    itemNo: "16005 A / 16005 B",
+    weight: 5,
     image: "/uploads/spiral_flame_metallic_sculptures_aesthetic.jpg",
     images: [
       "/uploads/spiral_flame_metallic_sculptures_aesthetic.jpg",
@@ -736,6 +754,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "25",
     title: "Handcrafted Avant-Garde Metallic Mask Sculpture",
+    weight: 2,
     image: "/uploads/abstract_metallic_mask_sculpture.jpg",
     images: [
       "/uploads/abstract_metallic_mask_sculpture.jpg",
@@ -756,6 +775,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "26",
     title: "Handcrafted Two-Tone Metallic Feather Sculpture",
+    weight: 1,
     image: "/uploads/two_tone_metallic_feather_sculpture.png",
     images: [
       "/uploads/two_tone_metallic_feather_sculpture.png",
@@ -776,6 +796,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "27",
     title: "Handcrafted Cobalt & Gold Textured Floor Vase",
+    weight: 10,
     image: "/uploads/cobalt_gold_floor_vase_living.jpg",
     images: [
       "/uploads/cobalt_gold_floor_vase_living.jpg",
@@ -796,6 +817,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "28",
     title: "Handcrafted Dynamic Flame Metallic Sculpture",
+    weight: 3,
     image: "/uploads/abstract_flame_metallic_sculpture.jpg",
     images: [
       "/uploads/abstract_flame_metallic_sculpture.jpg",
@@ -816,6 +838,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "29",
     title: "Handcrafted 3-Tier Multi-Metallic Serving Stand",
+    weight: 9,
     image: "/uploads/three_tier_metallic_serving_stand.jpg",
     localImage: "/uploads/three_tier_metallic_serving_stand.jpg",
     images: [
@@ -837,6 +860,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "30",
     title: "Handcrafted Chevron Metallic Accent Platter",
+    weight: 5,
     image: "/uploads/chevron_metallic_accent_platter_aesthetic.jpg",
     localImage: "/uploads/chevron_metallic_accent_platter_aesthetic.jpg",
     images: [
@@ -860,6 +884,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "31",
     title: "Handcrafted Chain-Link Border Aluminium Accent Tray",
+    weight: 3,
     image: "/uploads/chain_link_border_brass_tray_aesthetic.jpg",
     localImage: "/uploads/chain_link_border_brass_tray_aesthetic.jpg",
     images: [
@@ -881,6 +906,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "34",
     title: "Handcrafted Corrugated Wave Metallic Platter",
+    weight: 3,
     image: "/uploads/corrugated_wave_metallic_platter.jpg",
     localImage: "/uploads/corrugated_wave_metallic_platter.jpg",
     images: [
@@ -904,6 +930,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "35",
     title: "Handcrafted Ruffled Aluminium Wave Bowl",
+    weight: 2,
     image: "/uploads/ruffled_copper_bowl_aesthetic.jpg",
     localImage: "/uploads/ruffled_copper_bowl_aesthetic.jpg",
     images: [
@@ -926,6 +953,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "36",
     title: "Handcrafted Tri-Tone Metal Pedestal Accent Table",
+    weight: 5,
     image: "/uploads/pedestal_accent_table_aesthetic.jpg",
     localImage: "/uploads/pedestal_accent_table_aesthetic.jpg",
     images: [
@@ -948,6 +976,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "37",
     title: "Handcrafted Ornate Oval Metallic Footed Platter Set",
+    weight: 8,
     image: "/uploads/ornate_oval_metallic_platter_set.jpg",
     localImage: "/uploads/ornate_oval_metallic_platter_set.jpg",
     images: [
@@ -971,6 +1000,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "38",
     title: "Handcrafted Multi-Metallic Chevron Leaf Platter",
+    weight: 1,
     image: "/uploads/multi_metallic_chevron_leaf_platter_aesthetic.jpg",
     localImage: "/uploads/multi_metallic_chevron_leaf_platter_aesthetic.jpg",
     images: [
@@ -994,6 +1024,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "39",
     title: "Handcrafted Dual-Tone Teal & Green Geometric Platter Set",
+    weight: 3,
     image: "/uploads/teal_green_geometric_platter_set.jpg",
     localImage: "/uploads/teal_green_geometric_platter_set.jpg",
     images: [
@@ -1017,6 +1048,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "40",
     title: "Handcrafted Chain-Link Border Aluminium Accent Tray",
+    weight: 3,
     image: "/uploads/chain_link_border_brass_tray_aesthetic.jpg",
     localImage: "/uploads/chain_link_border_brass_tray_aesthetic.jpg",
     images: [
@@ -1038,6 +1070,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "41",
     title: "Handcrafted Whitewashed & Gold Pedestal Accent Table",
+    weight: 4,
     image: "/uploads/whitewashed_pedestal_table_aesthetic.jpg",
     localImage: "/uploads/whitewashed_pedestal_table_aesthetic.jpg",
     images: [
@@ -1059,6 +1092,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "42",
     title: "Handcrafted Aluminium & Gold Pedestal Accent Table",
+    weight: 5,
     image: "/uploads/copper_gold_pedestal_table_aesthetic.jpg",
     localImage: "/uploads/copper_gold_pedestal_table_aesthetic.jpg",
     images: [
@@ -1080,6 +1114,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "43",
     title: "Handcrafted Heart Cutout Filigree Pedestal Accent Table",
+    weight: 6,
     image: "/uploads/filigree_pedestal_table_aesthetic.jpg",
     localImage: "/uploads/filigree_pedestal_table_aesthetic.jpg",
     images: [
@@ -1101,6 +1136,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "44",
     title: "Handcrafted Cellular Mosaic Textured Platter",
+    weight: 2,
     image: "/uploads/mosaic_platter_aesthetic.jpg",
     localImage: "/uploads/mosaic_platter_aesthetic.jpg",
     images: [
@@ -1123,6 +1159,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "45",
     title: "Handcrafted Giant Spoon & Fork Wall Decor",
+    weight: 4,
     image: "/uploads/giant_cutlery_wall_decor_aesthetic.jpg",
     localImage: "/uploads/giant_cutlery_wall_decor_aesthetic.jpg",
     images: [
@@ -1145,6 +1182,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "46",
     title: "Handcrafted Leaf-Shaped Metallic Platter",
+    weight: 2,
     image: "/uploads/leaf_platter_set_aesthetic.jpg",
     localImage: "/uploads/leaf_platter_set_aesthetic.jpg",
     images: [
@@ -1167,6 +1205,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "47",
     title: "Handcrafted Ginkgo Leaf Accent Platter",
+    weight: 2,
     image: "/uploads/ginkgo_leaf_platter_aesthetic.jpg",
     localImage: "/uploads/ginkgo_leaf_platter_aesthetic.jpg",
     images: [
@@ -1189,6 +1228,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "48",
     title: "Handcrafted Hexagonal Three-Tier Serving Stand",
+    weight: 9,
     image: "/uploads/hexagonal_serving_stand_aesthetic.jpg",
     localImage: "/uploads/hexagonal_serving_stand_aesthetic.jpg",
     images: [
@@ -1210,6 +1250,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "49",
     title: "Handcrafted Round Three-Tier Serving Stand",
+    weight: 4,
     image: "/uploads/round_serving_stand_aesthetic.jpg",
     localImage: "/uploads/round_serving_stand_aesthetic.jpg",
     images: [
@@ -1231,6 +1272,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "50",
     title: "Handcrafted Tri-Tone Fan Accent Platter",
+    weight: 2,
     image: "/uploads/tri_tone_fan_platter_aesthetic.jpg",
     localImage: "/uploads/tri_tone_fan_platter_aesthetic.jpg",
     images: [
@@ -1253,6 +1295,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "51",
     title: "Handcrafted Rectangular Patina Tray Set with Handles",
+    weight: 4,
     image: "/uploads/rectangular_patina_tray_set.jpg",
     localImage: "/uploads/rectangular_patina_tray_set.jpg",
     images: [
@@ -1276,6 +1319,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "52",
     title: "Handcrafted Antelope Skull Tabletop Sculpture",
+    weight: 4,
     image: "/uploads/antelope_skull_sculpture.jpg",
     localImage: "/uploads/antelope_skull_sculpture.jpg",
     images: [
@@ -1297,6 +1341,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "53",
     title: "Handcrafted Antlered Moose Skull Wall Mount",
+    weight: 4,
     image: "/uploads/moose_skull_wall_mount.jpg",
     localImage: "/uploads/moose_skull_wall_mount.jpg",
     images: [
@@ -1318,6 +1363,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "54",
     title: "Handcrafted Longhorn Bull Skull Wall Mount",
+    weight: 5,
     image: "/uploads/bull_skull_wall_mount.jpg",
     localImage: "/uploads/bull_skull_wall_mount.jpg",
     images: [
@@ -1339,6 +1385,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "55",
     title: "Handcrafted Spiraled Ram Skull Wall Mount",
+    weight: 6,
     image: "/uploads/ram_skull_wall_mount.jpg",
     localImage: "/uploads/ram_skull_wall_mount.jpg",
     images: [
@@ -1361,6 +1408,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "56",
     title: "Handcrafted Patina Tray Set with Deer Handles",
+    weight: 4,
     image: "/uploads/deer_handle_patina_tray_set.jpg",
     localImage: "/uploads/deer_handle_patina_tray_set.jpg",
     images: [
@@ -1384,6 +1432,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "57",
     title: "Handcrafted Circular Patina Portal Sculpture",
+    weight: 2,
     image: "/uploads/circular_patina_portal_sculpture.jpg",
     localImage: "/uploads/circular_patina_portal_sculpture.jpg",
     images: [
@@ -1405,6 +1454,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "58",
     title: "Handcrafted Abstract Crescent Flame Sculpture",
+    weight: 2,
     image: "/uploads/abstract_crescent_flame_sculpture.jpg",
     localImage: "/uploads/abstract_crescent_flame_sculpture.jpg",
     images: [
@@ -1426,6 +1476,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "59",
     title: "Handcrafted Circular Ripple Coral Sculpture",
+    weight: 2,
     image: "/uploads/circular_ripple_coral_sculpture.jpg",
     localImage: "/uploads/circular_ripple_coral_sculpture.jpg",
     images: [
@@ -1447,6 +1498,7 @@ const DEFAULT_COLLECTIONS = [
   {
     id: "60",
     title: "Handcrafted Tall Spindle Pedestal Accent Table",
+    weight: 9,
     image: "/uploads/spindle_pedestal_accent_table.jpg",
     localImage: "/uploads/spindle_pedestal_accent_table.jpg",
     images: [
@@ -2334,25 +2386,167 @@ function App() {
   };
 
   const removeFromCart = (productId, color) => {
-    setCart((prevCart) => prevCart.filter((item) => !(item.product.id === productId && item.color === color)));
+    setCart((prevCart) => {
+      const nextCart = prevCart.filter((item) => !(item.product.id === productId && item.color === color));
+      if (nextCart.length === 0) {
+        setIsCheckoutModalOpen(false);
+      }
+      return nextCart;
+    });
   };
 
   const updateQuantity = (productId, color, delta) => {
-    setCart((prevCart) =>
-      prevCart.map((item) => {
+    setCart((prevCart) => {
+      const nextCart = prevCart.flatMap((item) => {
         if (item.product.id === productId && item.color === color) {
           const newQty = item.quantity + delta;
-          return { ...item, quantity: newQty >= 1 ? newQty : 1 };
+          return newQty > 0 ? [{ ...item, quantity: newQty }] : [];
         }
-        return item;
-      })
-    );
+        return [item];
+      });
+      if (nextCart.length === 0) {
+        setIsCheckoutModalOpen(false);
+      }
+      return nextCart;
+    });
   };
 
-  const getCartTotal = () => {
+  const KNOWN_WEIGHTS = {
+    "23": 1,  // Handcrafted Metallic Big Ben Clock Tower Replica (1 kg)
+    "22": 2,  // Handcrafted Surrealist Metallic Head Sculpture (2 kg)
+    "24": 5,  // Handcrafted Spiral Flame Metallic Sculpture Set (3 + 2 = 5 kg)
+    "25": 2,  // Handcrafted Avant-Garde Metallic Mask Sculpture (2 kg)
+    "26": 1,  // Handcrafted Two-Tone Metallic Feather Sculpture (1 kg)
+    "28": 3,  // Handcrafted Dynamic Flame Metallic Sculpture (3 kg)
+    "21": 2,  // Handcrafted Spherical Etched Metallic Vase Set (1 + 1 = 2 kg)
+    "31": 3,  // Handcrafted Chain-Link Border Aluminium Accent Tray (3 kg)
+    "40": 3,  // Handcrafted Chain-Link Border Aluminium Accent Tray (3 kg)
+    "30": 5,  // Handcrafted Chevron Metallic Accent Platter (3 + 2 = 5 kg)
+    "37": 8,  // Handcrafted Ornate Oval Metallic Footed Platter Set (4 + 4 = 8 kg)
+    "27": 10, // Handcrafted Cobalt & Gold Textured Floor Vase (10 kg)
+    "14": 6,  // Sculptural Multi-Tone Metallic Leaf Vase Set (4 + 2 = 6 kg)
+    "11": 3,  // Ornate Vintage Aluminium Urn (3 kg)
+    "12": 2,  // Handcrafted Perforated Aluminium Platter (2 kg)
+    "15": 3,  // Handcrafted Dual Metallic Leaf Tabletop Sculpture (3 kg)
+    "16": 3,  // Handcrafted Perforated Metallic Leaf Sculpture Set (2 + 1 = 3 kg)
+    "17": 4,  // Geometric Faceted Metallic Sculpture Trio (2 + 1 + 1 = 4 kg)
+    "39": 3,  // Handcrafted Dual-Tone Teal & Green Geometric Platter Set (2 + 1 = 3 kg)
+    "44": 2,  // Handcrafted Cellular Mosaic Textured Platter (2 kg)
+    "46": 2,  // Handcrafted Leaf-Shaped Metallic Platter (1 + 1 = 2 kg)
+    "47": 2,  // Handcrafted Ginkgo Leaf Accent Platter (2 kg)
+    "50": 2,  // Handcrafted Tri-Tone Fan Accent Platter (2 kg)
+    "20": 4,  // Sculptural Two-Tone Metallic Leaf Accent Vases (2 + 2 = 4 kg)
+    "49": 4,  // Handcrafted Round Three-Tier Serving Stand (4 kg)
+    "18": 1,  // Handcrafted Circular Lovebirds Tree Sculpture (1 kg)
+    "19": 5,  // Handcrafted Circular Horizon Metallic Sculpture Set (3 + 2 = 5 kg)
+    "32": 3,  // Handcrafted Teal & Aluminium Octagonal Serving Tray Set (2 + 1 = 3 kg)
+    "33": 2,  // Handcrafted Crescent Metallic Pedestal Bowl (2 kg)
+    "29": 9,  // Handcrafted 3-Tier Multi-Metallic Serving Stand (9 kg)
+    "35": 2,  // Handcrafted Ruffled Aluminium Wave Bowl (2 kg)
+    "36": 5,  // Handcrafted Tri-Tone Metal Pedestal Accent Table (5 kg)
+    "38": 1,  // Handcrafted Multi-Metallic Chevron Leaf Platter (1 kg)
+    "41": 4,  // Handcrafted Whitewashed & Gold Pedestal Accent Table (4 kg)
+    "42": 5,  // Handcrafted Aluminium & Gold Pedestal Accent Table (5 kg)
+    "43": 6,  // Handcrafted Heart Cutout Filigree Pedestal Accent Table (6 kg)
+    "45": 4,  // Handcrafted Giant Spoon & Fork Wall Decor (2 + 2 = 4 kg)
+    "48": 9,  // Handcrafted Hexagonal Three-Tier Serving Stand (9 kg)
+    "60": 9,  // Handcrafted Tall Spindle Pedestal Accent Table (9 kg)
+    "56": 4,  // Handcrafted Patina Tray Set with Deer Handles (2 + 2 = 4 kg)
+    "57": 2,  // Handcrafted Circular Patina Portal Sculpture (2 kg)
+    "58": 2,  // Handcrafted Abstract Crescent Flame Sculpture (2 kg)
+    "59": 2,  // Handcrafted Circular Ripple Coral Sculpture (2 kg)
+    "51": 4,  // Handcrafted Rectangular Patina Tray Set with Handles (2 + 2 = 4 kg)
+    "52": 4,  // Handcrafted Antelope Skull Tabletop Sculpture (4 kg)
+    "53": 4,  // Handcrafted Antlered Moose Skull Wall Mount (4 kg)
+    "54": 5,  // Handcrafted Longhorn Bull Skull Wall Mount (5 kg)
+    "55": 6,  // Handcrafted Spiraled Ram Skull Wall Mount (6 kg)
+    "34": 3,  // Handcrafted Corrugated Wave Metallic Platter (3 kg)
+  };
+
+  const getProductWeight = (product) => {
+    if (!product) return 1;
+    if (typeof product.weight === 'number' && product.weight > 0) return product.weight;
+    if (typeof product.weight === 'string') {
+      const parsed = parseFloat(product.weight);
+      if (!isNaN(parsed) && parsed > 0) return parsed;
+    }
+    if (product.id && KNOWN_WEIGHTS[String(product.id)]) {
+      return KNOWN_WEIGHTS[String(product.id)];
+    }
+    const title = (product.title || '').toLowerCase();
+    if (title.includes('cobalt') && title.includes('floor vase')) return 10;
+    if (title.includes('3-tier multi-metallic') || (title.includes('multi-metallic') && title.includes('serving stand'))) return 9;
+    if (title.includes('hexagonal') && (title.includes('serving stand') || title.includes('three-tier'))) return 9;
+    if (title.includes('tall spindle')) return 9;
+    if (title.includes('ornate oval') && title.includes('platter set')) return 8;
+    if (title.includes('ram skull')) return 6;
+    if (title.includes('heart cutout')) return 6;
+    if (title.includes('leaf vase set')) return 6;
+    if (title.includes('bull skull') || title.includes('longhorn')) return 5;
+    if (title.includes('spiral flame')) return 5;
+    if (title.includes('circular horizon')) return 5;
+    if (title.includes('tri-tone metal pedestal') || (title.includes('tri-tone') && title.includes('pedestal accent table'))) return 5;
+    if (title.includes('aluminium & gold pedestal') || title.includes('aluminium and gold pedestal')) return 5;
+    if (title.includes('chevron') && !title.includes('chevron leaf')) return 5;
+    if (title.includes('antelope skull')) return 4;
+    if (title.includes('moose skull')) return 4;
+    if (title.includes('deer handles') || title.includes('patina tray set')) return 4;
+    if (title.includes('leaf accent vases')) return 4;
+    if (title.includes('round three-tier') || title.includes('round 3-tier')) return 4;
+    if (title.includes('whitewashed & gold pedestal') || title.includes('whitewashed and gold pedestal')) return 4;
+    if (title.includes('giant spoon')) return 4;
+    if (title.includes('geometric faceted') || title.includes('sculpture trio')) return 4;
+    if (title.includes('corrugated wave') || title.includes('wave metallic platter')) return 3;
+    if (title.includes('octagonal serving tray')) return 3;
+    if (title.includes('chain-link')) return 3;
+    if (title.includes('dynamic flame')) return 3;
+    if (title.includes('vintage') && title.includes('urn')) return 3;
+    if (title.includes('dual metallic leaf')) return 3;
+    if (title.includes('perforated metallic leaf')) return 3;
+    if (title.includes('teal & green') || title.includes('teal and green')) return 3;
+    if (title.includes('ripple coral')) return 2;
+    if (title.includes('patina portal')) return 2;
+    if (title.includes('crescent flame')) return 2;
+    if (title.includes('spherical etched')) return 2;
+    if (title.includes('surrealist')) return 2;
+    if (title.includes('avant-garde') || title.includes('mask sculpture')) return 2;
+    if (title.includes('perforated aluminium platter')) return 2;
+    if (title.includes('crescent metallic pedestal bowl') || title.includes('crescent pedestal')) return 2;
+    if (title.includes('ruffled aluminium wave bowl') || (title.includes('ruffled') && title.includes('wave bowl'))) return 2;
+    if (title.includes('ginkgo leaf')) return 2;
+    if (title.includes('cellular mosaic')) return 2;
+    if (title.includes('tri-tone fan')) return 2;
+    if (title.includes('leaf-shaped metallic platter')) return 2;
+    if (title.includes('lovebirds')) return 1;
+    if (title.includes('chevron leaf platter')) return 1;
+    if (title.includes('feather sculpture')) return 1;
+    if (title.includes('big ben')) return 1;
+
+    return 1; // Standard weight default: 1 kg (standard shipping base: 150)
+  };
+
+  const getProductShippingCharge = (product) => {
+    return 150 * getProductWeight(product);
+  };
+
+  const getCartSubtotal = () => {
     return cart.reduce((total, item) => {
       return total + parsePrice(item.product.price) * item.quantity;
     }, 0);
+  };
+
+  const getCartShipping = () => {
+    return cart.reduce((total, item) => {
+      return total + getProductShippingCharge(item.product) * item.quantity;
+    }, 0);
+  };
+
+  const getCartGrandTotal = () => {
+    return getCartSubtotal() + getCartShipping();
+  };
+
+  const getCartTotal = () => {
+    return getCartGrandTotal();
   };
 
   const getCartCount = () => {
@@ -2365,6 +2559,10 @@ function App() {
       alert("Please fill in your Name and Contact Number.");
       return;
     }
+
+    const subtotalVal = getCartSubtotal();
+    const shippingVal = getCartShipping();
+    const grandTotalVal = getCartGrandTotal();
 
     const orderData = {
       name: checkoutForm.name,
@@ -2383,7 +2581,9 @@ function App() {
         color: item.color || null,
         quantity: item.quantity
       })),
-      totalPrice: `₹${getCartTotal().toLocaleString()}`
+      subtotal: `₹${subtotalVal.toLocaleString()}`,
+      shippingCharge: `₹${shippingVal.toLocaleString()}`,
+      totalPrice: `₹${grandTotalVal.toLocaleString()}`
     };
 
     let generatedId = 'ORD-' + Date.now();
@@ -2413,7 +2613,9 @@ function App() {
       const colorSuffix = item.color ? ` (Finish: ${getColorName(item.color)})` : '';
       waMessage += `${idx + 1}. ${item.title}${colorSuffix} x ${item.quantity} [${item.price}]\n`;
     });
-    waMessage += `\n*Est. Subtotal:* ${orderData.totalPrice}\n`;
+    waMessage += `\n*Subtotal:* ${orderData.subtotal}\n`;
+    waMessage += `*Shipping Charge:* ${orderData.shippingCharge}\n`;
+    waMessage += `*Total Amount:* ${orderData.totalPrice}\n`;
     waMessage += `--------------------------------------\n`;
     waMessage += `Please send proforma invoice and freight schedule.`;
 
@@ -2423,6 +2625,8 @@ function App() {
     setPlacedOrder({
       id: generatedId,
       items: orderData.items,
+      subtotal: orderData.subtotal,
+      shipping: orderData.shippingCharge,
       total: orderData.totalPrice,
       waUrl: waUrl,
       buyerName: orderData.name
@@ -4290,9 +4494,22 @@ function App() {
                       </div>
 
                       <div className="cart-drawer-footer">
-                        <div className="cart-summary-row">
-                          <span>Subtotal:</span>
-                          <span className="summary-total-price">₹{getCartTotal().toLocaleString()}</span>
+                        <div className="cart-summary-breakdown">
+                          <div className="cart-summary-subrow">
+                            <span>Subtotal</span>
+                            <span className="val">₹{getCartSubtotal().toLocaleString()}</span>
+                          </div>
+                          <div className="cart-summary-subrow">
+                            <span>Shipping Charge</span>
+                            <span className="val">₹{getCartShipping().toLocaleString()}</span>
+                          </div>
+                        </div>
+                        <div className="cart-summary-shipping-note">
+                          * Shipping charge is calculated based on weight
+                        </div>
+                        <div className="cart-summary-row" style={{ paddingTop: '8px', borderTop: '1px dashed var(--color-border)', marginBottom: '8px' }}>
+                          <span>Estimated Total:</span>
+                          <span className="summary-total-price">₹{getCartGrandTotal().toLocaleString()}</span>
                         </div>
                         <p className="cart-disclaimer-text">
                           *Estimated bulk pricing. Wholesale freight, taxes, and B2B discounts will be calculated during order finalization.
@@ -4363,13 +4580,26 @@ function App() {
                         </div>
 
                         <div className="cart-drawer-footer">
-                          <div className="cart-summary-row">
-                            <span>Total Items:</span>
-                            <span>{getCartCount()}</span>
+                          <div className="cart-summary-breakdown" style={{ marginBottom: '10px' }}>
+                            <div className="cart-summary-subrow">
+                              <span>Total Items:</span>
+                              <span className="val">{getCartCount()}</span>
+                            </div>
+                            <div className="cart-summary-subrow">
+                              <span>Subtotal:</span>
+                              <span className="val">₹{getCartSubtotal().toLocaleString()}</span>
+                            </div>
+                            <div className="cart-summary-subrow">
+                              <span>Shipping Charge:</span>
+                              <span className="val">₹{getCartShipping().toLocaleString()}</span>
+                            </div>
                           </div>
-                          <div className="cart-summary-row" style={{ marginTop: '5px' }}>
-                            <span>Est. Subtotal:</span>
-                            <span className="summary-total-price">₹{getCartTotal().toLocaleString()}</span>
+                          <div className="cart-summary-shipping-note" style={{ textAlign: 'right', marginTop: '-4px', marginBottom: '8px' }}>
+                            * Shipping charge is calculated based on weight
+                          </div>
+                          <div className="cart-summary-row" style={{ paddingTop: '8px', borderTop: '1px dashed var(--color-border)', marginBottom: '14px' }}>
+                            <span>Total:</span>
+                            <span className="summary-total-price">₹{getCartGrandTotal().toLocaleString()}</span>
                           </div>
                           <div className="checkout-btn-group">
                             <button type="button" className="cart-back-btn" onClick={() => setIsCheckingOut(false)}>
@@ -4483,8 +4713,19 @@ function App() {
 
                       <div className="checkout-pricing-box">
                         <div className="checkout-price-row">
-                          <span className="price-row-label">Estimated Subtotal:</span>
-                          <strong className="checkout-total-val">₹{getCartTotal().toLocaleString()}</strong>
+                          <span className="price-row-label">Subtotal:</span>
+                          <strong>₹{getCartSubtotal().toLocaleString()}</strong>
+                        </div>
+                        <div className="checkout-price-row">
+                          <span className="price-row-label">Shipping Charge:</span>
+                          <strong>₹{getCartShipping().toLocaleString()}</strong>
+                        </div>
+                        <div className="cart-summary-shipping-note" style={{ textAlign: 'right', marginTop: '-2px', marginBottom: '6px' }}>
+                          * Shipping charge is calculated based on weight
+                        </div>
+                        <div className="checkout-price-row" style={{ paddingTop: '8px', borderTop: '1px solid rgba(184, 140, 72, 0.3)', marginTop: '2px' }}>
+                          <span className="price-row-label" style={{ fontWeight: 700 }}>Estimated Total:</span>
+                          <strong className="checkout-total-val">₹{getCartGrandTotal().toLocaleString()}</strong>
                         </div>
                         <div className="checkout-price-row muted">
                           <span className="price-row-label">Export Packaging:</span>
@@ -4493,10 +4734,6 @@ function App() {
                         <div className="checkout-price-row muted">
                           <span className="price-row-label">Incoterms:</span>
                           <span className="trade-term-badge">{checkoutForm.tradeTerm ? checkoutForm.tradeTerm.split(' - ')[0] : 'FOB'}</span>
-                        </div>
-                        <div className="checkout-price-row muted">
-                          <span className="price-row-label">Freight &amp; Insurance:</span>
-                          <span>Calculated on Quote</span>
                         </div>
                       </div>
 
@@ -4670,6 +4907,20 @@ function App() {
                           <strong className="success-item-qty">Qty: {it.quantity}</strong>
                         </div>
                       ))}
+                    </div>
+                    <div style={{ marginTop: '12px', paddingTop: '10px', borderTop: '1px solid rgba(0,0,0,0.08)', display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '13px' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', color: '#555' }}>
+                        <span>Subtotal:</span>
+                        <span>{placedOrder.subtotal}</span>
+                      </div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', color: '#555' }}>
+                        <span>Shipping Charge:</span>
+                        <span>{placedOrder.shipping}</span>
+                      </div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 700, color: 'var(--color-primary, #0B192C)', fontSize: '14px', marginTop: '4px', paddingTop: '6px', borderTop: '1px dashed #cbd5e1' }}>
+                        <span>Total:</span>
+                        <span style={{ color: 'var(--color-accent-dark, #8A6224)' }}>{placedOrder.total}</span>
+                      </div>
                     </div>
                   </div>
 
