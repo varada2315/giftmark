@@ -13,7 +13,6 @@ import {
   Check,
   Lock,
   ArrowLeft,
-  DollarSign,
   TrendingUp,
   BarChart2,
   ShoppingBag,
@@ -24,20 +23,15 @@ import {
   FileSpreadsheet,
   Settings,
   Sparkles,
-  ChevronRight,
   AlertCircle,
   Image as ImageIcon,
   CheckCircle2,
   RefreshCw,
-  ExternalLink,
   Layers,
-  ArrowUpRight,
   Grid,
   List,
-  Shield,
   Star,
-  Sliders,
-  Maximize2
+  Sliders
 } from 'lucide-react';
 import './AdminPanel.css';
 
@@ -74,7 +68,6 @@ export default function AdminPanel({ onNavigateToStore, onProductUpdated }) {
   const [currentProductId, setCurrentProductId] = useState(null);
   const [deleteConfirmProduct, setDeleteConfirmProduct] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
-  const [previewProduct, setPreviewProduct] = useState(null);
 
   // Form State
   const [formData, setFormData] = useState({

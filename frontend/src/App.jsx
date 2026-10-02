@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { ShoppingBag, Plus, Minus, Trash2, X, ChevronDown, Award, Globe, ShieldCheck, Star, Quote, FileText, CheckCircle, Eye, Menu, CreditCard, Check, Loader2, Lock, Sliders } from 'lucide-react';
+import { ShoppingBag, Plus, Minus, Trash2, X, ChevronDown, Award, Globe, ShieldCheck, Star, Quote, FileText, CheckCircle, Eye, Menu, CreditCard, Check, Loader2 } from 'lucide-react';
 import AdminPanel from './AdminPanel';
 import './App.css';
 
