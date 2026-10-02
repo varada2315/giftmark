@@ -1,16 +1,130 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const fs = require('fs');
+const crypto = require('crypto');
+const Razorpay = require('razorpay');
+const multer = require('multer');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
-app.use(express.json());
+const RAZORPAY_KEY_ID = process.env.RAZORPAY_KEY_ID || 'rzp_live_TfTo29IBTbPMsg';
+const RAZORPAY_KEY_SECRET = process.env.RAZORPAY_KEY_SECRET || 'ufsU97an9eMEWB2J9uHSoN81';
 
-app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
+const razorpay = new Razorpay({
+  key_id: RAZORPAY_KEY_ID,
+  key_secret: RAZORPAY_KEY_SECRET
+});
+
+app.use(cors());
+app.use(express.json({ limit: '20mb' }));
+app.use(express.urlencoded({ extended: true, limit: '20mb' }));
+
+const uploadsDirectory = path.join(__dirname, 'public/uploads');
+if (!fs.existsSync(uploadsDirectory)) {
+  fs.mkdirSync(uploadsDirectory, { recursive: true });
+}
+
+app.use('/uploads', express.static(uploadsDirectory));
+
+// Multer Storage Configuration
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, uploadsDirectory);
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    const ext = path.extname(file.originalname).toLowerCase() || '.jpg';
+    const baseName = path.basename(file.originalname, ext).replace(/[^a-zA-Z0-9_-]/g, '_').slice(0, 30);
+    cb(null, `${baseName}_${uniqueSuffix}${ext}`);
+  }
+});
+
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 20 * 1024 * 1024 }, // 20MB per file
+  fileFilter: function (req, file, cb) {
+    if (file.mimetype.startsWith('image/')) {
+      cb(null, true);
+    } else {
+      cb(new Error('Only image files (JPG, PNG, WEBP, GIF, SVG) are allowed!'), false);
+    }
+  }
+});
 
 const collections = [
+  {
+    id: "38",
+    title: "Handcrafted Multi-Metallic Chevron Leaf Platter",
+    image: "/uploads/multi_metallic_chevron_leaf_platter.jpg",
+    images: [
+      "/uploads/multi_metallic_chevron_leaf_platter.jpg",
+      "/uploads/multi_metallic_chevron_leaf_platter_specs.jpg"
+    ],
+    category: "Hospitality",
+    price: "₹500",
+    colors: ["#C0392B", "#D4A017", "#C2B280", "#2C2C2C"],
+    dimensions: {
+      height: '7 cm (3")',
+      diameter: '19 cm (8")',
+      pendi: 'Length 48 cm (19")'
+    },
+    description: "Handcrafted leaf-shaped serving platter featuring alternating tri-color chevron bands in brushed silver, antique gold, and copper. Displayed on a scrollwork stand, ideal for luxury hotel dining and catering accents."
+  },
+  {
+    id: "31",
+    title: "Handcrafted Chain-Link Border Brass Accent Tray",
+    image: "/uploads/chain_link_border_brass_tray.png",
+    images: [
+      "/uploads/chain_link_border_brass_tray.png",
+      "/uploads/chain_link_border_brass_tray_specs.png"
+    ],
+    category: "Utility",
+    price: "₹1,820 / $22",
+    dimensions: {
+      height: '5 cm (2.0")',
+      diameter: '40 cm (15.7")',
+      pendi: 'Length 40 cm (15.7")'
+    },
+    description: "Handcrafted square accent tray featuring a deeply textured antique burnished gold center basin framed by a bold cast chain-link border on all four sides."
+  },
+  {
+    id: "12",
+    title: "Handcrafted Perforated Copper & Brass Platter",
+    image: "/uploads/perforated_metal_platter.png",
+    images: [
+      "/uploads/perforated_metal_platter.png",
+      "/uploads/perforated_metal_platter_specs.png"
+    ],
+    category: "Giftware",
+    price: "₹8,500 / $105",
+    dimensions: {
+      height: '8 cm (3.1")',
+      diameter: '33 cm (13")',
+      pendi: 'Length 33 cm (13")'
+    },
+    description: "Decorative multi-tone scalloped platter featuring hand-perforated cutouts, two-tone copper and brass sectors, and a textured silver center on an ornate stand."
+  },
+  {
+    id: "23",
+    title: "Handcrafted Metallic Big Ben Clock Tower Replica",
+    image: "/uploads/big_ben_living_room.jpg",
+    images: [
+      "/uploads/big_ben_living_room.jpg",
+      "/uploads/big_ben_clock_tower_sculpture.png",
+      "/uploads/big_ben_clock_tower_sculpture_specs.png"
+    ],
+    category: "Home Décor",
+    price: "₹2,700 / $33",
+    dimensions: {
+      height: '36 cm (14.2")',
+      diameter: '9 cm (3.5")',
+      pendi: 'Detailed Stonework Base'
+    },
+    description: "Detailed antique silver metallic replica of London's iconic Big Ben clock tower, featuring hand-textured stonework facade and clock dial."
+  },
   {
     id: "32",
     title: "Handcrafted Teal & Copper Octagonal Serving Tray Set",
@@ -62,23 +176,6 @@ const collections = [
       pendi: '36 cm (14.2")'
     },
     description: "Traditional handcrafted copper urn vessel with finial lid, rich filigree detailing, and rustic aged finish."
-  },
-  {
-    id: "12",
-    title: "Handcrafted Perforated Copper & Brass Platter",
-    image: "/uploads/perforated_metal_platter.png",
-    images: [
-      "/uploads/perforated_metal_platter.png",
-      "/uploads/perforated_metal_platter_specs.png"
-    ],
-    category: "Giftware",
-    price: "₹8,500 / $105",
-    dimensions: {
-      height: '8 cm (3.1")',
-      diameter: '33 cm (13")',
-      pendi: 'Length 33 cm (13")'
-    },
-    description: "Decorative multi-tone scalloped platter featuring hand-perforated cutouts, two-tone copper and brass sectors, and a textured silver center on an ornate stand."
   },
   {
     id: "13",
@@ -251,23 +348,6 @@ const collections = [
     description: "Surrealist tabletop bust sculpture featuring a copper hand covering a textured gold face, mounted on an antiqued turned copper pedestal stand."
   },
   {
-    id: "23",
-    title: "Handcrafted Metallic Big Ben Clock Tower Replica",
-    image: "/uploads/big_ben_clock_tower_sculpture.png",
-    images: [
-      "/uploads/big_ben_clock_tower_sculpture.png",
-      "/uploads/big_ben_clock_tower_sculpture_specs.png"
-    ],
-    category: "Home Décor",
-    price: "₹800 / $10",
-    dimensions: {
-      height: '36 cm (14.2")',
-      diameter: '9 cm (3.5")',
-      pendi: 'Detailed Stonework Base'
-    },
-    description: "Detailed antique silver metallic replica of London's iconic Big Ben clock tower, featuring hand-textured stonework facade and clock dial."
-  },
-  {
     id: "24",
     title: "Handcrafted Spiral Flame Metallic Sculpture Set",
     image: "/uploads/spiral_flame_metallic_sculptures.png",
@@ -387,23 +467,6 @@ const collections = [
     description: "Handcrafted square metallic serving platter featuring alternating dual-tone silver and brushed gold chevron textured bands. Displayed on a copper scrollwork stand, available in Big (40cm) and Small (34cm) sizes."
   },
   {
-    id: "31",
-    title: "Handcrafted Chain-Link Border Brass Accent Tray",
-    image: "/uploads/chain_link_border_brass_tray.png",
-    images: [
-      "/uploads/chain_link_border_brass_tray.png",
-      "/uploads/chain_link_border_brass_tray_specs.png"
-    ],
-    category: "Hospitality, Utility",
-    price: "₹1,820 / $22",
-    dimensions: {
-      height: '5 cm (2.0")',
-      diameter: '40 cm (15.7")',
-      pendi: 'Length 40 cm (15.7")'
-    },
-    description: "Handcrafted square accent tray featuring a deeply textured antique burnished gold center basin framed by a bold cast chain-link border on all four sides."
-  },
-  {
     id: "34",
     title: "Handcrafted Corrugated Wave Metallic Platter",
     image: "/uploads/corrugated_wave_metallic_platter.png",
@@ -475,24 +538,6 @@ const collections = [
     description: "Handcrafted ornate oval serving platter set featuring filigree embossed basins, cast decorative handles, and sculpted claw-foot pedestal bases. Available in Big (69×36cm) and Small (63×33cm) sizes in copper and antique gold finishes."
   },
   {
-    id: "38",
-    title: "Handcrafted Multi-Metallic Chevron Leaf Platter",
-    image: "/uploads/multi_metallic_chevron_leaf_platter.jpg",
-    images: [
-      "/uploads/multi_metallic_chevron_leaf_platter.jpg",
-      "/uploads/multi_metallic_chevron_leaf_platter_specs.jpg"
-    ],
-    category: "Hospitality",
-    price: "₹500",
-    colors: ["#C0392B", "#D4A017", "#C2B280", "#2C2C2C"],
-    dimensions: {
-      height: '7 cm (3")',
-      diameter: '19 cm (8")',
-      pendi: 'Length 48 cm (19")'
-    },
-    description: "Handcrafted leaf-shaped serving platter featuring alternating tri-color chevron bands in brushed silver, antique gold, and copper. Displayed on a scrollwork stand, ideal for luxury hotel dining and catering accents."
-  },
-  {
     id: "39",
     title: "Handcrafted Dual-Tone Teal & Green Geometric Platter Set",
     image: "/uploads/teal_green_geometric_platter_set.jpg",
@@ -512,8 +557,273 @@ const collections = [
   }
 ];
 
-app.get('/api/collections', (req, res) => {
-  res.json(collections);
+// File-based database storage for products
+const PRODUCTS_FILE = path.join(__dirname, 'products.json');
+
+// Initialize products.json if it does not exist
+function initProductsFile() {
+  try {
+    if (!fs.existsSync(PRODUCTS_FILE)) {
+      fs.writeFileSync(PRODUCTS_FILE, JSON.stringify(collections, null, 2), 'utf8');
+      console.log(`Initialized products.json with ${collections.length} initial items.`);
+    }
+  } catch (err) {
+    console.error('Error initializing products.json:', err);
+  }
+}
+initProductsFile();
+
+function getProducts() {
+  try {
+    if (fs.existsSync(PRODUCTS_FILE)) {
+      const content = fs.readFileSync(PRODUCTS_FILE, 'utf8');
+      const data = JSON.parse(content);
+      if (Array.isArray(data) && data.length > 0) {
+        return data;
+      }
+    }
+  } catch (err) {
+    console.error('Error reading products.json:', err);
+  }
+  return collections;
+}
+
+function saveProducts(productsList) {
+  try {
+    fs.writeFileSync(PRODUCTS_FILE, JSON.stringify(productsList, null, 2), 'utf8');
+    return true;
+  } catch (err) {
+    console.error('Error writing to products.json:', err);
+    return false;
+  }
+}
+
+// -------------------------------------------------------------
+// Image Upload Endpoint (Multer - Supports Multiple Files)
+// -------------------------------------------------------------
+app.post('/api/upload', (req, res) => {
+  upload.array('images', 20)(req, res, function (err) {
+    if (err instanceof multer.MulterError) {
+      return res.status(400).json({ success: false, message: `Upload error: ${err.message}` });
+    } else if (err) {
+      return res.status(400).json({ success: false, message: err.message || 'File upload failed' });
+    }
+
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).json({ success: false, message: 'No image files uploaded' });
+    }
+
+    const uploadedFiles = req.files.map(file => ({
+      originalName: file.originalname,
+      filename: file.filename,
+      url: `/uploads/${file.filename}`,
+      size: file.size,
+      mimetype: file.mimetype
+    }));
+
+    const urls = uploadedFiles.map(f => f.url);
+
+    res.json({
+      success: true,
+      message: `${uploadedFiles.length} file(s) uploaded successfully`,
+      files: uploadedFiles,
+      urls: urls
+    });
+  });
+});
+
+// -------------------------------------------------------------
+// Product Management CRUD Endpoints
+// -------------------------------------------------------------
+
+// GET all products / collections
+app.get(['/api/products', '/api/collections'], (req, res) => {
+  try {
+    const products = getProducts();
+    res.json(products);
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    res.status(500).json({ success: false, message: 'Failed to retrieve products' });
+  }
+});
+
+// GET single product by ID
+app.get('/api/products/:id', (req, res) => {
+  try {
+    const products = getProducts();
+    const product = products.find(p => String(p.id) === String(req.params.id));
+    if (!product) {
+      return res.status(404).json({ success: false, message: 'Product not found' });
+    }
+    res.json(product);
+  } catch (error) {
+    console.error('Error fetching product by ID:', error);
+    res.status(500).json({ success: false, message: 'Failed to retrieve product' });
+  }
+});
+
+// POST: Create a new product
+app.post('/api/products', (req, res) => {
+  try {
+    const {
+      title,
+      category = 'Uncategorized',
+      price,
+      description = '',
+      image,
+      images = [],
+      dimensions = {},
+      colors = [],
+      inStock = true
+    } = req.body;
+
+    if (!title || !title.trim()) {
+      return res.status(400).json({ success: false, message: 'Product title is required' });
+    }
+    if (!price || !price.toString().trim()) {
+      return res.status(400).json({ success: false, message: 'Product price is required' });
+    }
+
+    const normalizedImages = Array.isArray(images) && images.length > 0 
+      ? images 
+      : (image ? [image] : []);
+
+    const primaryImage = image || (normalizedImages.length > 0 ? normalizedImages[0] : '');
+
+    const newProduct = {
+      id: 'PROD-' + Date.now(),
+      title: title.trim(),
+      category: category.trim() || 'Handicrafts',
+      price: price.toString().trim(),
+      description: description.trim(),
+      image: primaryImage,
+      images: normalizedImages,
+      dimensions: {
+        height: dimensions.height || '',
+        diameter: dimensions.diameter || '',
+        pendi: dimensions.pendi || ''
+      },
+      colors: Array.isArray(colors) ? colors : [],
+      inStock: inStock !== false,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+
+    const products = getProducts();
+    products.unshift(newProduct);
+
+    if (!saveProducts(products)) {
+      return res.status(500).json({ success: false, message: 'Failed to save product to storage' });
+    }
+
+    console.log(`New Product Created: ${newProduct.title} (ID: ${newProduct.id})`);
+    res.status(201).json({
+      success: true,
+      message: 'Product created successfully',
+      product: newProduct
+    });
+  } catch (error) {
+    console.error('Error creating product:', error);
+    res.status(500).json({ success: false, message: 'Internal server error while creating product' });
+  }
+});
+
+// PUT: Update an existing product
+app.put('/api/products/:id', (req, res) => {
+  try {
+    const productId = String(req.params.id);
+    const products = getProducts();
+    const index = products.findIndex(p => String(p.id) === productId);
+
+    if (index === -1) {
+      return res.status(404).json({ success: false, message: `Product with ID ${productId} not found` });
+    }
+
+    const existingProduct = products[index];
+    const {
+      title,
+      category,
+      price,
+      description,
+      image,
+      images,
+      dimensions,
+      colors,
+      inStock
+    } = req.body;
+
+    const updatedImages = images !== undefined 
+      ? (Array.isArray(images) ? images : [images]) 
+      : existingProduct.images;
+
+    const updatedPrimaryImage = image !== undefined 
+      ? image 
+      : (updatedImages && updatedImages.length > 0 ? updatedImages[0] : existingProduct.image);
+
+    const updatedProduct = {
+      ...existingProduct,
+      title: title !== undefined ? title.trim() : existingProduct.title,
+      category: category !== undefined ? category.trim() : existingProduct.category,
+      price: price !== undefined ? price.toString().trim() : existingProduct.price,
+      description: description !== undefined ? description.trim() : existingProduct.description,
+      image: updatedPrimaryImage,
+      images: updatedImages,
+      dimensions: dimensions !== undefined ? {
+        height: dimensions.height !== undefined ? dimensions.height : (existingProduct.dimensions?.height || ''),
+        diameter: dimensions.diameter !== undefined ? dimensions.diameter : (existingProduct.dimensions?.diameter || ''),
+        pendi: dimensions.pendi !== undefined ? dimensions.pendi : (existingProduct.dimensions?.pendi || '')
+      } : existingProduct.dimensions,
+      colors: colors !== undefined ? (Array.isArray(colors) ? colors : []) : existingProduct.colors,
+      inStock: inStock !== undefined ? Boolean(inStock) : existingProduct.inStock,
+      updatedAt: new Date().toISOString()
+    };
+
+    products[index] = updatedProduct;
+
+    if (!saveProducts(products)) {
+      return res.status(500).json({ success: false, message: 'Failed to update product in storage' });
+    }
+
+    console.log(`Product Updated: ${updatedProduct.title} (ID: ${updatedProduct.id})`);
+    res.json({
+      success: true,
+      message: 'Product updated successfully',
+      product: updatedProduct
+    });
+  } catch (error) {
+    console.error('Error updating product:', error);
+    res.status(500).json({ success: false, message: 'Internal server error while updating product' });
+  }
+});
+
+// DELETE: Delete a product
+app.delete('/api/products/:id', (req, res) => {
+  try {
+    const productId = String(req.params.id);
+    const products = getProducts();
+    const index = products.findIndex(p => String(p.id) === productId);
+
+    if (index === -1) {
+      return res.status(404).json({ success: false, message: `Product with ID ${productId} not found` });
+    }
+
+    const [deletedProduct] = products.splice(index, 1);
+
+    if (!saveProducts(products)) {
+      return res.status(500).json({ success: false, message: 'Failed to delete product from storage' });
+    }
+
+    console.log(`Product Deleted: ${deletedProduct.title} (ID: ${productId})`);
+    res.json({
+      success: true,
+      message: 'Product deleted successfully',
+      id: productId,
+      deletedProduct
+    });
+  } catch (error) {
+    console.error('Error deleting product:', error);
+    res.status(500).json({ success: false, message: 'Internal server error while deleting product' });
+  }
 });
 
 // Inquiry Submission Endpoint (B2B)
@@ -523,12 +833,13 @@ app.post('/api/inquiry', (req, res) => {
   res.json({ success: true, message: "Thank you for your enquiry. We will get in touch with you shortly." });
 });
 
-// B2B Cart Order Submission Endpoint
+// B2B Cart Order Submission Endpoint (Offline / WhatsApp)
 app.post('/api/orders', (req, res) => {
-  const fs = require('fs');
   const order = {
     id: 'ORD-' + Date.now(),
     date: new Date().toISOString(),
+    status: 'INQUIRY_SUBMITTED',
+    paymentMethod: 'WHATSAPP_INQUIRY',
     ...req.body
   };
 
@@ -550,6 +861,127 @@ app.post('/api/orders', (req, res) => {
   res.json({ success: true, orderId: order.id });
 });
 
+// Razorpay: Get Public Key ID
+app.get('/api/payment/key', (req, res) => {
+  res.json({ keyId: RAZORPAY_KEY_ID });
+});
+
+// Razorpay: Create Order Endpoint
+app.post('/api/payment/create-order', async (req, res) => {
+  try {
+    const { amount, currency = 'INR', receipt, notes } = req.body;
+
+    const numericAmount = Number(amount);
+    if (!numericAmount || numericAmount <= 0) {
+      return res.status(400).json({ success: false, message: 'Invalid payment amount' });
+    }
+
+    // Amount in paise (1 INR = 100 paise)
+    const amountInPaise = Math.round(numericAmount * 100);
+
+    const options = {
+      amount: amountInPaise,
+      currency: currency || 'INR',
+      receipt: receipt || `rcpt_${Date.now()}`,
+      notes: notes || {}
+    };
+
+    const razorpayOrder = await razorpay.orders.create(options);
+
+    console.log(`Razorpay Order created: ${razorpayOrder.id} for amount ₹${numericAmount}`);
+    res.json({
+      success: true,
+      order: razorpayOrder,
+      keyId: RAZORPAY_KEY_ID
+    });
+  } catch (error) {
+    console.error('Error creating Razorpay order:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to initialize payment gateway order',
+      error: error.message || error
+    });
+  }
+});
+
+// Razorpay: Verify Payment Signature & Save Paid Order
+app.post('/api/payment/verify', (req, res) => {
+  try {
+    const {
+      razorpay_order_id,
+      razorpay_payment_id,
+      razorpay_signature,
+      orderDetails
+    } = req.body;
+
+    if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
+      return res.status(400).json({
+        success: false,
+        message: 'Missing payment verification credentials'
+      });
+    }
+
+    // Verify HMAC-SHA256 signature
+    const hmac = crypto.createHmac('sha256', RAZORPAY_KEY_SECRET);
+    hmac.update(`${razorpay_order_id}|${razorpay_payment_id}`);
+    const generatedSignature = hmac.digest('hex');
+
+    if (generatedSignature !== razorpay_signature) {
+      console.error(`Invalid payment signature for Razorpay Order ${razorpay_order_id}`);
+      return res.status(400).json({
+        success: false,
+        message: 'Payment verification failed: Invalid transaction signature'
+      });
+    }
+
+    // Payment signature is valid! Record order in orders.json
+    const orderRecord = {
+      id: 'ORD-' + Date.now(),
+      date: new Date().toISOString(),
+      status: 'PAID',
+      paymentMethod: 'RAZORPAY',
+      razorpay: {
+        orderId: razorpay_order_id,
+        paymentId: razorpay_payment_id,
+        signature: razorpay_signature,
+        verifiedAt: new Date().toISOString()
+      },
+      ...orderDetails
+    };
+
+    const ordersFile = path.join(__dirname, 'orders.json');
+    let ordersList = [];
+
+    if (fs.existsSync(ordersFile)) {
+      try {
+        ordersList = JSON.parse(fs.readFileSync(ordersFile, 'utf8'));
+      } catch (e) {
+        console.error("Error reading orders.json:", e);
+      }
+    }
+
+    ordersList.push(orderRecord);
+    fs.writeFileSync(ordersFile, JSON.stringify(ordersList, null, 2), 'utf8');
+
+    console.log(`Razorpay Payment Verified & Order Confirmed: ${orderRecord.id} (Payment ID: ${razorpay_payment_id})`);
+
+    res.json({
+      success: true,
+      message: 'Payment successfully verified and order confirmed',
+      orderId: orderRecord.id,
+      paymentId: razorpay_payment_id
+    });
+  } catch (error) {
+    console.error('Error in payment verification:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Internal server error during payment verification',
+      error: error.message || error
+    });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+

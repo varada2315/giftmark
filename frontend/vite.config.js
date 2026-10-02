@@ -7,14 +7,14 @@ export default defineConfig({
   server: {
     port: 6291,
     host: '0.0.0.0',
-    allowedHosts: ['gifty.cyberpunk.co.in'],
+    allowedHosts: ['giftmarkindustries.com', 'www.giftmarkindustries.com', 'gifty.cyberpunk.co.in', 'giftmark.growithcp.live'],
     proxy: {
       '/api': {
-        target: 'http://localhost:5000',
+        target: 'http://localhost:5025',
         changeOrigin: true,
       },
       '/uploads': {
-        target: 'http://localhost:5000',
+        target: 'http://localhost:5025',
         changeOrigin: true,
       },
     },

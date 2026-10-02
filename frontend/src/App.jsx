@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { ShoppingBag, Plus, Minus, Trash2, X, ChevronDown, Award, Globe, ShieldCheck, Calendar, Star, Quote, FileText, MapPin, CheckCircle, Download, Eye, Menu } from 'lucide-react';
+import { ShoppingBag, Plus, Minus, Trash2, X, ChevronDown, Award, Globe, ShieldCheck, Star, Quote, FileText, CheckCircle, Eye, Menu, CreditCard, Check, Loader2, Lock, Sliders } from 'lucide-react';
+import AdminPanel from './AdminPanel';
 import './App.css';
 
 // Certifications Data
@@ -323,6 +324,79 @@ const EXHIBITIONS_DATA = [
 // Fallback data if backend is not reachable
 const DEFAULT_COLLECTIONS = [
   {
+    id: "38",
+    title: "Handcrafted Multi-Metallic Chevron Leaf Platter",
+    image: "/uploads/multi_metallic_chevron_leaf_platter.jpg",
+    localImage: "/uploads/multi_metallic_chevron_leaf_platter.jpg",
+    images: [
+      "/uploads/multi_metallic_chevron_leaf_platter.jpg",
+      "/uploads/multi_metallic_chevron_leaf_platter_specs.jpg"
+    ],
+    category: "Hospitality",
+    price: "₹500",
+    colors: ["#C0392B", "#D4A017", "#C2B280", "#2C2C2C"],
+    dimensions: {
+      height: '7 cm (3")',
+      diameter: '19 cm (8")',
+      pendi: 'Length 48 cm (19")'
+    },
+    description: "Handcrafted leaf-shaped serving platter featuring alternating tri-color chevron bands in brushed silver, antique gold, and copper. Displayed on a scrollwork stand, ideal for luxury hotel dining and catering accents."
+  },
+  {
+    id: "31",
+    title: "Handcrafted Chain-Link Border Brass Accent Tray",
+    image: "/uploads/chain_link_border_brass_tray.png",
+    localImage: "/uploads/chain_link_border_brass_tray.png",
+    images: [
+      "/uploads/chain_link_border_brass_tray.png",
+      "/uploads/chain_link_border_brass_tray_specs.png"
+    ],
+    category: "Utility",
+    price: "₹1,820 / $22",
+    dimensions: {
+      height: '5 cm (2.0")',
+      diameter: '40 cm (15.7")',
+      pendi: 'Length 40 cm (15.7")'
+    },
+    description: "Handcrafted square accent tray featuring a deeply textured antique burnished gold center basin framed by a bold cast chain-link border on all four sides."
+  },
+  {
+    id: "12",
+    title: "Handcrafted Perforated Copper & Brass Platter",
+    image: "/uploads/perforated_metal_platter.png",
+    images: [
+      "/uploads/perforated_metal_platter.png",
+      "/uploads/perforated_metal_platter_specs.png"
+    ],
+    category: "Giftware",
+    price: "₹8,500 / $105",
+    dimensions: {
+      height: '8 cm (3.1")',
+      diameter: '33 cm (13")',
+      pendi: 'Length 33 cm (13")'
+    },
+    description: "Decorative multi-tone scalloped platter featuring hand-perforated cutouts, two-tone copper and brass sectors, and a textured silver center on an ornate stand."
+  },
+  {
+    id: "23",
+    title: "Handcrafted Metallic Big Ben Clock Tower Replica",
+    image: "/uploads/big_ben_living_room.jpg",
+    localImage: "/uploads/big_ben_living_room.jpg",
+    images: [
+      "/uploads/big_ben_living_room.jpg",
+      "/uploads/big_ben_clock_tower_sculpture.png",
+      "/uploads/big_ben_clock_tower_sculpture_specs.png"
+    ],
+    category: "Home Décor",
+    price: "₹2,700 / $33",
+    dimensions: {
+      height: '36 cm (14.2")',
+      diameter: '9 cm (3.5")',
+      pendi: 'Detailed Stonework Base'
+    },
+    description: "Detailed antique silver metallic replica of London's iconic Big Ben clock tower, featuring hand-textured stonework facade and clock dial."
+  },
+  {
     id: "32",
     title: "Handcrafted Teal & Copper Octagonal Serving Tray Set",
     image: "/uploads/teal_copper_octagonal_tray_set.png",
@@ -375,23 +449,6 @@ const DEFAULT_COLLECTIONS = [
       pendi: '36 cm (14.2")'
     },
     description: "Traditional handcrafted copper urn vessel with finial lid, rich filigree detailing, and rustic aged finish."
-  },
-  {
-    id: "12",
-    title: "Handcrafted Perforated Copper & Brass Platter",
-    image: "/uploads/perforated_metal_platter.png",
-    images: [
-      "/uploads/perforated_metal_platter.png",
-      "/uploads/perforated_metal_platter_specs.png"
-    ],
-    category: "Giftware",
-    price: "₹8,500 / $105",
-    dimensions: {
-      height: '8 cm (3.1")',
-      diameter: '33 cm (13")',
-      pendi: 'Length 33 cm (13")'
-    },
-    description: "Decorative multi-tone scalloped platter featuring hand-perforated cutouts, two-tone copper and brass sectors, and a textured silver center on an ornate stand."
   },
   {
     id: "13",
@@ -564,23 +621,6 @@ const DEFAULT_COLLECTIONS = [
     description: "Surrealist tabletop bust sculpture featuring a copper hand covering a textured gold face, mounted on an antiqued turned copper pedestal stand."
   },
   {
-    id: "23",
-    title: "Handcrafted Metallic Big Ben Clock Tower Replica",
-    image: "/uploads/big_ben_clock_tower_sculpture.png",
-    images: [
-      "/uploads/big_ben_clock_tower_sculpture.png",
-      "/uploads/big_ben_clock_tower_sculpture_specs.png"
-    ],
-    category: "Home Décor",
-    price: "₹800 / $10",
-    dimensions: {
-      height: '36 cm (14.2")',
-      diameter: '9 cm (3.5")',
-      pendi: 'Detailed Stonework Base'
-    },
-    description: "Detailed antique silver metallic replica of London's iconic Big Ben clock tower, featuring hand-textured stonework facade and clock dial."
-  },
-  {
     id: "24",
     title: "Handcrafted Spiral Flame Metallic Sculpture Set",
     image: "/uploads/spiral_flame_metallic_sculptures.png",
@@ -711,24 +751,6 @@ const DEFAULT_COLLECTIONS = [
     description: "A functional and decorative multi-compartment container for kitchen organization."
   },
   {
-    id: "31",
-    title: "Handcrafted Chain-Link Border Brass Accent Tray",
-    image: "/uploads/chain_link_border_brass_tray.png",
-    localImage: "/uploads/chain_link_border_brass_tray.png",
-    images: [
-      "/uploads/chain_link_border_brass_tray.png",
-      "/uploads/chain_link_border_brass_tray_specs.png"
-    ],
-    category: "Hospitality, Utility",
-    price: "₹1,820 / $22",
-    dimensions: {
-      height: '5 cm (2.0")',
-      diameter: '40 cm (15.7")',
-      pendi: 'Length 40 cm (15.7")'
-    },
-    description: "Handcrafted square accent tray featuring a deeply textured antique burnished gold center basin framed by a bold cast chain-link border on all four sides."
-  },
-  {
     id: "34",
     title: "Handcrafted Corrugated Wave Metallic Platter",
     image: "/uploads/corrugated_wave_metallic_platter.png",
@@ -811,25 +833,6 @@ const DEFAULT_COLLECTIONS = [
       pendi: 'Length 63 cm - 69 cm (21")'
     },
     description: "Handcrafted ornate oval serving platter set featuring filigree embossed basins, cast decorative handles, and sculpted claw-foot pedestal bases. Available in Big (69×36cm) and Small (63×33cm) sizes in copper and antique gold finishes."
-  },
-  {
-    id: "38",
-    title: "Handcrafted Multi-Metallic Chevron Leaf Platter",
-    image: "/uploads/multi_metallic_chevron_leaf_platter.jpg",
-    localImage: "/uploads/multi_metallic_chevron_leaf_platter.jpg",
-    images: [
-      "/uploads/multi_metallic_chevron_leaf_platter.jpg",
-      "/uploads/multi_metallic_chevron_leaf_platter_specs.jpg"
-    ],
-    category: "Hospitality",
-    price: "₹500",
-    colors: ["#C0392B", "#D4A017", "#C2B280", "#2C2C2C"],
-    dimensions: {
-      height: '7 cm (3")',
-      diameter: '19 cm (8")',
-      pendi: 'Length 48 cm (19")'
-    },
-    description: "Handcrafted leaf-shaped serving platter featuring alternating tri-color chevron bands in brushed silver, antique gold, and copper. Displayed on a scrollwork stand, ideal for luxury hotel dining and catering accents."
   },
   {
     id: "39",
@@ -1323,8 +1326,27 @@ function TestimonialsCarousel() {
   );
 }
 
+// Helper function to check for secret abnormal admin URL
+const checkIsSecretAdminUrl = () => {
+  if (typeof window === 'undefined') return false;
+  const href = (window.location.href || '').toLowerCase();
+  const path = (window.location.pathname || '').toLowerCase();
+  const hash = (window.location.hash || '').toLowerCase();
+  const search = (window.location.search || '').toLowerCase();
+
+  return (
+    href.includes('gm-studio-secure-console-9897x2k') ||
+    path.includes('gm-studio-secure-console-9897x2k') ||
+    hash.includes('gm-studio-secure-console-9897x2k') ||
+    search.includes('gm-studio-secure-console-9897x2k') ||
+    href.includes('gm-studio-secure-console') ||
+    path.includes('gm-studio-secure-console') ||
+    hash.includes('gm-studio-secure-console')
+  );
+};
+
 function App() {
-  const [currentPage, setCurrentPage] = useState('home'); // 'home', 'about', 'collections', 'contact'
+  const [currentPage, setCurrentPage] = useState(() => (checkIsSecretAdminUrl() ? 'admin' : 'home')); // 'home', 'about', 'collections', 'contact', 'admin'
   const [collections, setCollections] = useState(DEFAULT_COLLECTIONS);
   const [heroIndex, setHeroIndex] = useState(0);
   const [backendStatus, setBackendStatus] = useState(false);
@@ -1358,6 +1380,15 @@ function App() {
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isCheckingOut, setIsCheckingOut] = useState(false);
+  const [isPayingWithRazorpay, setIsPayingWithRazorpay] = useState(false);
+  const [paymentSuccessModal, setPaymentSuccessModal] = useState({
+    isOpen: false,
+    orderId: '',
+    paymentId: '',
+    amount: 0,
+    customerName: '',
+    date: ''
+  });
   const [checkoutForm, setCheckoutForm] = useState({
     name: '',
     company: '',
@@ -1366,11 +1397,12 @@ function App() {
     notes: ''
   });
 
-  // Helper to parse price string to number for subtotal (e.g. "₹6,500 / $80" -> 6500)
+  // Helper to parse price string to number for subtotal (e.g. "₹6,500 / $80" -> 6500, "₹850 - ₹1,050" -> 850)
   const parsePrice = (priceStr) => {
     try {
-      const rupeePart = priceStr.split('/')[0];
-      const numeric = rupeePart.replace(/[^0-9]/g, '');
+      if (!priceStr) return 0;
+      const firstPart = priceStr.toString().split('/')[0].split('-')[0];
+      const numeric = firstPart.replace(/[^0-9]/g, '');
       return parseInt(numeric, 10) || 0;
     } catch (e) {
       return 0;
@@ -1432,6 +1464,171 @@ function App() {
 
   const getCartCount = () => {
     return cart.reduce((total, item) => total + item.quantity, 0);
+  };
+
+  const loadRazorpayScript = () => {
+    return new Promise((resolve) => {
+      if (window.Razorpay) {
+        return resolve(true);
+      }
+      const existingScript = document.querySelector('script[src="https://checkout.razorpay.com/v1/checkout.js"]');
+      if (existingScript) {
+        existingScript.onload = () => resolve(true);
+        existingScript.onerror = () => resolve(false);
+        return;
+      }
+      const script = document.createElement('script');
+      script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+      script.async = true;
+      script.onload = () => resolve(true);
+      script.onerror = () => resolve(false);
+      document.body.appendChild(script);
+    });
+  };
+
+  const handleRazorpayCheckout = async (e) => {
+    if (e) e.preventDefault();
+    if (!checkoutForm.name || !checkoutForm.phone) {
+      alert("Please fill in your Full Name and Contact Number before proceeding to payment.");
+      return;
+    }
+
+    const totalAmount = getCartTotal();
+    if (totalAmount <= 0) {
+      alert("Your cart total is ₹0. Please add items to proceed.");
+      return;
+    }
+
+    setIsPayingWithRazorpay(true);
+
+    try {
+      const isLoaded = await loadRazorpayScript();
+      if (!isLoaded) {
+        alert("Unable to load Razorpay payment SDK. Please verify your connection.");
+        setIsPayingWithRazorpay(false);
+        return;
+      }
+
+      // 1. Create Razorpay order on backend
+      const { data } = await axios.post('/api/payment/create-order', {
+        amount: totalAmount,
+        currency: 'INR',
+        receipt: `gm_rcpt_${Date.now()}`,
+        notes: {
+          customer_name: checkoutForm.name,
+          customer_phone: checkoutForm.phone,
+          customer_email: checkoutForm.email || '',
+          customer_company: checkoutForm.company || '',
+          customer_notes: checkoutForm.notes || ''
+        }
+      });
+
+      if (!data || !data.success || !data.order) {
+        throw new Error(data?.message || 'Could not initiate Razorpay order.');
+      }
+
+      const rzpOrder = data.order;
+      const keyId = data.keyId || 'rzp_live_TfTo29IBTbPMsg';
+
+      // 2. Configure Razorpay options
+      const options = {
+        key: keyId,
+        amount: rzpOrder.amount,
+        currency: rzpOrder.currency || 'INR',
+        name: 'Giftmark Industries',
+        description: `Order #${rzpOrder.id} • ${cart.length} Item${cart.length > 1 ? 's' : ''}`,
+        image: '/uploads/chain_link_border_brass_tray.png',
+        order_id: rzpOrder.id,
+        prefill: {
+          name: checkoutForm.name,
+          email: checkoutForm.email || '',
+          contact: checkoutForm.phone || ''
+        },
+        notes: {
+          company: checkoutForm.company || '',
+          tradeNotes: checkoutForm.notes || '',
+          cartCount: String(getCartCount())
+        },
+        theme: {
+          color: '#8A622A'
+        },
+        handler: async function (response) {
+          try {
+            // 3. Verify payment signature on backend
+            const verifyRes = await axios.post('/api/payment/verify', {
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+              orderDetails: {
+                name: checkoutForm.name,
+                company: checkoutForm.company,
+                email: checkoutForm.email,
+                phone: checkoutForm.phone,
+                notes: checkoutForm.notes,
+                items: cart.map((item) => ({
+                  id: item.product.id,
+                  title: item.product.title,
+                  price: item.product.price,
+                  quantity: item.quantity
+                })),
+                totalPrice: `₹${totalAmount.toLocaleString()}`
+              }
+            });
+
+            if (verifyRes.data && verifyRes.data.success) {
+              setPaymentSuccessModal({
+                isOpen: true,
+                orderId: verifyRes.data.orderId,
+                paymentId: response.razorpay_payment_id,
+                amount: totalAmount,
+                customerName: checkoutForm.name,
+                date: new Date().toLocaleDateString('en-IN', {
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit'
+                })
+              });
+              setCart([]);
+              setIsCheckingOut(false);
+              setIsCartOpen(false);
+              setCheckoutForm({
+                name: '',
+                company: '',
+                email: '',
+                phone: '',
+                notes: ''
+              });
+            } else {
+              alert("Payment verification issue: " + (verifyRes.data?.message || "Verification failed."));
+            }
+          } catch (verifyErr) {
+            console.error("Payment verification failed on backend:", verifyErr);
+            alert("Payment completed but verification encountered an error. Please contact our support team with Payment ID: " + response.razorpay_payment_id);
+          } finally {
+            setIsPayingWithRazorpay(false);
+          }
+        },
+        modal: {
+          ondismiss: function () {
+            setIsPayingWithRazorpay(false);
+          }
+        }
+      };
+
+      const razorpayInstance = new window.Razorpay(options);
+      razorpayInstance.on('payment.failed', function (failureResponse) {
+        console.error('Razorpay payment failed:', failureResponse.error);
+        alert(`Payment Failed: ${failureResponse.error.description || 'Transaction declined by bank'}`);
+        setIsPayingWithRazorpay(false);
+      });
+      razorpayInstance.open();
+    } catch (error) {
+      console.error("Razorpay initiation failed:", error);
+      alert("Failed to initialize payment gateway: " + (error.response?.data?.message || error.message || "Network Error"));
+      setIsPayingWithRazorpay(false);
+    }
   };
 
   const submitOrder = async (e) => {
@@ -1511,6 +1708,28 @@ function App() {
       });
   }, []);
 
+  // Handle secret abnormal route and hash navigation
+  useEffect(() => {
+    const handleLocationChange = () => {
+      if (checkIsSecretAdminUrl()) {
+        setCurrentPage('admin');
+      }
+    };
+    handleLocationChange();
+    window.addEventListener('popstate', handleLocationChange);
+    window.addEventListener('hashchange', handleLocationChange);
+    return () => {
+      window.removeEventListener('popstate', handleLocationChange);
+      window.removeEventListener('hashchange', handleLocationChange);
+    };
+  }, []);
+
+  const navigateToStore = () => {
+    setCurrentPage('home');
+    window.history.pushState(null, '', '/');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   // Autoplay timer for hero slideshow
   useEffect(() => {
     if (!isAutoplay || currentPage !== 'home') return;
@@ -1581,6 +1800,24 @@ function App() {
     });
 
   const currentHeroSlide = HERO_SLIDES[heroIndex];
+
+  // Render Admin Panel when currentPage is 'admin'
+  if (currentPage === 'admin') {
+    return (
+      <AdminPanel
+        onNavigateToStore={navigateToStore}
+        onProductUpdated={() => {
+          axios.get('/api/collections')
+            .then(res => {
+              if (res.data && Array.isArray(res.data)) {
+                setCollections(res.data);
+              }
+            })
+            .catch(() => {});
+        }}
+      />
+    );
+  }
 
   return (
     <div className="page-container">
@@ -2010,7 +2247,7 @@ function App() {
                   }}
                 >
                   <div className="collection-preview-image-container">
-                    <img src="/uploads/brass_tray_bowls.png" alt="Home Décor" className="collection-preview-image" />
+                    <img src="/uploads/big_ben_living_room.jpg" alt="Home Décor" className="collection-preview-image" />
                     <div className="collection-preview-overlay">
                       <div className="collection-preview-content">
                         <span className="collection-card-subtitle">Collection</span>
@@ -3118,13 +3355,46 @@ function App() {
                             <span>Est. Subtotal:</span>
                             <span className="summary-total-price">₹{getCartTotal().toLocaleString()}</span>
                           </div>
-                          <div className="checkout-btn-group">
-                            <button type="button" className="cart-back-btn" onClick={() => setIsCheckingOut(false)}>
-                              Back to Cart
+
+                          <div className="checkout-payment-actions">
+                            <button
+                              type="button"
+                              className="razorpay-pay-btn"
+                              disabled={isPayingWithRazorpay}
+                              onClick={handleRazorpayCheckout}
+                            >
+                              {isPayingWithRazorpay ? (
+                                <span className="btn-loading-flex">
+                                  <Loader2 size={16} className="spinner-icon" /> Initializing Razorpay...
+                                </span>
+                              ) : (
+                                <>
+                                  <div className="razorpay-btn-main">
+                                    <CreditCard size={18} />
+                                    <span>Pay ₹{getCartTotal().toLocaleString()} via Razorpay</span>
+                                  </div>
+                                  <span className="razorpay-badge-sub">UPI • Cards • NetBanking • Wallets</span>
+                                </>
+                              )}
                             </button>
-                            <button type="submit" className="cart-checkout-btn">
-                              Confirm & WhatsApp Inquiry
-                            </button>
+
+                            <div className="checkout-divider">
+                              <span>or offline B2B trade quote</span>
+                            </div>
+
+                            <div className="checkout-btn-group">
+                              <button type="button" className="cart-back-btn" onClick={() => setIsCheckingOut(false)}>
+                                Back to Cart
+                              </button>
+                              <button type="submit" className="cart-whatsapp-btn">
+                                WhatsApp Inquiry
+                              </button>
+                            </div>
+
+                            <div className="secure-payment-badge">
+                              <ShieldCheck size={14} className="security-icon" />
+                              <span>256-Bit SSL Encrypted & Verified by Razorpay</span>
+                            </div>
                           </div>
                         </div>
                       </form>
@@ -3132,6 +3402,67 @@ function App() {
                   )}
                 </>
               )}
+            </div>
+          </div>
+        )}
+
+        {/* --- RAZORPAY PAYMENT SUCCESS CONFIRMATION MODAL --- */}
+        {paymentSuccessModal.isOpen && (
+          <div className="payment-success-overlay" onClick={() => setPaymentSuccessModal({ ...paymentSuccessModal, isOpen: false })}>
+            <div className="payment-success-modal" onClick={(e) => e.stopPropagation()}>
+              <button
+                className="payment-modal-close"
+                onClick={() => setPaymentSuccessModal({ ...paymentSuccessModal, isOpen: false })}
+                title="Close"
+              >
+                <X size={20} />
+              </button>
+
+              <div className="payment-success-header">
+                <div className="success-icon-badge">
+                  <Check size={36} />
+                </div>
+                <h3>Payment Confirmed</h3>
+                <p className="success-subtitle">Thank you! Your payment has been securely verified and recorded.</p>
+              </div>
+
+              <div className="payment-receipt-box">
+                <div className="receipt-row">
+                  <span className="receipt-label">Order Reference</span>
+                  <span className="receipt-value receipt-highlight">{paymentSuccessModal.orderId}</span>
+                </div>
+                <div className="receipt-row">
+                  <span className="receipt-label">Razorpay Payment ID</span>
+                  <span className="receipt-value">{paymentSuccessModal.paymentId}</span>
+                </div>
+                <div className="receipt-row">
+                  <span className="receipt-label">Customer Name</span>
+                  <span className="receipt-value">{paymentSuccessModal.customerName}</span>
+                </div>
+                <div className="receipt-row">
+                  <span className="receipt-label">Date & Time</span>
+                  <span className="receipt-value">{paymentSuccessModal.date}</span>
+                </div>
+                <div className="receipt-row receipt-total-row">
+                  <span className="receipt-label">Total Amount Paid</span>
+                  <span className="receipt-value receipt-amount">₹{paymentSuccessModal.amount.toLocaleString()}</span>
+                </div>
+              </div>
+
+              <div className="payment-success-notice">
+                <ShieldCheck size={18} className="notice-icon" />
+                <p>An official GST tax invoice and logistics tracking information will be dispatched to your phone/email.</p>
+              </div>
+
+              <div className="payment-success-actions">
+                <button
+                  type="button"
+                  className="continue-shopping-btn"
+                  onClick={() => setPaymentSuccessModal({ ...paymentSuccessModal, isOpen: false })}
+                >
+                  Continue Sourcing Collections
+                </button>
+              </div>
             </div>
           </div>
         )}

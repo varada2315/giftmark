@@ -3367,6 +3367,351 @@ textarea.form-input {
   border-color: var(--color-primary);
 }
 
+.cart-whatsapp-btn {
+  flex: 1;
+  background-color: #25D366;
+  color: #FFFFFF;
+  border: 1px solid #20BD5A;
+  padding: 14px 10px;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  border-radius: 4px;
+}
+
+.cart-whatsapp-btn:hover {
+  background-color: #1EBE5D;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25);
+}
+
+/* Razorpay Checkout Elements */
+.checkout-payment-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 15px;
+  width: 100%;
+}
+
+.razorpay-pay-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #9C7A3C 0%, #6E4F18 100%);
+  color: #FFFFFF;
+  border: 1px solid #C5A880;
+  padding: 14px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  box-shadow: 0 4px 16px rgba(156, 122, 60, 0.28);
+  transition: all 0.25s ease;
+}
+
+.razorpay-pay-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(156, 122, 60, 0.4);
+  background: linear-gradient(135deg, #AA8643 0%, #7D5B1E 100%);
+}
+
+.razorpay-pay-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.razorpay-pay-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.razorpay-btn-main {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.razorpay-badge-sub {
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  opacity: 0.9;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: #F8E8C8;
+}
+
+.btn-loading-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.spinner-icon {
+  animation: spinLoader 1s linear infinite;
+}
+
+@keyframes spinLoader {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.checkout-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--color-secondary);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 4px 0;
+}
+
+.checkout-divider::before,
+.checkout-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.checkout-divider span {
+  padding: 0 10px;
+  opacity: 0.75;
+}
+
+.secure-payment-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 9px;
+  color: var(--color-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 4px;
+}
+
+.security-icon {
+  color: #9C7A3C;
+}
+
+/* --- PAYMENT SUCCESS CONFIRMATION MODAL --- */
+.payment-success-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(26, 26, 26, 0.7);
+  backdrop-filter: blur(6px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeInModal 0.3s ease;
+}
+
+@keyframes fadeInModal {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.payment-success-modal {
+  background-color: #FAF8F5;
+  border: 1px solid #C5A880;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 480px;
+  padding: 36px 30px;
+  position: relative;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+  animation: slideUpModal 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  text-align: center;
+}
+
+@keyframes slideUpModal {
+  from {
+    transform: translateY(30px) scale(0.97);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.payment-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: transparent;
+  border: none;
+  color: var(--color-secondary);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-smooth);
+}
+
+.payment-modal-close:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: var(--color-primary);
+}
+
+.payment-success-header {
+  margin-bottom: 24px;
+}
+
+.success-icon-badge {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px auto;
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.35);
+}
+
+.payment-success-header h3 {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  color: var(--color-primary);
+  margin: 0 0 6px 0;
+  letter-spacing: 0.02em;
+}
+
+.success-subtitle {
+  font-size: 12px;
+  color: var(--color-secondary);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.payment-receipt-box {
+  background-color: #FFFFFF;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 18px 20px;
+  margin-bottom: 18px;
+  text-align: left;
+}
+
+.receipt-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  margin-bottom: 10px;
+}
+
+.receipt-label {
+  color: var(--color-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 10px;
+}
+
+.receipt-value {
+  color: var(--color-primary);
+  font-weight: 600;
+  font-family: var(--font-sans);
+}
+
+.receipt-highlight {
+  color: #9C7A3C;
+  font-family: monospace;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+}
+
+.receipt-total-row {
+  border-top: 1px dashed var(--color-border);
+  padding-top: 12px;
+  margin-top: 12px;
+  margin-bottom: 0;
+}
+
+.receipt-amount {
+  font-size: 18px;
+  font-weight: 700;
+  color: #059669;
+}
+
+.payment-success-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background-color: rgba(197, 168, 128, 0.14);
+  border: 1px solid rgba(197, 168, 128, 0.3);
+  border-radius: 6px;
+  padding: 12px 14px;
+  margin-bottom: 22px;
+  text-align: left;
+}
+
+.notice-icon {
+  color: #9C7A3C;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.payment-success-notice p {
+  font-size: 10px;
+  color: var(--color-primary);
+  margin: 0;
+  line-height: 1.45;
+}
+
+.payment-success-actions {
+  width: 100%;
+}
+
+.continue-shopping-btn {
+  width: 100%;
+  background-color: var(--color-primary);
+  color: #FAF8F5;
+  border: 1px solid var(--color-primary);
+  padding: 14px 20px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: var(--transition-smooth);
+}
+
+.continue-shopping-btn:hover {
+  background-color: transparent;
+  color: var(--color-primary);
+}
+
 /* ============================================================
    TESTIMONIALS — EDITORIAL PROFESSIONAL REDESIGN
    ============================================================ */
