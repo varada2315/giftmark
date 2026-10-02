@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { ShoppingBag, Plus, Minus, Trash2, X, ChevronDown, Award, Globe, ShieldCheck, Star, Quote, FileText, CheckCircle, Eye, Menu, CreditCard, Check, Loader2 } from 'lucide-react';
 import AdminPanel from './AdminPanel';
@@ -1335,13 +1335,17 @@ const checkIsSecretAdminUrl = () => {
   const search = (window.location.search || '').toLowerCase();
 
   return (
-    href.includes('gm-studio-secure-console-9897x2k') ||
-    path.includes('gm-studio-secure-console-9897x2k') ||
-    hash.includes('gm-studio-secure-console-9897x2k') ||
-    search.includes('gm-studio-secure-console-9897x2k') ||
     href.includes('gm-studio-secure-console') ||
     path.includes('gm-studio-secure-console') ||
-    hash.includes('gm-studio-secure-console')
+    hash.includes('gm-studio-secure-console') ||
+    search.includes('gm-studio-secure-console') ||
+    href.includes('admin') ||
+    path.includes('admin') ||
+    hash.includes('admin') ||
+    search.includes('admin') ||
+    href.includes('portal') ||
+    hash.includes('portal') ||
+    path.includes('portal')
   );
 };
 
@@ -1724,6 +1728,47 @@ function App() {
     };
   }, []);
 
+  // Keyboard shortcut listener: Ctrl+Shift+A or Alt+A to open Admin Login Gate
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (
+        (e.ctrlKey && e.shiftKey && (e.key === 'A' || e.key === 'a')) ||
+        (e.altKey && (e.key === 'A' || e.key === 'a'))
+      ) {
+        e.preventDefault();
+        setCurrentPage('admin');
+        window.history.pushState(null, '', '/gm-studio-secure-console-9897x2k');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  // Secret Logo Triple-Click Handler
+  const logoClickCountRef = useRef(0);
+  const logoClickTimerRef = useRef(null);
+
+  const handleHeaderLogoClick = () => {
+    logoClickCountRef.current += 1;
+    if (logoClickTimerRef.current) clearTimeout(logoClickTimerRef.current);
+    logoClickTimerRef.current = setTimeout(() => {
+      logoClickCountRef.current = 0;
+    }, 1500);
+
+    if (logoClickCountRef.current >= 3) {
+      logoClickCountRef.current = 0;
+      setCurrentPage('admin');
+      window.history.pushState(null, '', '/gm-studio-secure-console-9897x2k');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    setCurrentPage('home');
+    setHeroIndex(0);
+    setIsAutoplay(true);
+  };
+
   const navigateToStore = () => {
     setCurrentPage('home');
     window.history.pushState(null, '', '/');
@@ -1829,7 +1874,7 @@ function App() {
       >
         {/* --- HEADER --- */}
         <header className="header">
-          <div className="logo-container" onClick={() => { setCurrentPage('home'); setHeroIndex(0); setIsAutoplay(true); }}>
+          <div className="logo-container" onClick={handleHeaderLogoClick}>
             <div className="logo-img-wrapper">
               <svg className="logo-badge-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="60" cy="60" r="56" fill="none" stroke="var(--color-accent)" strokeWidth="1.2" opacity="0.45" />

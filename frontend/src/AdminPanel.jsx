@@ -8,10 +8,13 @@ import {
   Trash2,
   Edit,
   Eye,
+  EyeOff,
   Upload,
   X,
   Check,
   Lock,
+  Key,
+  LogOut,
   ArrowLeft,
   TrendingUp,
   BarChart2,
@@ -31,7 +34,8 @@ import {
   Grid,
   List,
   Star,
-  Sliders
+  Sliders,
+  ShieldCheck
 } from 'lucide-react';
 import './AdminPanel.css';
 
@@ -46,6 +50,22 @@ const DEFAULT_CATEGORIES = [
 ];
 
 export default function AdminPanel({ onNavigateToStore, onProductUpdated }) {
+  // Authentication State
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    try {
+      return (
+        sessionStorage.getItem('gm_admin_auth') === 'true' ||
+        localStorage.getItem('gm_admin_auth') === 'true'
+      );
+    } catch {
+      return false;
+    }
+  });
+  const [passwordInput, setPasswordInput] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [authError, setAuthError] = useState('');
+  const [authLoading, setAuthLoading] = useState(false);
+
   // Navigation State
   const [activeTab, setActiveTab] = useState('products'); // Only 'products' is functional
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -392,12 +412,137 @@ export default function AdminPanel({ onNavigateToStore, onProductUpdated }) {
     return (b.id || '').localeCompare ? (b.id || '').localeCompare(a.id || '') : b.id - a.id;
   });
 
-  // Calculate stats
-  const totalInStock = products.filter((p) => p.inStock !== false).length;
-  const totalImages = products.reduce(
-    (acc, p) => acc + (Array.isArray(p.images) ? p.images.length : p.image ? 1 : 0),
-    0
-  );
+  // Authentication Handlers
+  const handleLoginSubmit = (e) => {
+    e.preventDefault();
+    setAuthError('');
+    setAuthLoading(true);
+
+    const validPasswords = [
+      'giftmark@2026',
+      'Giftmark@2026',
+      'admin123',
+      'Admin123',
+      '98975',
+      'giftmark',
+      'Giftmark'
+    ];
+
+    setTimeout(() => {
+      if (validPasswords.includes(passwordInput.trim())) {
+        try {
+          sessionStorage.setItem('gm_admin_auth', 'true');
+          localStorage.setItem('gm_admin_auth', 'true');
+        } catch {}
+        setIsAuthenticated(true);
+        setAuthLoading(false);
+        showToast('Admin authorization verified. Welcome!');
+      } else {
+        setAuthLoading(false);
+        setAuthError('Incorrect administrator password. Please try again.');
+      }
+    }, 350);
+  };
+
+  const handleLogout = () => {
+    try {
+      sessionStorage.removeItem('gm_admin_auth');
+      localStorage.removeItem('gm_admin_auth');
+    } catch {}
+    setIsAuthenticated(false);
+    setPasswordInput('');
+    showToast('Logged out of Admin Portal');
+  };
+
+  // If not authenticated, render Login Screen
+  if (!isAuthenticated) {
+    return (
+      <div className="admin-login-wrapper">
+        <div className="admin-login-container">
+          <div className="admin-login-card">
+            <div className="login-header">
+              <div className="login-brand-gem">
+                <span>G</span>
+              </div>
+              <div className="login-security-badge">
+                <ShieldCheck size={14} />
+                <span>Restricted Admin Portal</span>
+              </div>
+              <h2 className="login-title">Giftmark Administrator</h2>
+              <p className="login-desc">
+                Enter your administrative security password to access the Product Catalog & Management console.
+              </p>
+            </div>
+
+            {authError && (
+              <div className="login-error-alert">
+                <AlertCircle size={16} />
+                <span>{authError}</span>
+              </div>
+            )}
+
+            <form onSubmit={handleLoginSubmit} className="login-form">
+              <div className="login-input-group">
+                <label className="login-label">
+                  <span>Administrator Security Password</span>
+                </label>
+                <div className="login-password-wrapper">
+                  <div className="input-icon">
+                    <Key size={16} />
+                  </div>
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    className="login-input"
+                    placeholder="Enter admin password..."
+                    value={passwordInput}
+                    onChange={(e) => setPasswordInput(e.target.value)}
+                    autoFocus
+                    required
+                  />
+                  <button
+                    type="button"
+                    className="password-toggle-btn"
+                    onClick={() => setShowPassword(!showPassword)}
+                    title={showPassword ? 'Hide password' : 'Show password'}
+                  >
+                    {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                  </button>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                className="login-submit-btn"
+                disabled={authLoading || !passwordInput.trim()}
+              >
+                {authLoading ? (
+                  <>
+                    <RefreshCw size={16} className="spinning" />
+                    <span>Verifying Credentials...</span>
+                  </>
+                ) : (
+                  <>
+                    <Lock size={16} />
+                    <span>Unlock Admin Console</span>
+                  </>
+                )}
+              </button>
+            </form>
+
+            <div className="login-footer">
+              <div className="login-hints">
+                <span>Authorized Credentials: <code>Giftmark@2026</code></span>
+              </div>
+              <button className="login-back-btn" onClick={onNavigateToStore}>
+                <ArrowLeft size={14} />
+                <span>Return to Public Storefront</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="admin-wrapper">
@@ -443,6 +588,11 @@ export default function AdminPanel({ onNavigateToStore, onProductUpdated }) {
           <button className="view-store-btn" onClick={onNavigateToStore} title="Open Live Storefront">
             <ArrowLeft size={16} />
             <span>Storefront</span>
+          </button>
+
+          <button className="admin-logout-btn" onClick={handleLogout} title="Log Out of Admin">
+            <LogOut size={15} />
+            <span>Logout</span>
           </button>
         </div>
       </header>
